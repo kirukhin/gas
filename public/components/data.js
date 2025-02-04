@@ -40,7 +40,7 @@ const data = {
           "url": "/reciver.png",
           "price": 10
         },
-        "dkompressor": {
+        "dKompressor": {
           "model": "Дожимной компрессор",
           "url": "/dcompressor.png",
           "price": 85000
@@ -93,7 +93,7 @@ const data = {
           "url": "/reciver.png",
           "price": 10
         },
-        "dkompressor": {
+        "dKompressor": {
           "model": "Дожимной компрессор",
           "url": "/dcompressor.png",
           "price": 85000
@@ -146,7 +146,7 @@ const data = {
           "url": "/reciver.png",
           "price": 10
         },
-        "dkompressor": {
+        "dKompressor": {
           "model": "Дожимной компрессор",
           "url": "/dcompressor.png",
           "price": 85000
@@ -176,7 +176,7 @@ const data = {
           "model": "Ресивер кислородный 250 л",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 124.6470855367,
-          "price": 180
+          "price": 105000
         },
         "kompressor": {
           "model": "Воздушный компрессор на 1465 л/мин",
@@ -199,7 +199,7 @@ const data = {
           "url": "/reciver.png",
           "price": 10
         },
-        "dkompressor": {
+        "dKompressor": {
           "model": "Дожимной компрессор",
           "url": "/dcompressor.png",
           "price": 85000
@@ -223,13 +223,13 @@ const data = {
           "model": "Ресивер воздушный 500 л",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 422.804675636,
-          "price": 250
+          "price": 86000
         },
         "oResiver": {
           "model": "Ресивер кислородный 250 л",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 179.9358110547,
-          "price": 225
+          "price": 105000
         },
         "kompressor": {
           "model": "Воздушный компрессор на 2115 л/мин",
@@ -252,7 +252,7 @@ const data = {
           "url": "/reciver.png",
           "price": 10
         },
-        "dkompressor": {
+        "dKompressor": {
           "model": "Дожимной компрессор",
           "url": "/dcompressor.png",
           "price": 85000
@@ -276,13 +276,13 @@ const data = {
           "model": "Ресивер воздушный 500 л",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 500,
-          "price": 300
+          "price": 86000
         },
         "oResiver": {
           "model": "Ресивер кислородный 250 л",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 250,
-          "price": 250
+          "price": 105000
         },
         "kompressor": {
           "model": "Воздушный компрессор на 3000 л/мин",
@@ -305,7 +305,7 @@ const data = {
           "url": "/reciver.png",
           "price": 50
         },
-        "dkompressor": {
+        "dKompressor": {
           "model": "Дожимной компрессор",
           "url": "/dcompressor.png",
           "price": 85000
@@ -329,13 +329,13 @@ const data = {
           "model": "Ресивер воздушный 900 л",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 800,
-          "price": 450
+          "price": 150000
         },
         "oResiver": {
           "model": "Ресивер кислородный 500 л",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 400,
-          "price": 400
+          "price": 120000
         },
         "kompressor": {
           "model": "Воздушный компрессор на 4800 л/мин",
@@ -358,7 +358,7 @@ const data = {
           "url": "/reciver.png",
           "price": 75
         },
-        "dkompressor": {
+        "dKompressor": {
           "model": "Дожимной компрессор",
           "url": "/dcompressor.png",
           "price": 85000
@@ -382,13 +382,13 @@ const data = {
           "model": "Ресиверы воздушные 900 + 500 л",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 1200,
-          "price": 600
+          "price": 236000
         },
         "oResiver": {
           "model": "Ресивер кислородный 900 л",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 600,
-          "price": 500
+          "price": 190000
         },
         "kompressor": {
           "model": "Воздушный компрессор на 7200 л/мин",
@@ -411,7 +411,7 @@ const data = {
           "url": "/reciver.png",
           "price": 100
         },
-        "dkompressor": {
+        "dKompressor": {
           "model": "Дожимной компрессор",
           "url": "/dcompressor.png",
           "price": 85000
@@ -435,13 +435,13 @@ const data = {
           "model": "Ресиверы воздушные 900 + 900 л",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 1500,
-          "price": 750
+          "price": 295000
         },
         "oResiver": {
           "model": "Ресивер кислородный 900 л",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 750,
-          "price": 700
+          "price": 190000
         },
         "kompressor": {
           "model": "Воздушный компрессор на 9000 л/мин",
@@ -464,7 +464,7 @@ const data = {
           "url": "/reciver.png",
           "price": 125
         },
-        "dkompressor": {
+        "dKompressor": {
           "model": "Дожимной компрессор",
           "url": "/dcompressor.png",
           "price": 85000

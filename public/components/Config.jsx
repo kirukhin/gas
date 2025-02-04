@@ -189,7 +189,7 @@ const Config = () => {
           <p><strong>Подобранная установка:</strong> {selectedModel || "—"}</p>
           <p><strong>Общая цена установки:</strong> {calculateTotalPrice()} рублей</p>
           <div className="text-center">
-            <button className="btn btn-success">Купить оборудование</button>
+            <button className="btn btn-success">Получить КП на эту конфигурацию</button>
           </div>
         </div>
       </div>
