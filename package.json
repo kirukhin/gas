@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://kirukhin.github.io/gas/",
-
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -14,7 +13,8 @@
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.1.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

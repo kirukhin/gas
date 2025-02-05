@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import data from "/public/components/data.js";
+import base from "/base.png";
 
 const Config = () => {
   const [generator, setGenerator] = useState("oxygen"); // Генератор кислорода/азота
@@ -16,7 +17,7 @@ const Config = () => {
         setSelectedEquipment(
           Array(6).fill({
             model: "Модель не выбрана",
-            url: "/base.png",
+            url: {base},
             price: 0,
           })
         );
@@ -30,7 +31,7 @@ const Config = () => {
         setSelectedEquipment(
           Array(6).fill({
             model: "Модель не выбрана",
-            url: "/base.png",
+            url: {base},
             price: 0,
           })
         );
@@ -49,7 +50,7 @@ const Config = () => {
         setSelectedEquipment(
           Array(6).fill({
             model: "Модель не выбрана",
-            url: "/base.png",
+            url: {base},
             price: 0,
           })
         );
@@ -71,7 +72,7 @@ const Config = () => {
         const equipment = model.equipment[key];
         return {
           model: equipment?.model || "Неизвестно",
-          url: equipment?.url || "/base.png",
+          url: equipment?.url || {base},
           price: equipment?.price || 0,
         };
       });
