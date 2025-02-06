@@ -127,7 +127,7 @@ const Config = () => {
     <div className="container-fluid py-4">
       <h2 className="text-center">Конфигуратор оборудования</h2>
       <div className="row align-items-center">
-        <div className="col-md-6 px-4">
+        <div className="col-md-6 px-5">
           <h5>Выберите газ</h5>
           <div className="btn-group btn-group-toggle d-flex mb-3">
             <button
@@ -174,7 +174,7 @@ const Config = () => {
             </button>
           </div>
         </div>
-        <div className="col-md-6 px-4">
+        <div className="col-md-6 px-5">
           <h5>Введите желаемую производительность по газу для подбора оборудования</h5>
           <div className="input-group mb-3">
             <input
