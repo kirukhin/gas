@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import data from "/public/components/data.js";
-import base from "/base.png";
+import baseImg from "/base.png";
+import adsorberImg from "/adsorber.png";
+import reciverImg from "/reciver.png";
+import compressorImg from "/compressor.png";
+import osyshitelImg from "/osyshitel.png";
+import filtrImg from "/filtr.png";
+import dcompressorImg from "/dcompressor.png";
+import rampaImg from "/rampa.png";
 
 const Config = () => {
   const [generator, setGenerator] = useState("oxygen"); // Генератор кислорода/азота
@@ -17,7 +24,7 @@ const Config = () => {
         setSelectedEquipment(
           Array(6).fill({
             model: "Модель не выбрана",
-            url: {base},
+            url: baseImg,
             price: 0,
           })
         );
@@ -31,7 +38,7 @@ const Config = () => {
         setSelectedEquipment(
           Array(6).fill({
             model: "Модель не выбрана",
-            url: {base},
+            url: baseImg,
             price: 0,
           })
         );
@@ -50,7 +57,7 @@ const Config = () => {
         setSelectedEquipment(
           Array(6).fill({
             model: "Модель не выбрана",
-            url: {base},
+            url: baseImg,
             price: 0,
           })
         );
@@ -72,7 +79,7 @@ const Config = () => {
         const equipment = model.equipment[key];
         return {
           model: equipment?.model || "Неизвестно",
-          url: equipment?.url || {base},
+          url: equipment?.url || baseImg,
           price: equipment?.price || 0,
         };
       });
@@ -203,10 +210,7 @@ const Config = () => {
                 <div key={index}
                   className="card border-0 d-flex flex-column align-items-width"
                   style={{ flex: "1 1 calc(100% / 6)", maxWidth: "200px", borderRadius: "0", overflow: "hidden" }}>
-                  <img
-                    src={item.url}
-                    className="card-img-top"
-                    alt={item.model}
+                  <img src={import.meta.env.BASE_URL + item.url} className="card-img-top" alt={item.model}
                     style={{ height: "250px", objectFit: "cover", margin: "0px", marginTop: "10px" }}
                   />
                   <div className="card-body text-center d-flex flex-column justify-content-between"
