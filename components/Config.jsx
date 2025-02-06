@@ -210,7 +210,7 @@ const Config = () => {
                 <div key={index}
                   className="card border-0 d-flex flex-column align-items-width"
                   style={{ flex: "1 1 calc(100% / 6)", maxWidth: "200px", borderRadius: "0", overflow: "hidden" }}>
-                  <img src={import.meta.env.BASE_URL + item.url} className="card-img-top" alt={item.model}
+                  <img src={item.url} className="card-img-top" alt={item.model}
                     style={{ height: "250px", objectFit: "cover", margin: "0px", marginTop: "10px" }}
                   />
                   <div className="card-body text-center d-flex flex-column justify-content-between"
