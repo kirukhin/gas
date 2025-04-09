@@ -14,23 +14,25 @@ const Config = () => {
   // --- Состояния выбора ---
   const [generator, setGenerator] = useState("oxygen"); // Генератор: кислород/азот
   const [system, setSystem] = useState("generation");   // Система: генерация/заправка
-  const [pressure, setPressure] = useState("5bar");     // Давление: 5/8 бар
+  const [pressure, setPressure] = useState("5bar");     // Давление: 5/нестандартное бар
   const [purity, setPurity] = useState("90");           // Чистота кислорода
   const [inputValue, setInputValue] = useState("");     // Производительность
   const [unit, setUnit] = useState("lmin");             // Единицы измерения
+  const [refillCapacity, setRefillCapacity] = useState("20"); // Произаодительность перезаправки
+
 
   // --- Состояния оборудования ---
-  const [selectedEquipment, setSelectedEquipment] = useState([]); 
+  const [selectedEquipment, setSelectedEquipment] = useState([]);
   const [selectedModel, setSelectedModel] = useState(null);
 
   // --- Слайдеры азота ---
   const nitrogenPurityOptions = ["95%", "97%", "98%", "99%", "99.5%", "99.9%", "99.95%", "99.99%", "99.995%", "99.999%", "99.9995%"];
   const nitrogenPressureOptions = [6, 7, 8, 9, 10, 11, 12, 13];
-  const dewPointValues = [-70, -60, -50, -40, -30, -20];
+  const nitrogenDewPointOptions = [-70, -60, -50, -40, -30, -20];
 
-  const [selectedDewPoint, setSelectedDewPoint] = useState(dewPointValues[0]);
+  const [selectedDewPoint, setSelectedDewPoint] = useState(nitrogenDewPointOptions[0]);
   const [nitrogenPurityIndex, setNitrogenPurityIndex] = useState(0);
-  const [nitrogenPressureIndex, setNitrogenPressureIndex] = useState(1);
+  const [nitrogenPressureIndex, setNitrogenPressureIndex] = useState(0);
 
   // --- Обработчики слайдеров ---
   const handlePurityChange = (e) => {
@@ -42,7 +44,7 @@ const Config = () => {
   };
 
   const handleDewPointChange = (e) => {
-    const closestValue = dewPointValues.reduce((prev, curr) =>
+    const closestValue = nitrogenDewPointOptions.reduce((prev, curr) =>
       Math.abs(curr - e.target.value) < Math.abs(prev - e.target.value) ? curr : prev
     );
     setSelectedDewPoint(closestValue);
@@ -59,168 +61,230 @@ const Config = () => {
       const min = parseInt(element.min);
       let percentage = ((value - min) / (max - min)) * 100;
       percentage = Math.min(100, Math.max(0, percentage));
-    
+
       const rangeInput = element.closest(".range-input");
       const activeLine = rangeInput?.querySelector(".active-line");
       const activeDot = rangeInput?.querySelector(".active-dot");
-    
+
       if (activeLine) activeLine.style.width = `${percentage}%`;
       if (activeDot) activeDot.style.left = `calc(${percentage}% - 8px)`;
     };
-    
+
+    // --- фикс: выносим колбэк наружу ---
+    const handleInput = (e) => updateSlider(e.target);
 
     sliders.forEach((slider) => {
       updateSlider(slider);
-      slider.addEventListener("input", () => updateSlider(slider));
+      slider.addEventListener("input", handleInput);
     });
 
     return () => {
       sliders.forEach((slider) => {
-        slider.removeEventListener("input", () => updateSlider(slider));
+        slider.removeEventListener("input", handleInput);
       });
     };
   }, [selectedDewPoint, nitrogenPurityIndex, nitrogenPressureIndex]);
 
+
   // --- Схема оборудования ---
   const getEquipmentScheme = () => {
-    if (generator === "oxygen" && system === "generation" && pressure === "5bar") {
-      return ["kompressor", "osyshitel", "filtr", "vResiver", "oAdsorber", "oResiver"];
+    let scheme = ["kompressor", "osyshitel", "filtr", "vResiver", "oAdsorber", "oResiver"];
+
+    if (generator === "nitrogen") {
+      scheme = ["kompressor", "osyshitel", "filtr", "vResiver", "nAdsorber", "nResiver"];
     }
-    if (generator === "oxygen" && system === "generation" && pressure === "8bar") {
-      return ["kompressor", "osyshitel", "filtr", "vResiver", "oAdsorber", "oResiver", "dKompressor", "oResiver"];
+
+    if (system === "refill") {
+      scheme.push("dKompressor", "rampa");
+    } else if (
+      (generator === "oxygen" && pressure === "custom") ||
+      (generator === "nitrogen" && nitrogenPressureOptions[nitrogenPressureIndex] > 9)
+    ) {
+      scheme.push("dKompressor");
     }
-    if (generator === "oxygen" && system === "refill" && pressure === "5bar") {
-      return ["kompressor", "osyshitel", "filtr", "vResiver", "oAdsorber", "oResiver", "rampa"];
-    }
-    if (generator === "oxygen" && system === "refill" && pressure === "8bar") {
-      return ["kompressor", "osyshitel", "filtr", "vResiver", "oAdsorber", "oResiver", "dKompressor", "rampa"];
-    }
-    if (generator === "nitrogen" && system === "generation") {
-      return ["kompressor", "osyshitel", "filtr", "vResiver", "nAdsorber", "nResiver"];
-    }
-    return ["kompressor", "osyshitel", "filtr", "vResiver", "nAdsorber", "nResiver", "dKompressor", "rampa"];
+
+    return scheme;
   };
+
 
   // --- Поиск подходящего оборудования ---
 
   useEffect(() => {
     const findEquipment = () => {
-      // --- Заглушка при пустом вводе ---
-      if (!inputValue) {
-        setSelectedEquipment(Array(6).fill({
-          model: "Модель не выбрана",
-          url: baseImg,
-          price: 0,
-        }));
-        setSelectedModel(null);
-        return;
+      const equipmentScheme = getEquipmentScheme();
+
+      // --- Функция выбора ближайшего оборудования ---
+      const findClosestMatch = (dataCategory, key, targetValue) => {
+        if (!data[dataCategory]) return null;
+        return Object.values(data[dataCategory]).reduce((prev, curr) =>
+          Math.abs(curr[key] - targetValue) < Math.abs(prev[key] - targetValue) ? curr : prev
+        );
+      };
+
+      // --- Подбор компрессора и осушителя всегда (вне зависимости от inputValue)
+      let selectedKompressor = {};
+      let selectedOsyshitel = {};
+
+      if (generator === "oxygen") {
+        selectedKompressor = data.kompressor?.["5bar"] || {};
+        selectedOsyshitel = data.osyshitel?.["Os-20"] || {};
+      } else {
+        selectedKompressor = findClosestMatch("kompressor", "pressure", nitrogenPressureOptions[nitrogenPressureIndex]) || {};
+        selectedOsyshitel = findClosestMatch("osyshitel", "dewPoint", selectedDewPoint) || {};
       }
-  
+
+      const selectedDKompressor = data.dKompressor?.["dcomp"] || {};
+      const selectedFiltr = data.filtr?.["filtr"] || {};
+      const selectedRampa = findClosestMatch("rampa", "capacity", parseInt(refillCapacity)) || {};
+
       const numericValue = parseFloat(inputValue);
-      if (isNaN(numericValue)) {
-        setSelectedEquipment(Array(6).fill({
-          model: "Модель не выбрана",
-          url: baseImg,
-          price: 0,
-        }));
+      const imageMap = {
+        oAdsorber: adsorberImg,
+        nAdsorber: adsorberImg,
+        kompressor: compressorImg,
+        osyshitel: osyshitelImg,
+        dKompressor: dcompressorImg,
+        filtr: filtrImg,
+        rampa: rampaImg,
+      };
+
+      if (!inputValue || isNaN(numericValue)) {
+        const equipmentDetails = equipmentScheme.map((key) => {
+          if (key === "kompressor") {
+            return {
+              model: selectedKompressor?.model || "Компрессор",
+              url: selectedKompressor?.url || imageMap[key] || baseImg,
+              price: selectedKompressor?.price || 0,
+            };
+          }
+
+          if (key === "osyshitel") {
+            return {
+              model: selectedOsyshitel?.model || "Осушитель",
+              url: selectedOsyshitel?.url || imageMap[key] || baseImg,
+              price: selectedOsyshitel?.price || 0,
+            };
+          }
+
+          return {
+            model: "Укажите производительность",
+            url: baseImg,
+            price: 0,
+          };
+        });
+
+        setSelectedEquipment(equipmentDetails);
         setSelectedModel(null);
         return;
       }
-  
-      const generatorData = data[generator]; // Получаем объект: data.nitrogen или data.oxygen
-  
-      // --- Конвертация значения в м³/ч ---
+
+
+      if (!data || !data[generator]) return;
+      const generatorData = data[generator];
+
       const convertedValueM3H = (() => {
         if (unit === "lmin") return (numericValue / 1000) * 60;
         if (unit === "m3h") return numericValue;
         if (unit === "kgh") return numericValue / 1.2506;
         return 0;
       })();
-  
+
       let selectedModelData = null;
-  
-      // --- Обработка выбора чистоты ---
       const targetPurity = generator === "oxygen"
-        ? `${purity}%`  // Для кислорода кнопки 90% или 93%
-        : nitrogenPurityOptions[nitrogenPurityIndex];  // Для азота слайдер
-  
-      // --- Обратный индекс для правильного доступа к productivity ---
+        ? `${purity}%`
+        : nitrogenPurityOptions[nitrogenPurityIndex];
+
       const reversedIndex = generator === "nitrogen"
         ? nitrogenPurityOptions.length - 1 - nitrogenPurityIndex
-        : null; // Для кислорода не нужен
-  
-      // --- Сортировка моделей по производительности ---
+        : null;
+
       const sortedModels = Object.values(generatorData).sort((a, b) => {
         const prodA = generator === "oxygen"
-          ? a.equipment.productivity.find(p => p.purity === targetPurity)?.value || Infinity
-          : a.equipment.productivity[reversedIndex]?.value || Infinity;
-  
+          ? a.equipment?.productivity.find(p => p.purity === targetPurity)?.value || Infinity
+          : a.equipment?.productivity[reversedIndex]?.value || Infinity;
+
         const prodB = generator === "oxygen"
-          ? b.equipment.productivity.find(p => p.purity === targetPurity)?.value || Infinity
-          : b.equipment.productivity[reversedIndex]?.value || Infinity;
-  
-        return prodA - prodB; // По возрастанию
+          ? b.equipment?.productivity.find(p => p.purity === targetPurity)?.value || Infinity
+          : b.equipment?.productivity[reversedIndex]?.value || Infinity;
+
+        return prodA - prodB;
       });
-  
-      // --- Поиск подходящей модели ---
+
       for (const modelData of sortedModels) {
-        const productivities = modelData.equipment.productivity;
-  
+        const productivities = modelData.equipment?.productivity;
+
         if (generator === "nitrogen") {
-          const productivityEntry = productivities[reversedIndex];
+          const productivityEntry = productivities?.[reversedIndex];
           if (productivityEntry && productivityEntry.value >= convertedValueM3H) {
             selectedModelData = modelData;
             break;
           }
         } else {
-          const productivityEntry = productivities.find(p => p.purity === targetPurity);
+          const productivityEntry = productivities?.find(p => p.purity === targetPurity);
           if (productivityEntry && productivityEntry.value >= convertedValueM3H) {
             selectedModelData = modelData;
             break;
           }
         }
       }
-  
-      // --- Если модель не найдена ---
+
       if (!selectedModelData) {
-        setSelectedEquipment(Array(6).fill({
+        setSelectedEquipment(equipmentScheme.map(() => ({
           model: "Модель не выбрана",
           url: baseImg,
           price: 0,
-        }));
+        })));
         setSelectedModel(null);
         return;
       }
-  
-      // --- Получаем схему оборудования ---
-      const equipmentScheme = getEquipmentScheme();
-  
-      // --- Сбор деталей оборудования ---
+
+
+
+
+      // --- Заполняем массив оборудования ---
       const equipmentDetails = equipmentScheme.map((key) => {
         if (key === "oAdsorber" || key === "nAdsorber") {
           return {
             model: selectedModelData.model,
-            url: selectedModelData.url,
-            price: selectedModelData.price,
+            url: selectedModelData.url || imageMap[key],
+            price: selectedModelData.price || 0,
           };
         }
-  
-        const equipment = selectedModelData.equipment[key];
+
+        if (key === "vResiver" || key === "oResiver" || key === "nResiver") {
+          const resiverData = selectedModelData?.equipment?.[key];
+          return {
+            model: resiverData?.model || "Неизвестно",
+            url: resiverData?.url || baseImg,
+            price: resiverData?.price || 0,
+          };
+        }
+
+        let selectedEquipment = {};
+        if (key === "kompressor") selectedEquipment = selectedKompressor;
+        if (key === "osyshitel") selectedEquipment = selectedOsyshitel;
+        if (key === "dKompressor") selectedEquipment = selectedDKompressor;
+        if (key === "filtr") selectedEquipment = selectedFiltr;
+        if (key === "rampa") selectedEquipment = selectedRampa;
+
         return {
-          model: equipment?.model || "Неизвестно",
-          url: equipment?.url || baseImg,
-          price: equipment?.price || 0,
+          model: selectedEquipment?.model || "Неизвестно",
+          url: selectedEquipment?.url || imageMap[key] || baseImg,
+          price: selectedEquipment?.price || 0,
         };
       });
-  
+
+
       setSelectedEquipment(equipmentDetails);
       setSelectedModel(selectedModelData.model);
     };
-  
+
     findEquipment();
-  }, [inputValue, unit, generator, system, pressure, purity, nitrogenPurityIndex]);
-  
-  
+  }, [unit, generator, system, pressure, purity, nitrogenPurityIndex, nitrogenPressureIndex, inputValue, refillCapacity, selectedDewPoint]);
+
+
+
+
 
 
   // --- Подсчёт общей стоимости ---
@@ -257,7 +321,7 @@ const Config = () => {
             >
               Генерация
             </button>
-            
+
             <button
               className={`btn btn-outline-secondary ${system === "refill" ? "active" : ""}`}
               onClick={() => setSystem("refill")}
@@ -265,6 +329,26 @@ const Config = () => {
               Заправка баллонов
             </button>
           </div>
+          {system === "refill" && (
+            <div className="mt-3">
+              <h5>Выберите производительность заправочной станции</h5>
+              <select
+                className="form-select"
+                value={refillCapacity}
+                onChange={(e) => setRefillCapacity(e.target.value)}
+              >
+                <option value="20">20 баллонов в сутки</option>
+                <option value="45">45 баллонов в сутки</option>
+                <option value="65">65 баллонов в сутки</option>
+                <option value="90">90 баллонов в сутки</option>
+                <option value="125">125 баллонов в сутки</option>
+              </select>
+              <br></br>
+            </div>
+
+          )}
+
+
 
 
           {generator === "oxygen" ? (
@@ -293,10 +377,10 @@ const Config = () => {
                   5 бар
                 </button>
                 <button
-                  className={`btn btn-outline-secondary ${pressure === "8bar" ? "active" : ""}`}
-                  onClick={() => setPressure("8bar")}
+                  className={`btn btn-outline-secondary ${pressure === "custom" ? "active" : ""}`}
+                  onClick={() => setPressure("custom")}
                 >
-                  8 бар
+                  Нестандартное
                 </button>
               </div>
             </>
@@ -311,35 +395,35 @@ const Config = () => {
               <div className="row justify-content-center">
                 <div className="col-12 container-fluid">
 
-                <div className="range-item">
-  <label>Чистота азота: <strong>{nitrogenPurityOptions[nitrogenPurityIndex]}</strong></label>
+                  <div className="range-item">
+                    <label>Чистота азота: <strong>{nitrogenPurityOptions[nitrogenPurityIndex]}</strong></label>
 
-  <div className="range-input d-flex position-relative">
-    <input
-      type="range"
-      min="0"
-      max={nitrogenPurityOptions.length - 1}
-      step="1"
-      className="form-range"
-      value={nitrogenPurityIndex}
-      onChange={handlePurityChange}
-    />
-    <div className="range-line">
-      <span className="active-line"></span>
-    </div>
-    <div className="dot-line">
-      <span className="active-dot"></span>
-    </div>
-  </div>
+                    <div className="range-input d-flex position-relative">
+                      <input
+                        type="range"
+                        min="0"
+                        max={nitrogenPurityOptions.length - 1}
+                        step="1"
+                        className="form-range"
+                        value={nitrogenPurityIndex}
+                        onChange={handlePurityChange}
+                      />
+                      <div className="range-line">
+                        <span className="active-line"></span>
+                      </div>
+                      <div className="dot-line">
+                        <span className="active-dot"></span>
+                      </div>
+                    </div>
 
-  <ul className="list-inline list-unstyled">
-    {nitrogenPurityOptions.map((val, index) => (
-      <li key={index} className="list-inline-item">
-        <span>{val}</span>
-      </li>
-    ))}
-  </ul>
-</div>
+                    <ul className="list-inline list-unstyled">
+                      {nitrogenPurityOptions.map((val, index) => (
+                        <li key={index} className="list-inline-item">
+                          <span>{val}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
                 </div>
               </div>
@@ -349,35 +433,35 @@ const Config = () => {
 
 
               {/* Ползунок давления */}
-<div className="range-item">
-  <label>Давление: <strong>{nitrogenPressureOptions[nitrogenPressureIndex]} бар</strong></label>
+              <div className="range-item">
+                <label>Давление: <strong>{nitrogenPressureOptions[nitrogenPressureIndex]} бар</strong></label>
 
-  <div className="range-input d-flex position-relative">
-    <input
-      type="range"
-      min="0"
-      max={nitrogenPressureOptions.length - 1}
-      step="1"
-      className="form-range"
-      value={nitrogenPressureIndex}
-      onChange={handlePressureChange}
-    />
-    <div className="range-line">
-      <span className="active-line"></span>
-    </div>
-    <div className="dot-line">
-      <span className="active-dot"></span>
-    </div>
-  </div>
+                <div className="range-input d-flex position-relative">
+                  <input
+                    type="range"
+                    min="0"
+                    max={nitrogenPressureOptions.length - 1}
+                    step="1"
+                    className="form-range"
+                    value={nitrogenPressureIndex}
+                    onChange={handlePressureChange}
+                  />
+                  <div className="range-line">
+                    <span className="active-line"></span>
+                  </div>
+                  <div className="dot-line">
+                    <span className="active-dot"></span>
+                  </div>
+                </div>
 
-  <ul className="list-inline list-unstyled">
-    {nitrogenPressureOptions.map((val, index) => (
-      <li key={index} className="list-inline-item">
-        <span>{val}</span>
-      </li>
-    ))}
-  </ul>
-</div>
+                <ul className="list-inline list-unstyled">
+                  {nitrogenPressureOptions.map((val, index) => (
+                    <li key={index} className="list-inline-item">
+                      <span>{val}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
 
 
@@ -409,7 +493,7 @@ const Config = () => {
                     </div>
 
                     <ul className="list-inline list-unstyled">
-                      {dewPointValues.map((val, index) => (
+                      {nitrogenDewPointOptions.map((val, index) => (
                         <li key={index} className="list-inline-item">
                           <span>{val}</span>
                         </li>

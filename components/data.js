@@ -1000,10 +1000,150 @@ const data = {
         ]
       }
     }
+  },
+  kompressor: {
+    "5bar": {
+      "model": "Компрессор, 5 бар",
+      "url": "/gas/compressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 5
+    },
+    "6bar": {
+      "model": "Компрессор, 6 бар",
+      "url": "/gas/compressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 6
+    },
+    "7bar": {
+      "model": "Компрессор, 7 бар",
+      "url": "/gas/compressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 7
+    },
+    "8bar": {
+      "model": "Компрессор, 8 бар",
+      "url": "/gas/compressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 8
+    },
+    "9bar": {
+      "model": "Компрессор, 9 бар",
+      "url": "/gas/compressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 9
+    },
+    "10bar": {
+      "model": "Компрессор, 10 бар",
+      "url": "/gas/compressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 10
+    },
+    "11bar": {
+      "model": "Компрессор, 11 бар",
+      "url": "/gas/compressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 11
+    },
+    "12bar": {
+      "model": "Компрессор, 12 бар",
+      "url": "/gas/compressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 12
+    },
+    "13bar": {
+      "model": "Компрессор, 13 бар",
+      "url": "/gas/compressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 13
+    },
+  },
+  osyshitel: {
+    "Os-20": {
+      "model": "Рефрижираторный осушитель, -20 °C",
+      "url": "/gas/osyshitel.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "dewPoint": -20
+    },
+    "Os-30": {
+      "model": "Рефрижираторный осушитель, -30 °C",
+      "url": "/gas/osyshitel.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "dewPoint": -30
+    },
+    "Os-40": {
+      "model": "Рефрижираторный осушитель, -40 °C",
+      "url": "/gas/osyshitel.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "dewPoint": -40
+    },
+    "Os-50": {
+      "model": "Рефрижираторный осушитель, -50 °C",
+      "url": "/gas/osyshitel.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "dewPoint": -50
+    },
+    "Os-60": {
+      "model": "Адсорбционный осушитель, -60 °C",
+      "url": "/gas/osyshitel.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "dewPoint": -60
+    },
+    "Os-70": {
+      "model": "Адсорбционный осушитель, -70 °C",
+      "url": "/gas/osyshitel.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "dewPoint": -70
+    }
+  },
+  dKompressor: {
+    "dcomp": {
+      "model": "Дожимной компрессор",
+      "url": "/gas/dcompressor.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "pressure": 10
+    }
+  },
+  rampa: {
+    "ramp-20": {
+      "model": "Заправочная рампа на 20 баллонов/сутки",
+      "url": "/gas/rampa.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "capacity": 20
+    },
+    "ramp-45": {
+      "model": "Заправочная рампа на 45 баллонов/сутки",
+      "url": "/gas/rampa.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "capacity": 45
+    },
+    "ramp-65": {
+      "model": "Заправочная рампа на 65 баллонов/сутки",
+      "url": "/gas/rampa.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "capacity": 65
+    },
+    "ramp-90": {
+      "model": "Заправочная рампа на 90 баллонов/сутки",
+      "url": "/gas/rampa.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "capacity": 90
+    },
+    "ramp-125": {
+      "model": "Заправочная рампа на 125 баллонов/сутки",
+      "url": "/gas/rampa.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "capacity": 125
+    }
+  },
+  filtr: {
+    "filtr": {
+      "model": "Трехступенчатый блок фильтров",
+      "url": "/gas/filtr.png",
+      "price": Math.floor(Math.random() * 10) + 1,
+      "capacity": 1
+    }
   }
 }
-
-
 
 
 export default data;
