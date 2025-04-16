@@ -4,8 +4,8 @@ export default function Navbar() {
           <nav className="navbar bg-body-tertiary">
   <div className="container-fluid">
     <a className="navbar-brand" href="#">
-      <img src="vite.svg" alt="Logo" width="30" height="24" className="d-inline-block align-text-top"/>
-      Триумф
+      <img src="bglogo.svg" alt="Logo" height="50" className="d-inline-block align-text-top"/>
+      
     </a>
   </div>
 </nav>
