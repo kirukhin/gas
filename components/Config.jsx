@@ -9,6 +9,9 @@ import osyshitelImg from "/osyshitel.png";
 import filtrImg from "/filtr.png";
 import dcompressorImg from "/dcompressor.png";
 import rampaImg from "/rampa.png";
+import { generatePdf } from './PdfGenerator';
+
+
 
 const Config = () => {
   // --- Состояния выбора ---
@@ -50,6 +53,20 @@ const Config = () => {
     setSelectedDewPoint(closestValue);
   };
 
+  // --- обработчик кнопки создания pdf ---
+
+  const handleGeneratePdf = () => {
+    generatePdf({
+      gas: generator,
+      system,
+      model: selectedModel || "Без модели",
+      purity: generator === "oxygen" ? purity : nitrogenPurityOptions[nitrogenPurityIndex],
+      pressure: generator === "oxygen" ? pressure : nitrogenPressureOptions[nitrogenPressureIndex],
+      dewPoint: selectedDewPoint
+    });
+  };
+
+
   // --- Обновление UI слайдеров ---
   useEffect(() => {
     const sliders = document.querySelectorAll(".range-input input");
@@ -77,6 +94,7 @@ const Config = () => {
       updateSlider(slider);
       slider.addEventListener("input", handleInput);
     });
+
 
     return () => {
       sliders.forEach((slider) => {
@@ -527,7 +545,7 @@ const Config = () => {
               value={unit}
               onChange={(e) => setUnit(e.target.value)}
             >
-              <option value="lmin">Литры/мин</option>
+              <option value="lmin">литры/мин</option>
               <option value="m3h">м³/час</option>
               <option value="kgh">кг/час</option>
             </select>
@@ -535,8 +553,12 @@ const Config = () => {
           <p><strong>Подобранный генератор:</strong> {selectedModel || "—"}</p>
           <p><strong>Общая цена установки:</strong> {calculateTotalPrice()} рублей</p>
           <div className="text-center">
-            <button className="btn btn-success">Получить КП на эту конфигурацию</button>
+            <button className="btn btn-success" onClick={handleGeneratePdf}>
+              Получить КП на эту конфигурацию
+            </button>
           </div>
+
+
         </div>
       </div>
       <div className="container-fluid mt-4">
