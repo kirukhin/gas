@@ -7,9 +7,7 @@ import Config from "/public/components/Config"
 export default function App() {
     return (
         <>
-            <Navbar />
-            <Hero />
-            <Subhero />
+           
             <Main />
             <Config />
         </>
