@@ -16,7 +16,7 @@
   <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
   <style>
     .gradient {
-      background: linear-gradient(90deg, rgba(224, 224, 224, 1) 0%, rgba(126, 140, 166, 1) 30%);
+      background: linear-gradient(120deg, rgba(224, 224, 224, 1) 0%, rgba(126, 140, 166, 1) 30%);
     }
   </style>
 
@@ -100,10 +100,12 @@
           Сервисная поддержка от специалистов с 30-летним стажем в газовой генерации.
         </p>
 
-        <a href="#about"
-          class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-          Подробнее
-        </a>
+        <button
+        onclick="location.href='#about'"
+        class="bg-white text-red-600 font-semibold rounded-full py-3 px-8 shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400">
+        Подробнее
+      </button>
+      
       </div>
       <!--Right Col-->
       <div class="w-full md:w-3/5 py-6 text-center">
@@ -259,7 +261,7 @@
     <svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
-          <g class="wave" fill="#f8fafc">
+          <g class="wave" fill="#ffffff">
             <path
               d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"
             ></path>
@@ -285,12 +287,13 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         
         <!-- Контактная информация -->
-        <div>
+        <div class="text-2xl font-semibold">
+
           <h2 class="text-3xl font-bold mb-4">Контакты</h2>
-          <p class="mb-2">Блицгаз</p>
-          <p class="mb-2">г. Подольск, ул. Большая Серпуховская, д. 43</p>
-          <p class="mb-2">Тел: +7 (000) 000-00-00</p>
-          <p class="mb-2">Email: info@blitzgas.ru</p>
+          <p class="mb-2 text-black">Блицгаз</p>
+          <p class="mb-2 text-black">г. Подольск, ул. Большая Серпуховская, д. 43</p>
+          <p class="mb-2 text-black">Тел: +7 (000) 000-00-00</p>
+          <p class="mb-2 text-black">Email: info@blitzgas.ru</p>
         </div>
   
         <!-- Форма обратной связи -->
