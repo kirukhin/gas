@@ -2,18 +2,18 @@ const data = {
   nitrogen: {
     "N-15": {
       "model": "Генератор азота N-15",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 200 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 0.2 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 400 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 0.4 * 1000,
           "price": 15000
         },
@@ -34,18 +34,18 @@ const data = {
     },
     "N-30": {
       "model": "Генератор азота N-30",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 400 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 0.4 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 800 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 0.8 * 1000,
           "price": 15000
         },
@@ -66,18 +66,18 @@ const data = {
     },
     "N-45": {
       "model": "Генератор азота N-45",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 0.5 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 1000 л",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 1.0 * 1000,
           "price": 15000
         },
@@ -98,18 +98,18 @@ const data = {
     },
     "N-60": {
       "model": "Генератор азота N-60",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 0.5 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 1000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 1.0 * 1000,
           "price": 15000
         },
@@ -130,18 +130,18 @@ const data = {
     },
     "N-75": {
       "model": "Генератор азота N-75",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 750 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 0.75 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 1500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 1.5 * 1000,
           "price": 15000
         },
@@ -162,18 +162,18 @@ const data = {
     },
     "N-90": {
       "model": "Генератор азота N-90",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 750 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 0.75 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 1500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 1.5 * 1000,
           "price": 15000
         },
@@ -194,18 +194,18 @@ const data = {
     },
     "N-110": {
       "model": "Генератор азота N-110",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 1.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 2000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 2.0 * 1000,
           "price": 15000
         },
@@ -226,18 +226,18 @@ const data = {
     },
     "N-135": {
       "model": "Генератор азота N-135",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 1.5 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 3000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 3.0 * 1000,
           "price": 15000
         },
@@ -258,18 +258,18 @@ const data = {
     },
     "N-165": {
       "model": "Генератор азота N-165",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 1.5 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 3000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 3.0 * 1000,
           "price": 15000
         },
@@ -290,18 +290,18 @@ const data = {
     },
     "N-200": {
       "model": "Генератор азота N-200",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 2000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 2.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 4000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 4.0 * 1000,
           "price": 15000
         },
@@ -322,18 +322,18 @@ const data = {
     },
     "N-240": {
       "model": "Генератор азота N-240",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 2000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 2.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 4000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 4.0 * 1000,
           "price": 15000
         },
@@ -354,18 +354,18 @@ const data = {
     },
     "N-300": {
       "model": "Генератор азота N-300",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 3000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 3.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 6000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 6.0 * 1000,
           "price": 15000
         },
@@ -386,18 +386,18 @@ const data = {
     },
     "N-400": {
       "model": "Генератор азота N-400",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 4000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 4.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 8000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 8.0 * 1000,
           "price": 15000
         },
@@ -418,18 +418,18 @@ const data = {
     },
     "N-500": {
       "model": "Генератор азота N-500",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 5000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 5.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 10000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 10.0 * 1000,
           "price": 15000
         },
@@ -450,18 +450,18 @@ const data = {
     },
     "N-600": {
       "model": "Генератор азота N-600",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 6000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 6.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 12000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 12.0 * 1000,
           "price": 15000
         },
@@ -482,18 +482,18 @@ const data = {
     },
     "N-750": {
       "model": "Генератор азота N-750",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 7000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 7.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 14000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 14.0 * 1000,
           "price": 15000
         },
@@ -514,18 +514,18 @@ const data = {
     },
     "N-900": {
       "model": "Генератор азота N-900",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 8000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 8.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 16000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 16.0 * 1000,
           "price": 15000
         },
@@ -546,18 +546,18 @@ const data = {
     },
     "N-1050": {
       "model": "Генератор азота N-1050",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 9000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 9.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 18000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 18.0 * 1000,
           "price": 15000
         },
@@ -578,18 +578,18 @@ const data = {
     },
     "N-1200": {
       "model": "Генератор азота N-1200",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 10000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 10.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 20000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 20.0 * 1000,
           "price": 15000
         },
@@ -610,18 +610,18 @@ const data = {
     },
     "N-1350": {
       "model": "Генератор азота N-1350",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 11000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 11.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 22000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 22.0 * 1000,
           "price": 15000
         },
@@ -642,18 +642,18 @@ const data = {
     },
     "N-1500": {
       "model": "Генератор азота N-1500",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 12000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 12.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 24000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 24.0 * 1000,
           "price": 15000
         },
@@ -674,18 +674,18 @@ const data = {
     },
     "N-1700": {
       "model": "Генератор азота N-1700",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 13000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 13.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 26000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 26.0 * 1000,
           "price": 15000
         },
@@ -706,18 +706,18 @@ const data = {
     },
     "N-1900": {
       "model": "Генератор азота N-1900",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 14000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 14.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 28000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 28.0 * 1000,
           "price": 15000
         },
@@ -738,18 +738,18 @@ const data = {
     },
     "N-2100": {
       "model": "Генератор азота N-2100",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 15000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 15.0 * 1000,
           "price": 15000
         },
         "nResiver": {
           "model": "Ресивер азотный 30000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 30.0 * 1000,
           "price": 15000
         },
@@ -772,18 +772,18 @@ const data = {
   oxygen: {
     "O-5": {
       "model": "Генератор кислорода O-5",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 0.5 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 0.5 * 1000,
           "price": 15000
         },
@@ -795,18 +795,18 @@ const data = {
     },
     "O-10": {
       "model": "Генератор кислорода O-10",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 750 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 0.75 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 750 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 0.75 * 1000,
           "price": 15000
         },
@@ -818,18 +818,18 @@ const data = {
     },
     "O-15": {
       "model": "Генератор кислорода O-15",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 1.0 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 1000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 1.0 * 1000,
           "price": 15000
         },
@@ -841,18 +841,18 @@ const data = {
     },
     "O-20": {
       "model": "Генератор кислорода O-20",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 1.5 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 1500 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 1.5 * 1000,
           "price": 15000
         },
@@ -864,18 +864,18 @@ const data = {
     },
     "O-30": {
       "model": "Генератор кислорода O-30",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 2000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 2.0 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 2000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 2.0 * 1000,
           "price": 15000
         },
@@ -887,18 +887,18 @@ const data = {
     },
     "O-40": {
       "model": "Генератор кислорода O-40",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 3000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 3.0 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 3000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 3.0 * 1000,
           "price": 15000
         },
@@ -910,18 +910,18 @@ const data = {
     },
     "O-50": {
       "model": "Генератор кислорода O-50",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 4000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 4.0 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 4000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 4.0 * 1000,
           "price": 15000
         },
@@ -933,18 +933,18 @@ const data = {
     },
     "O-60": {
       "model": "Генератор кислорода O-60",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 5000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 5.0 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 5000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 5.0 * 1000,
           "price": 15000
         },
@@ -956,18 +956,18 @@ const data = {
     },
     "O-80": {
       "model": "Генератор кислорода O-80",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 6000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 6.0 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 6000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 6.0 * 1000,
           "price": 15000
         },
@@ -979,18 +979,18 @@ const data = {
     },
     "O-100": {
       "model": "Генератор кислорода O-100",
-      "url": "/gas/adsorber.png",
+      "url": "/adsorber.png",
       "price": 15000,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 7000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "inputReceiverVolumeL": 7.0 * 1000,
           "price": 15000
         },
         "oResiver": {
           "model": "Ресивер кислородный 7000 литров",
-          "url": "/gas/reciver.png",
+          "url": "/reciver.png",
           "outputReceiverVolumeL": 7.0 * 1000,
           "price": 15000
         },
@@ -1004,55 +1004,55 @@ const data = {
   kompressor: {
     "5bar": {
       "model": "Компрессор, 5 бар",
-      "url": "/gas/compressor.png",
+      "url": "/compressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 5
     },
     "6bar": {
       "model": "Компрессор, 6 бар",
-      "url": "/gas/compressor.png",
+      "url": "/compressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 6
     },
     "7bar": {
       "model": "Компрессор, 7 бар",
-      "url": "/gas/compressor.png",
+      "url": "/compressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 7
     },
     "8bar": {
       "model": "Компрессор, 8 бар",
-      "url": "/gas/compressor.png",
+      "url": "/compressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 8
     },
     "9bar": {
       "model": "Компрессор, 9 бар",
-      "url": "/gas/compressor.png",
+      "url": "/compressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 9
     },
     "10bar": {
       "model": "Компрессор, 10 бар",
-      "url": "/gas/compressor.png",
+      "url": "/compressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 10
     },
     "11bar": {
       "model": "Компрессор, 11 бар",
-      "url": "/gas/compressor.png",
+      "url": "/compressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 11
     },
     "12bar": {
       "model": "Компрессор, 12 бар",
-      "url": "/gas/compressor.png",
+      "url": "/compressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 12
     },
     "13bar": {
       "model": "Компрессор, 13 бар",
-      "url": "/gas/compressor.png",
+      "url": "/compressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 13
     },
@@ -1060,37 +1060,37 @@ const data = {
   osyshitel: {
     "Os-20": {
       "model": "Рефрижираторный осушитель, -20 °C",
-      "url": "/gas/osyshitel.png",
+      "url": "/osyshitel.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "dewPoint": -20
     },
     "Os-30": {
       "model": "Рефрижираторный осушитель, -30 °C",
-      "url": "/gas/osyshitel.png",
+      "url": "/osyshitel.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "dewPoint": -30
     },
     "Os-40": {
       "model": "Рефрижираторный осушитель, -40 °C",
-      "url": "/gas/osyshitel.png",
+      "url": "/osyshitel.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "dewPoint": -40
     },
     "Os-50": {
       "model": "Рефрижираторный осушитель, -50 °C",
-      "url": "/gas/osyshitel.png",
+      "url": "/osyshitel.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "dewPoint": -50
     },
     "Os-60": {
       "model": "Адсорбционный осушитель, -60 °C",
-      "url": "/gas/osyshitel.png",
+      "url": "/osyshitel.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "dewPoint": -60
     },
     "Os-70": {
       "model": "Адсорбционный осушитель, -70 °C",
-      "url": "/gas/osyshitel.png",
+      "url": "/osyshitel.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "dewPoint": -70
     }
@@ -1098,7 +1098,7 @@ const data = {
   dKompressor: {
     "dcomp": {
       "model": "Дожимной компрессор",
-      "url": "/gas/dcompressor.png",
+      "url": "/dcompressor.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "pressure": 10
     }
@@ -1106,31 +1106,31 @@ const data = {
   rampa: {
     "ramp-20": {
       "model": "Заправочная рампа на 20 баллонов/сутки",
-      "url": "/gas/rampa.png",
+      "url": "/rampa.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "capacity": 20
     },
     "ramp-45": {
       "model": "Заправочная рампа на 45 баллонов/сутки",
-      "url": "/gas/rampa.png",
+      "url": "/rampa.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "capacity": 45
     },
     "ramp-65": {
       "model": "Заправочная рампа на 65 баллонов/сутки",
-      "url": "/gas/rampa.png",
+      "url": "/rampa.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "capacity": 65
     },
     "ramp-90": {
       "model": "Заправочная рампа на 90 баллонов/сутки",
-      "url": "/gas/rampa.png",
+      "url": "/rampa.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "capacity": 90
     },
     "ramp-125": {
       "model": "Заправочная рампа на 125 баллонов/сутки",
-      "url": "/gas/rampa.png",
+      "url": "/rampa.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "capacity": 125
     }
@@ -1138,7 +1138,7 @@ const data = {
   filtr: {
     "filtr": {
       "model": "Трехступенчатый блок фильтров",
-      "url": "/gas/filtr.png",
+      "url": "/filtr.png",
       "price": Math.floor(Math.random() * 10) + 1,
       "capacity": 1
     }

@@ -1,9 +1,9 @@
 const compressors = [
     {
-      id: 'DAV5',
-      name: 'Масляный винтовой компрессор DAV5',
+      id: 'BGV5',
+      name: 'Масляный винтовой компрессор BGV5',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 140000, // 11471 CNY × 12 = 137652 ≈ 140000 RUB
       specs: [
         { pressure: 7, minFlow: 0.41, maxFlow: 0.92, power: 5.5 },
@@ -12,10 +12,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV7',
-      name: 'Масляный винтовой компрессор DAV7',
+      id: 'BGV7',
+      name: 'Масляный винтовой компрессор BGV7',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 140000, // 11619 CNY × 12 = 139428 ≈ 140000 RUB
       specs: [
         { pressure: 7, minFlow: 0.40, maxFlow: 1.29, power: 7.5 },
@@ -24,10 +24,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV11',
-      name: 'Масляный винтовой компрессор DAV11',
+      id: 'BGV11',
+      name: 'Масляный винтовой компрессор BGV11',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 180000, // 14310 CNY × 12 = 171720 ≈ 180000 RUB
       specs: [
         { pressure: 7, minFlow: 0.55, maxFlow: 1.99, power: 11 },
@@ -37,10 +37,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV15',
-      name: 'Масляный винтовой компрессор DAV15',
+      id: 'BGV15',
+      name: 'Масляный винтовой компрессор BGV15',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 220000, // 17939 CNY × 12 = 215268 ≈ 220000 RUB
       specs: [
         { pressure: 7, minFlow: 0.74, maxFlow: 2.51, power: 15 },
@@ -50,10 +50,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV18',
-      name: 'Масляный винтовой компрессор DAV18',
+      id: 'BGV18',
+      name: 'Масляный винтовой компрессор BGV18',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 270000, // 21977 CNY × 12 = 263724 ≈ 270000 RUB
       specs: [
         { pressure: 7, minFlow: 0.93, maxFlow: 3.11, power: 18.5 },
@@ -63,10 +63,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV22',
-      name: 'Масляный винтовой компрессор DAV22',
+      id: 'BGV22',
+      name: 'Масляный винтовой компрессор BGV22',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 250000, // 20504 CNY × 12 = 246048 ≈ 250000 RUB
       specs: [
         { pressure: 7, minFlow: 1.67, maxFlow: 3.63, power: 22 },
@@ -76,10 +76,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV30',
-      name: 'Масляный винтовой компрессор DAV30',
+      id: 'BGV30',
+      name: 'Масляный винтовой компрессор BGV30',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 320000, // 25936 CNY × 12 = 311232 ≈ 320000 RUB
       specs: [
         { pressure: 7, minFlow: 2.42, maxFlow: 5.07, power: 30 },
@@ -89,10 +89,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV37',
-      name: 'Масляный винтовой компрессор DAV37',
+      id: 'BGV37',
+      name: 'Масляный винтовой компрессор BGV37',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 360000, // 29744 CNY × 12 = 356928 ≈ 360000 RUB
       specs: [
         { pressure: 7, minFlow: 1.90, maxFlow: 6.20, power: 37 },
@@ -102,10 +102,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV45',
-      name: 'Масляный винтовой компрессор DAV45',
+      id: 'BGV45',
+      name: 'Масляный винтовой компрессор BGV45',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 400000, // 32789 CNY × 12 = 393468 ≈ 400000 RUB
       specs: [
         { pressure: 7, minFlow: 2.31, maxFlow: 7.51, power: 45 },
@@ -115,10 +115,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV55',
-      name: 'Масляный винтовой компрессор DAV55',
+      id: 'BGV55',
+      name: 'Масляный винтовой компрессор BGV55',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 600000, // 49801 CNY × 12 = 597612 ≈ 600000 RUB
       specs: [
         { pressure: 7, minFlow: 4.08, maxFlow: 9.95, power: 55 },
@@ -128,10 +128,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV75',
-      name: 'Масляный винтовой компрессор DAV75',
+      id: 'BGV75',
+      name: 'Масляный винтовой компрессор BGV75',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 700000, // 57510 CNY × 12 = 690120 ≈ 700000 RUB
       specs: [
         { pressure: 7, minFlow: 4.89, maxFlow: 12.19, power: 75 },
@@ -141,10 +141,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV90',
-      name: 'Масляный винтовой компрессор DAV90',
+      id: 'BGV90',
+      name: 'Масляный винтовой компрессор BGV90',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 1200000, // 96720 CNY × 12 = 1160640 ≈ 1200000 RUB
       specs: [
         { pressure: 7, minFlow: 5.80, maxFlow: 16.68, power: 90 },
@@ -154,10 +154,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV110',
-      name: 'Масляный винтовой компрессор DAV110',
+      id: 'BGV110',
+      name: 'Масляный винтовой компрессор BGV110',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 1300000, // 107886 CNY × 12 = 1294632 ≈ 1300000 RUB
       specs: [
         { pressure: 7, minFlow: 7.60, maxFlow: 19.32, power: 110 },
@@ -167,10 +167,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV132',
-      name: 'Масляный винтовой компрессор DAV132',
+      id: 'BGV132',
+      name: 'Масляный винтовой компрессор BGV132',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 1300000, // 108313 CNY × 12 = 1299756 ≈ 1300000 RUB
       specs: [
         { pressure: 7, minFlow: 7.94, maxFlow: 22.68, power: 132 },
@@ -180,10 +180,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV160',
-      name: 'Масляный винтовой компрессор DAV160',
+      id: 'BGV160',
+      name: 'Масляный винтовой компрессор BGV160',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 2000000, // 166257 CNY × 12 = 1995084 ≈ 2000000 RUB
       specs: [
         { pressure: 7, minFlow: 9.89, maxFlow: 28.24, power: 160 },
@@ -193,10 +193,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV185',
-      name: 'Масляный винтовой компрессор DAV185',
+      id: 'BGV185',
+      name: 'Масляный винтовой компрессор BGV185',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 2100000, // 170477 CNY × 12 = 2045724 ≈ 2100000 RUB
       specs: [
         { pressure: 7, minFlow: 11.37, maxFlow: 32.49, power: 185 },
@@ -206,10 +206,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV200',
-      name: 'Масляный винтовой компрессор DAV200',
+      id: 'BGV200',
+      name: 'Масляный винтовой компрессор BGV200',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 2300000, // 190326 CNY × 12 = 2283912 ≈ 2300000 RUB
       specs: [
         { pressure: 7, minFlow: 13.09, maxFlow: 37.40, power: 200 },
@@ -219,10 +219,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV220',
-      name: 'Масляный винтовой компрессор DAV220',
+      id: 'BGV220',
+      name: 'Масляный винтовой компрессор BGV220',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 2500000, // 201855 CNY × 12 = 2422260 ≈ 2500000 RUB
       specs: [
         { pressure: 7, minFlow: 16.60, maxFlow: 42.74, power: 220 },
@@ -232,10 +232,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV250',
-      name: 'Масляный винтовой компрессор DAV250',
+      id: 'BGV250',
+      name: 'Масляный винтовой компрессор BGV250',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 2600000, // 215616 CNY × 12 = 2587392 ≈ 2600000 RUB
       specs: [
         { pressure: 7, minFlow: 17.56, maxFlow: 45.22, power: 250 },
@@ -245,10 +245,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV280',
-      name: 'Масляный винтовой компрессор DAV280',
+      id: 'BGV280',
+      name: 'Масляный винтовой компрессор BGV280',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 3200000, // 261484 CNY × 12 = 3137808 ≈ 3200000 RUB
       specs: [
         { pressure: 7, minFlow: 17.99, maxFlow: 51.41, power: 280 },
@@ -258,10 +258,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV315',
-      name: 'Масляный винтовой компрессор DAV315',
+      id: 'BGV315',
+      name: 'Масляный винтовой компрессор BGV315',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 3600000, // 293834 CNY × 12 = 3526008 ≈ 3600000 RUB
       specs: [
         { pressure: 7, minFlow: 19.32, maxFlow: 55.21, power: 315 },
@@ -271,10 +271,10 @@ const compressors = [
       ]
     },
     {
-      id: 'DAV355',
-      name: 'Масляный винтовой компрессор DAV355',
+      id: 'BGV355',
+      name: 'Масляный винтовой компрессор BGV355',
       type: 'Частотно-регулируемый винтовой компрессор с ПМД',
-      url: '/gas/compressor.png',
+      url: '/compressor.png',
       price: 3600000, // 298866 CNY × 12 = 3586392 ≈ 3600000 RUB
       specs: [
         { pressure: 7, minFlow: 21.39, maxFlow: 61.13, power: 355 },
@@ -285,4 +285,137 @@ const compressors = [
     }
   ];
   
-  export default compressors;
+  const dryers = [
+    {
+      id: 'BGD-1HTF',
+      name: 'Осушитель BGD-1HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 5200 * 12,
+      flow: 1.2,
+      voltage: '220/50',
+      power: 0.85
+    },
+    {
+      id: 'BGD-2HTF',
+      name: 'Осушитель BGD-2HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 7910 * 12,
+      flow: 2.4,
+      voltage: '220/50',
+      power: 0.85
+    },
+    {
+      id: 'BGD-3HTF',
+      name: 'Осушитель BGD-3HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 8850 * 12,
+      flow: 3.8,
+      voltage: '220/50',
+      power: 0.9
+    },
+    {
+      id: 'BGD-6HTF',
+      name: 'Осушитель BGD-6HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 11330 * 12,
+      flow: 6.5,
+      voltage: '220/50',
+      power: 1.1
+    },
+    {
+      id: 'BGD-8HTF',
+      name: 'Осушитель BGD-8HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 12540 * 12,
+      flow: 8.5,
+      voltage: '220/50',
+      power: 1.8
+    },
+    {
+      id: 'BGD-10HTF',
+      name: 'Осушитель BGD-10HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 16640 * 12,
+      flow: 10.7,
+      voltage: '380/50',
+      power: 2.5
+    },
+    {
+      id: 'BGD-13HTF',
+      name: 'Осушитель BGD-13HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 17300 * 12,
+      flow: 13.5,
+      voltage: '380/50',
+      power: 2.5
+    },
+    {
+      id: 'BGD-15HTF',
+      name: 'Осушитель BGD-15HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 24560 * 12,
+      flow: 17,
+      voltage: '380/50',
+      power: 3
+    },
+    {
+      id: 'BGD-20HTF',
+      name: 'Осушитель BGD-20HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 29120 * 12,
+      flow: 23,
+      voltage: '380/50',
+      power: 4
+    },
+    {
+      id: 'BGD-25HTF',
+      name: 'Осушитель BGD-25HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 39600 * 12,
+      flow: 28,
+      voltage: '380/50',
+      power: 4.5
+    },
+    {
+      id: 'BGD-30HTF',
+      name: 'Осушитель BGD-30HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 45520 * 12,
+      flow: 33,
+      voltage: '380/50',
+      power: 6.5
+    },
+    {
+      id: 'BGD-40HTF',
+      name: 'Осушитель BGD-40HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 58000 * 12,
+      flow: 45,
+      voltage: '380/50',
+      power: 8.8
+    },
+    {
+      id: 'BGD-50HTF',
+      name: 'Осушитель BGD-50HTF',
+      type: 'Рефрижираторный осушитель',
+      url: '/osyshitel.png',
+      price: 69540 * 12,
+      flow: 55,
+      voltage: '380/50',
+      power: 10.2
+    }
+  ]
+  
+  export { compressors, dryers }

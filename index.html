@@ -40,6 +40,8 @@
 
 
 
+  <script type="module" crossorigin src="/assets/index-CuIoXWxm.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-H9QndVWI.css">
 </head>
 
 <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
@@ -156,8 +158,18 @@
           <p class="text-gray-600 mb-8">
             Энергоэффективная технология короткоцикловой безнагревной адсорбции (КЦА): воздух подается в адсорберы, где
             азот или кислород селективно удерживаются сорбентами.
-            <br />
-            <br />
+          </p>
+          <h4 class="text-
+          l text-gray-800 font-bold leading-none mb-3">Подготовка воздуха</h4>             
+            <ol class="list-decimal list-inside text-gray-600 mb-8">
+              <li>Сжатие атмосферного воздуха с помощью винтового компрессора</li>
+              <li>Удаление влаги в рефрижераторном или адсорбционном осушителе</li>
+              <li>Фильтрация воздуха от пыли, масла и примесей</li>
+              <li>Накопление воздуха в буферном ресивере и подача в адсорберы</li>
+            </ol>
+
+
+          <p class="text-gray-600 mb-8">
             Чистота получаемого газа: кислород 95%, азота - от 95% до 99.9995%.
             <br />
             Стандартное давление от 5 до 13 бар, любое по запросу.
@@ -167,13 +179,14 @@
             Энергоэффективность — от 0,95 кВт·ч/м³.
           </p>
         </div>
-        <div class="w-full sm:w-1/2 p-6">
-          <img src="/gen2.png" alt="Короткоцикловое адсорбционное газоразделение" />
+        <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
+          <img src="/gen2.png" alt="Короткоцикловое адсорбционное газоразделение" class="max-w-full h-auto" />
         </div>
+        
       </div>
       <div class="flex flex-wrap flex-col-reverse sm:flex-row">
-        <div class="w-full sm:w-1/2 p-6 mt-6">
-          <img src="/gen1.png" alt="PSA-генератор Блицгаз" />
+         <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
+          <img src="/gen1.png" alt="PSA-генератор Блицгаз" class="max-w-full h-auto" />
         </div>
         <div class="w-full sm:w-1/2 p-6 mt-6">
           <div class="align-middle">
@@ -205,7 +218,7 @@
 
 
 
-  <section class="bg-white py-12">
+  <section class="bg-white border-b py-12">
     <div class="container max-w-6xl mx-auto px-6">
 
       <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">
@@ -255,6 +268,10 @@
       </div>
     </div>
     
+  </section>
+  
+  <section>
+    <div  class="bg-white py-12" id="root"></div>
   </section>
 
     <!-- Change the colour #f8fafc to match the previous section colour -->
@@ -325,95 +342,26 @@
   </section>
   
 
-  <!-- React-приложение 
-  <div id="root"></div>
-  <script type="module" src="/src/index.jsx"></script>
-  -->
+  <!-- React-приложение -->
+  
+  
 
-  <!-- jQuery if you need it
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  -->
   <script>
-    var scrollpos = window.scrollY;
-    var header = document.getElementById("header");
-    var navcontent = document.getElementById("nav-content");
-    var navaction = document.getElementById("navAction");
-    var brandname = document.getElementById("brandname");
-    var toToggle = document.querySelectorAll(".toggleColour");
-
     document.addEventListener("scroll", function () {
-      /*Apply classes for slide in bar*/
-      scrollpos = window.scrollY;
-
-      if (scrollpos > 10) {
-        header.classList.add("bg-white");
-        navaction.classList.remove("bg-white");
-        navaction.classList.add("gradient");
-        navaction.classList.remove("text-gray-800");
-        navaction.classList.add("text-white");
-        //Use to switch toggleColour colours
-        for (var i = 0; i < toToggle.length; i++) {
-          toToggle[i].classList.add("text-gray-800");
-          toToggle[i].classList.remove("text-white");
-        }
-        header.classList.add("shadow");
-        navcontent.classList.remove("bg-gray-100");
-        navcontent.classList.add("bg-white");
+      const scrollY = window.scrollY;
+      const header = document.getElementById("header");
+  
+      if (!header) return;
+  
+      if (scrollY > 10) {
+        header.classList.add("bg-white", "shadow");
       } else {
-        header.classList.remove("bg-white");
-        navaction.classList.remove("gradient");
-        navaction.classList.add("bg-white");
-        navaction.classList.remove("text-white");
-        navaction.classList.add("text-gray-800");
-        //Use to switch toggleColour colours
-        for (var i = 0; i < toToggle.length; i++) {
-          toToggle[i].classList.add("text-white");
-          toToggle[i].classList.remove("text-gray-800");
-        }
-
-        header.classList.remove("shadow");
-        navcontent.classList.remove("bg-white");
-        navcontent.classList.add("bg-gray-100");
+        header.classList.remove("bg-white", "shadow");
       }
     });
   </script>
-  <script>
-    /*Toggle dropdown list*/
-    /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
-
-    var navMenuDiv = document.getElementById("nav-content");
-    var navMenu = document.getElementById("nav-toggle");
-
-    document.onclick = check;
-    function check(e) {
-      var target = (e && e.target) || (event && event.srcElement);
-
-      //Nav Menu
-      if (!checkParent(target, navMenuDiv)) {
-        // click NOT on the menu
-        if (checkParent(target, navMenu)) {
-          // click on the link
-          if (navMenuDiv.classList.contains("hidden")) {
-            navMenuDiv.classList.remove("hidden");
-          } else {
-            navMenuDiv.classList.add("hidden");
-          }
-        } else {
-          // click both outside link and outside menu, hide menu
-          navMenuDiv.classList.add("hidden");
-        }
-      }
-    }
-    function checkParent(t, elm) {
-      while (t.parentNode) {
-        if (t == elm) {
-          return true;
-        }
-        t = t.parentNode;
-      }
-      return false;
-    }
-  </script>
+  
+ 
 </body>
 
 </html>
