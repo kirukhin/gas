@@ -4,7 +4,7 @@ import App from "./App";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter basename="/gas">
+  <BrowserRouter basename="/">
     <App />
   </BrowserRouter>
 );

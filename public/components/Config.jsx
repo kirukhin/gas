@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import data from "/public/components/data.js";
-import compressors from "/public/components/equipment.js";
+import { compressors, dryers } from './equipment';
 // import "../../src/styles.css";
 import baseImg from "/base.png";
 import adsorberImg from "/adsorber.png";
@@ -11,7 +11,7 @@ import filtrImg from "/filtr.png";
 import dcompressorImg from "/dcompressor.png";
 import rampaImg from "/rampa.png";
 import { generatePdf } from './PdfGenerator';
-import Main from './Main'
+// import Main from './Main'
 
 
 
@@ -20,17 +20,20 @@ const Config = () => {
   const [generator, setGenerator] = useState("oxygen"); // Генератор: кислород/азот
   const [system, setSystem] = useState("generation");   // Система: генерация/заправка
   const [pressure, setPressure] = useState("5bar");     // Давление: 5/нестандартное бар
-  const [purity, setPurity] = useState("90");           // Чистота кислорода
+  const [purity, setPurity] = useState("93");           // Чистота кислорода
   const [inputValue, setInputValue] = useState("");     // Производительность
-  const [unit, setUnit] = useState("lmin");             // Единицы измерения
+  const [unit, setUnit] = useState("m3h");             // Единицы измерения
   const [refillCapacity, setRefillCapacity] = useState("20"); // Произаодительность перезаправки
-  const [selectedKompressor, setSelectedKompressor] = useState(null);
+  const [selectedModel, setSelectedModel] = useState(null); // строка
+const [selectedModelData, setSelectedModelData] = useState(null); // объект
+
+  // const [selectedKompressor, setSelectedKompressor] = useState(null);
 
 
 
   // --- Состояния оборудования ---
   const [selectedEquipment, setSelectedEquipment] = useState([]);
-  const [selectedModel, setSelectedModel] = useState(null);
+
 
   // --- Слайдеры азота ---
   const nitrogenPurityOptions = ["95%", "97%", "98%", "99%", "99.5%", "99.9%", "99.95%", "99.99%", "99.995%", "99.999%", "99.9995%"];
@@ -63,12 +66,27 @@ const Config = () => {
     generatePdf({
       gas: generator,
       system,
-      model: selectedModel || "Без модели",
+      model: selectedModelData, // теперь это объект
       purity: generator === "oxygen" ? purity : nitrogenPurityOptions[nitrogenPurityIndex],
       pressure: generator === "oxygen" ? pressure : nitrogenPressureOptions[nitrogenPressureIndex],
-      dewPoint: selectedDewPoint
+      dewPoint: selectedDewPoint,
+      unit,
+      inputValue,
+      refillCapacity,
+      selectedEquipment
     });
   };
+  
+  
+
+  // --- обработчик чекбокса включения в КП ---
+
+  const toggleIncludeInQuote = (index) => {
+    const updatedEquipment = [...selectedEquipment];
+    updatedEquipment[index].includedInQuote = !updatedEquipment[index].includedInQuote;
+    setSelectedEquipment(updatedEquipment);
+  };
+
 
 
   // --- Обновление UI слайдеров ---
@@ -91,7 +109,7 @@ const Config = () => {
       if (activeDot) activeDot.style.left = `calc(${percentage}% - 8px)`;
     };
 
-    // --- фикс: выносим колбэк наружу ---
+
     const handleInput = (e) => updateSlider(e.target);
 
     sliders.forEach((slider) => {
@@ -128,198 +146,221 @@ const Config = () => {
     return scheme;
   };
 
-// --- Поиск подходящего оборудования ---
-useEffect(() => {
-  const findEquipment = () => {
-    const equipmentScheme = getEquipmentScheme();
+  // --- Поиск подходящего оборудования ---
+  useEffect(() => {
+    const findEquipment = () => {
+      const equipmentScheme = getEquipmentScheme();
 
-    // --- Функция выбора ближайшего оборудования по целевому значению ---
-    const findClosestMatch = (dataCategory, key, targetValue) => {
-      if (!data[dataCategory]) return null;
-      return Object.values(data[dataCategory]).reduce((prev, curr) =>
-        Math.abs(curr[key] - targetValue) < Math.abs(prev[key] - targetValue) ? curr : prev
-      );
-    };
-
-    // --- Карта изображений по ключам схемы ---
-    const imageMap = {
-      oAdsorber: adsorberImg,
-      nAdsorber: adsorberImg,
-      kompressor: compressorImg,
-      osyshitel: osyshitelImg,
-      dKompressor: dcompressorImg,
-      filtr: filtrImg,
-      rampa: rampaImg,
-    };
-
-    // --- Если пользователь не ввел значение производительности, показываем "пустое" оборудование ---
-    const numericValue = parseFloat(inputValue);
-    if (!inputValue || isNaN(numericValue)) {
-      const equipmentDetails = equipmentScheme.map((key) => ({
-        model: "Укажите желаемую производительность",
-        url: baseImg,
-        price: 0
-      }));
-      setSelectedEquipment(equipmentDetails);
-      setSelectedModel(null);
-      return;
-    }
-
-    // --- Конвертация введенной производительности в м³/ч ---
-    const convertedValueM3H = (() => {
-      if (unit === "lmin") return (numericValue / 1000) * 60;
-      if (unit === "m3h") return numericValue;
-      if (unit === "kgh") return numericValue / 1.2506;
-      return 0;
-    })();
-
-    // --- Подбор компрессора ---
-    let selectedKompressor = {};
-    if (generator === "oxygen") {
-      // Для кислорода всегда фиксированный компрессор
-      selectedKompressor = data.kompressor?.["5bar"] || {};
-    } else {
-      // Для азота ищем компрессор с подходящим давлением
-      const allowedPressures = {
-        7: [6, 7],
-        8: [8],
-        10: [9, 10],
-        12.5: [11, 12, 13]
+      // --- Функция выбора ближайшего оборудования по целевому значению ---
+      const findClosestMatch = (dataCategory, key, targetValue) => {
+        if (!data[dataCategory]) return null;
+        return Object.values(data[dataCategory]).reduce((prev, curr) =>
+          Math.abs(curr[key] - targetValue) < Math.abs(prev[key] - targetValue) ? curr : prev
+        );
       };
 
-      const currentPressure = nitrogenPressureOptions[nitrogenPressureIndex];
-      let pressureGroup = [];
+      // --- Карта изображений по ключам схемы ---
+      const imageMap = {
+        oAdsorber: adsorberImg,
+        nAdsorber: adsorberImg,
+        kompressor: compressorImg,
+        osyshitel: osyshitelImg,
+        dKompressor: dcompressorImg,
+        filtr: filtrImg,
+        rampa: rampaImg,
+      };
 
-      for (const [key, values] of Object.entries(allowedPressures)) {
-        if (values.includes(currentPressure)) {
-          pressureGroup.push(Number(key));
-        }
+      // --- Если пользователь не ввел значение производительности, показываем "пустое" оборудование ---
+      const numericValue = parseFloat(inputValue);
+      if (!inputValue || isNaN(numericValue)) {
+        const equipmentDetails = equipmentScheme.map((key) => ({
+          model: "Укажите желаемую производительность",
+          url: baseImg,
+          price: 0
+        }));
+        setSelectedEquipment(equipmentDetails);
+        setSelectedModel(null);
+        return;
       }
 
-      const allCompressors = data.compressors || []; // массив новых компрессоров
-      const matchingCompressors = allCompressors.filter(c =>
-        c.specs.some(spec =>
-          pressureGroup.includes(spec.pressure) &&
-          spec.minFlow < convertedValueM3H &&
-          spec.maxFlow > convertedValueM3H
-        )
-      );
+      // --- Конвертация введенной производительности в м³/ч ---
+      const convertToM3h = (value, unit) => {
+        const num = parseFloat(value);
+        if (isNaN(num)) return 0;
+        if (unit === 'lmin') return (num / 1000) * 60;
+        if (unit === 'kgh') return num / 1.2506;
+        return num;
+      };
 
-      // Сортировка по минимальному энергопотреблению
-      matchingCompressors.sort((a, b) => {
-        const aSpec = a.specs.find(s => pressureGroup.includes(s.pressure) && s.minFlow < convertedValueM3H && s.maxFlow > convertedValueM3H);
-        const bSpec = b.specs.find(s => pressureGroup.includes(s.pressure) && s.minFlow < convertedValueM3H && s.maxFlow > convertedValueM3H);
-        return (aSpec?.power || Infinity) - (bSpec?.power || Infinity);
+
+      // --- Конвертируем введённую производительность ---
+      const convertedValueM3H = convertToM3h(inputValue, unit);
+
+      // --- Подбор компрессора ---
+      let selectedKompressor = {};
+      if (generator === "oxygen") {
+        // Давление фиксированное: 7 бар
+        const matching = compressors.filter(comp =>
+          comp.specs.some(spec =>
+            spec.pressure === 7 &&
+            spec.minFlow < convertedValueM3H &&
+            spec.maxFlow > convertedValueM3H
+          )
+        );
+
+        matching.sort((a, b) => {
+          const aSpec = a.specs.find(spec => spec.pressure === 7);
+          const bSpec = b.specs.find(spec => spec.pressure === 7);
+          return (aSpec?.power || Infinity) - (bSpec?.power || Infinity);
+        });
+
+        selectedKompressor = matching[0] || {};
+      } else {
+        // Давление: nitrogenPressureOptions[nitrogenPressureIndex]
+        const currentPressure = nitrogenPressureOptions[nitrogenPressureIndex];
+
+        const allowedPressures = {
+          7: [6, 7],
+          8: [8],
+          10: [9, 10],
+          12.5: [11, 12, 13]
+        };
+
+        const pressureGroup = Object.entries(allowedPressures)
+          .find(([_, values]) => values.includes(currentPressure))?.[0];
+
+        const pressureTarget = parseFloat(pressureGroup);
+
+        const matching = compressors.filter(comp =>
+          comp.specs.some(spec =>
+            spec.pressure === pressureTarget &&
+            spec.minFlow < convertedValueM3H &&
+            spec.maxFlow > convertedValueM3H
+          )
+        );
+
+        matching.sort((a, b) => {
+          const aSpec = a.specs.find(spec => spec.pressure === pressureTarget);
+          const bSpec = b.specs.find(spec => spec.pressure === pressureTarget);
+          return (aSpec?.power || Infinity) - (bSpec?.power || Infinity);
+        });
+
+        selectedKompressor = matching[0] || {};
+      }
+
+      // --- Подбор осушителя ---
+      const matchingDryers = dryers.filter(d => d.flow >= convertedValueM3H);
+      matchingDryers.sort((a, b) => a.power - b.power);
+      const selectedOsyshitel = matchingDryers[0] || {};
+
+
+      // --- Подбор остальных элементов ---
+      const selectedDKompressor = data.dKompressor?.["dcomp"] || {};
+      const selectedFiltr = data.filtr?.["filtr"] || {};
+      const selectedRampa = findClosestMatch("rampa", "capacity", parseInt(refillCapacity)) || {};
+
+      // --- Поиск основной модели генератора ---
+      if (!data || !data[generator]) return;
+      const generatorData = data[generator];
+
+      let selectedModelData = null;
+      const targetPurity = generator === "oxygen"
+        ? `${purity}%`
+        : nitrogenPurityOptions[nitrogenPurityIndex];
+
+      const reversedIndex = generator === "nitrogen"
+        ? nitrogenPurityOptions.length - 1 - nitrogenPurityIndex
+        : null;
+
+      const sortedModels = Object.values(generatorData).sort((a, b) => {
+        const prodA = generator === "oxygen"
+          ? a.equipment?.productivity.find(p => p.purity === targetPurity)?.value || Infinity
+          : a.equipment?.productivity[reversedIndex]?.value || Infinity;
+
+        const prodB = generator === "oxygen"
+          ? b.equipment?.productivity.find(p => p.purity === targetPurity)?.value || Infinity
+          : b.equipment?.productivity[reversedIndex]?.value || Infinity;
+
+        return prodA - prodB;
       });
 
-      selectedKompressor = matchingCompressors[0] || {};
-    }
+      for (const modelData of sortedModels) {
+        const productivities = modelData.equipment?.productivity;
 
-    // --- Подбор осушителя ---
-    let selectedOsyshitel = {};
-    if (generator === "oxygen") {
-      selectedOsyshitel = data.osyshitel?.["Os-20"] || {};
-    } else {
-      selectedOsyshitel = findClosestMatch("osyshitel", "dewPoint", selectedDewPoint) || {};
-    }
-
-    // --- Подбор остальных элементов ---
-    const selectedDKompressor = data.dKompressor?.["dcomp"] || {};
-    const selectedFiltr = data.filtr?.["filtr"] || {};
-    const selectedRampa = findClosestMatch("rampa", "capacity", parseInt(refillCapacity)) || {};
-
-    // --- Поиск основной модели генератора ---
-    if (!data || !data[generator]) return;
-    const generatorData = data[generator];
-
-    let selectedModelData = null;
-    const targetPurity = generator === "oxygen"
-      ? `${purity}%`
-      : nitrogenPurityOptions[nitrogenPurityIndex];
-
-    const reversedIndex = generator === "nitrogen"
-      ? nitrogenPurityOptions.length - 1 - nitrogenPurityIndex
-      : null;
-
-    const sortedModels = Object.values(generatorData).sort((a, b) => {
-      const prodA = generator === "oxygen"
-        ? a.equipment?.productivity.find(p => p.purity === targetPurity)?.value || Infinity
-        : a.equipment?.productivity[reversedIndex]?.value || Infinity;
-
-      const prodB = generator === "oxygen"
-        ? b.equipment?.productivity.find(p => p.purity === targetPurity)?.value || Infinity
-        : b.equipment?.productivity[reversedIndex]?.value || Infinity;
-
-      return prodA - prodB;
-    });
-
-    for (const modelData of sortedModels) {
-      const productivities = modelData.equipment?.productivity;
-
-      if (generator === "nitrogen") {
-        const productivityEntry = productivities?.[reversedIndex];
-        if (productivityEntry && productivityEntry.value >= convertedValueM3H) {
-          selectedModelData = modelData;
-          break;
-        }
-      } else {
-        const productivityEntry = productivities?.find(p => p.purity === targetPurity);
-        if (productivityEntry && productivityEntry.value >= convertedValueM3H) {
-          selectedModelData = modelData;
-          break;
+        if (generator === "nitrogen") {
+          const productivityEntry = productivities?.[reversedIndex];
+          if (productivityEntry && productivityEntry.value >= convertedValueM3H) {
+            selectedModelData = modelData;
+            break;
+          }
+        } else {
+          const productivityEntry = productivities?.find(p => p.purity === targetPurity);
+          if (productivityEntry && productivityEntry.value >= convertedValueM3H) {
+            selectedModelData = modelData;
+            break;
+          }
         }
       }
-    }
 
-    if (!selectedModelData) {
-      setSelectedEquipment(equipmentScheme.map(() => ({
-        model: "Модель не выбрана",
-        url: baseImg,
-        price: 0,
-      })));
-      setSelectedModel(null);
-      return;
-    }
-
-    // --- Заполняем массив оборудования ---
-    const equipmentDetails = equipmentScheme.map((key) => {
-      if (key === "oAdsorber" || key === "nAdsorber") {
-        return {
-          model: selectedModelData.model,
-          url: selectedModelData.url || imageMap[key],
-          price: selectedModelData.price || 0,
-        };
+      if (!selectedModelData) {
+        setSelectedEquipment(equipmentScheme.map(() => ({
+          model: "Модель не выбрана",
+          url: baseImg,
+          price: 0,
+        })));
+        setSelectedModel(null);
+        return;
       }
 
-      if (key === "vResiver" || key === "oResiver" || key === "nResiver") {
-        const resiverData = selectedModelData?.equipment?.[key];
+      // --- Заполняем массив оборудования ---
+      // --- Заполняем массив оборудования ---
+      const equipmentDetails = equipmentScheme.map((key) => {
+        if (key === "oAdsorber" || key === "nAdsorber") {
+          return {
+            model: selectedModelData.model,
+            name: selectedModelData.name || selectedModelData.model, // если есть
+            type: selectedModelData.type || "Адсорбер",
+            url: selectedModelData.url || imageMap[key],
+            price: selectedModelData.price || 0,
+          };
+        }
+
+        if (key === "vResiver" || key === "oResiver" || key === "nResiver") {
+          const resiverData = selectedModelData?.equipment?.[key] || {};
+          return {
+            model: resiverData.model || "Неизвестно",
+            name: resiverData.name || resiverData.model || "Ресивер",
+            type: resiverData.type || "Газовый ресивер",
+            url: resiverData.url || baseImg,
+            price: resiverData.price || 0,
+          };
+        }
+
+        let selectedEquipment = {};
+        if (key === "kompressor") selectedEquipment = selectedKompressor;
+        if (key === "osyshitel") selectedEquipment = selectedOsyshitel;
+        if (key === "dKompressor") selectedEquipment = selectedDKompressor;
+        if (key === "filtr") selectedEquipment = selectedFiltr;
+        if (key === "rampa") selectedEquipment = selectedRampa;
+
         return {
-          model: resiverData?.model || "Неизвестно",
-          url: resiverData?.url || baseImg,
-          price: resiverData?.price || 0,
+          model: selectedEquipment?.model || selectedEquipment?.name || "Неизвестно",
+          name: selectedEquipment?.name || selectedEquipment?.model || "Оборудование",
+          type: selectedEquipment?.type || "Элемент схемы",
+          url: selectedEquipment?.url || imageMap[key] || baseImg,
+          price: selectedEquipment?.price || 0,
         };
-      }
+      });
 
-      let selectedEquipment = {};
-      if (key === "kompressor") selectedEquipment = selectedKompressor;
-      if (key === "osyshitel") selectedEquipment = selectedOsyshitel;
-      if (key === "dKompressor") selectedEquipment = selectedDKompressor;
-      if (key === "filtr") selectedEquipment = selectedFiltr;
-      if (key === "rampa") selectedEquipment = selectedRampa;
 
-      return {
-        model: selectedEquipment?.model || "Неизвестно",
-        url: selectedEquipment?.url || imageMap[key] || baseImg,
-        price: selectedEquipment?.price || 0,
-      };
-    });
+      setSelectedEquipment(equipmentDetails);
+      setSelectedModel(selectedModelData.model);
+      setSelectedModelData(selectedModelData);           // объект для PDF
 
-    setSelectedEquipment(equipmentDetails);
-    setSelectedModel(selectedModelData.model);
-  };
+    };
 
-  findEquipment();
-}, [unit, generator, system, pressure, purity, nitrogenPurityIndex, nitrogenPressureIndex, inputValue, refillCapacity, selectedDewPoint]);
+    findEquipment();
+  }, [unit, generator, system, pressure, purity, nitrogenPurityIndex, nitrogenPressureIndex, inputValue, refillCapacity, selectedDewPoint]);
 
 
 
@@ -332,285 +373,291 @@ useEffect(() => {
   };
 
 
-  return (
-    <div className="container-fluid py-4">
-      <h2 className="text-center">Конфигуратор оборудования</h2>
-      <div className="row align-items-center">
-        <div className="col-md-6 px-5">
-          <h5>Выберите газ</h5>
-          <div className="btn-group btn-group-toggle d-flex mb-3">
-            <button
-              className={`btn btn-outline-primary ${generator === "oxygen" ? "active" : ""}`}
-              onClick={() => setGenerator("oxygen")}
-            >
-              Кислород
-            </button>
-            <button
-              className={`btn btn-outline-primary ${generator === "nitrogen" ? "active" : ""}`}
-              onClick={() => setGenerator("nitrogen")}
-            >
-              Азот
-            </button>
-          </div>
-          <h5>Выберите систему</h5>
-          <div className="btn-group btn-group-toggle d-flex mb-3">
-            <button
-              className={`btn btn-outline-secondary ${system === "generation" ? "active" : ""}`}
-              onClick={() => setSystem("generation")}
-            >
-              Генерация
-            </button>
 
-            <button
-              className={`btn btn-outline-secondary ${system === "refill" ? "active" : ""}`}
-              onClick={() => setSystem("refill")}
-            >
-              Заправка баллонов
-            </button>
+  const anyIncluded = selectedEquipment.some((item) => item.includedInQuote === true);
+
+  const isEquipmentValid = selectedEquipment.every(
+    (item) =>
+      item.model !== "Укажите желаемую производительность" &&
+      item.model !== "Модель не выбрана"
+  );
+
+
+
+
+
+  return (
+    <>
+      {/* Основной блок конфигурации */}
+      <div className="bg-white py-12 px-4 max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Конфигуратор оборудования</h2>
+
+        {/* Группируем блоки в сетку 2–3–4 колонки на больших экранах */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 mb-8">
+          {/* Газ */}
+          <div>
+            <h5 className="text-sm font-semibold text-gray-700 mb-2">Газ</h5>
+            <div className="flex gap-2">
+              <button
+                className={`flex-1 px-3 py-2 border rounded text-sm ${generator === "oxygen" ? "bg-red-500 text-white" : "border-gray-300 text-gray-800"}`}
+                onClick={() => setGenerator("oxygen")}
+              >
+                Кислород
+              </button>
+              <button
+                className={`flex-1 px-3 py-2 border rounded text-sm ${generator === "nitrogen" ? "bg-red-500 text-white" : "border-gray-300 text-gray-800"}`}
+                onClick={() => setGenerator("nitrogen")}
+              >
+                Азот
+              </button>
+            </div>
           </div>
+
+          {/* Система */}
+          <div>
+            <h5 className="text-sm font-semibold text-gray-700 mb-2">Система</h5>
+            <div className="flex gap-2">
+              <button
+                className={`flex-1 px-3 py-2 border rounded text-sm ${system === "generation" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
+                onClick={() => setSystem("generation")}
+              >
+                Генерация
+              </button>
+              <button
+                className={`flex-1 px-3 py-2 border rounded text-sm ${system === "refill" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
+                onClick={() => setSystem("refill")}
+              >
+                Заправка
+              </button>
+            </div>
+          </div>
+
+          {/* Производительность заправки */}
           {system === "refill" && (
-            <div className="mt-3">
-              <h5>Выберите производительность заправочной станции</h5>
+            <div>
+              <h5 className="text-sm font-semibold text-gray-700 mb-2">Производ. заправки</h5>
               <select
-                className="form-select"
+                className="w-full border px-3 py-2 rounded text-sm text-black bg-white"
                 value={refillCapacity}
                 onChange={(e) => setRefillCapacity(e.target.value)}
               >
-                <option value="20">20 баллонов в сутки</option>
-                <option value="45">45 баллонов в сутки</option>
-                <option value="65">65 баллонов в сутки</option>
-                <option value="90">90 баллонов в сутки</option>
-                <option value="125">125 баллонов в сутки</option>
+                <option value="20">20 баллонов/сутки</option>
+                <option value="45">45 баллонов/сутки</option>
+                <option value="65">65 баллонов/сутки</option>
+                <option value="90">90 баллонов/сутки</option>
+                <option value="125">125 баллонов/сутки</option>
               </select>
-              <br></br>
             </div>
-
           )}
 
-
-
-
-          {generator === "oxygen" ? (
+          {/* Кислород — чистота и давление */}
+          {generator === "oxygen" && (
             <>
-              <h5>Выберите чистоту кислорода</h5>
-              <div className="btn-group btn-group-toggle d-flex mb-3">
-                <button
-                  className={`btn btn-outline-secondary ${purity === "90" ? "active" : ""}`}
-                  onClick={() => setPurity("90")}
-                >
-                  90%
-                </button>
-                <button
-                  className={`btn btn-outline-secondary ${purity === "93" ? "active" : ""}`}
-                  onClick={() => setPurity("93")}
-                >
-                  93%
-                </button>
+              <div>
+                <h5 className="text-sm font-semibold text-gray-700 mb-2">Чистота кислорода</h5>
+                <div className="flex gap-2">
+                  <button
+                    className={`flex-1 px-3 py-2 border rounded text-sm ${purity === "93" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
+                    onClick={() => setPurity("93")}
+                  >
+                    93%
+                  </button>
+                  <button
+                    className={`flex-1 px-3 py-2 border rounded text-sm ${purity === "custom" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
+                    onClick={() => setPurity("custom")}
+                  >
+                    Нестандарт
+                  </button>
+                </div>
               </div>
-              <h5>Выберите давление</h5>
-              <div className="btn-group btn-group-toggle d-flex mb-3">
-                <button
-                  className={`btn btn-outline-secondary ${pressure === "5bar" ? "active" : ""}`}
-                  onClick={() => setPressure("5bar")}
-                >
-                  5 бар
-                </button>
-                <button
-                  className={`btn btn-outline-secondary ${pressure === "custom" ? "active" : ""}`}
-                  onClick={() => setPressure("custom")}
-                >
-                  Нестандартное
-                </button>
+
+              <div>
+                <h5 className="text-sm font-semibold text-gray-700 mb-2">Давление</h5>
+                <div className="flex gap-2">
+                  <button
+                    className={`flex-1 px-3 py-2 border rounded text-sm ${pressure === "5bar" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
+                    onClick={() => setPressure("5bar")}
+                  >
+                    5 бар
+                  </button>
+                  <button
+                    className={`flex-1 px-3 py-2 border rounded text-sm ${pressure === "custom" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
+                    onClick={() => setPressure("custom")}
+                  >
+                    Нестандарт
+                  </button>
+                </div>
               </div>
             </>
-          ) : (
+          )}
+
+          {/* Азот — ползунки */}
+          {generator === "nitrogen" && (
             <>
-              <h5>Настройки для азота</h5>
-
-
-
-
-              {/* Ползунок чистоты газа */}
-              <div className="row justify-content-center">
-                <div className="col-12 container-fluid">
-
-                  <div className="range-item">
-                    <label>Чистота азота: <strong>{nitrogenPurityOptions[nitrogenPurityIndex]}</strong></label>
-
-                    <div className="range-input d-flex position-relative">
-                      <input
-                        type="range"
-                        min="0"
-                        max={nitrogenPurityOptions.length - 1}
-                        step="1"
-                        className="form-range"
-                        value={nitrogenPurityIndex}
-                        onChange={handlePurityChange}
-                      />
-                      <div className="range-line">
-                        <span className="active-line"></span>
-                      </div>
-                      <div className="dot-line">
-                        <span className="active-dot"></span>
-                      </div>
-                    </div>
-
-                    <ul className="list-inline list-unstyled">
-                      {nitrogenPurityOptions.map((val, index) => (
-                        <li key={index} className="list-inline-item">
-                          <span>{val}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                </div>
-              </div>
-
-
-
-
-
-              {/* Ползунок давления */}
-              <div className="range-item">
-                <label>Давление: <strong>{nitrogenPressureOptions[nitrogenPressureIndex]} бар</strong></label>
-
-                <div className="range-input d-flex position-relative">
-                  <input
-                    type="range"
-                    min="0"
-                    max={nitrogenPressureOptions.length - 1}
-                    step="1"
-                    className="form-range"
-                    value={nitrogenPressureIndex}
-                    onChange={handlePressureChange}
-                  />
-                  <div className="range-line">
-                    <span className="active-line"></span>
-                  </div>
-                  <div className="dot-line">
-                    <span className="active-dot"></span>
-                  </div>
-                </div>
-
-                <ul className="list-inline list-unstyled">
-                  {nitrogenPressureOptions.map((val, index) => (
-                    <li key={index} className="list-inline-item">
-                      <span>{val}</span>
-                    </li>
+              <div className="col-span-full">
+                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                  Чистота азота: <span className="font-bold">{nitrogenPurityOptions[nitrogenPurityIndex]}</span>
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max={nitrogenPurityOptions.length - 1}
+                  value={nitrogenPurityIndex}
+                  onChange={handlePurityChange}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  {nitrogenPurityOptions.map((val, index) => (
+                    <span key={index}>{val}</span>
                   ))}
-                </ul>
+                </div>
               </div>
 
+              <div className="col-span-full">
+                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                  Давление: <span className="font-bold">{nitrogenPressureOptions[nitrogenPressureIndex]} бар</span>
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max={nitrogenPressureOptions.length - 1}
+                  value={nitrogenPressureIndex}
+                  onChange={handlePressureChange}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  {nitrogenPressureOptions.map((val, index) => (
+                    <span key={index}>{val}</span>
+                  ))}
+                </div>
+              </div>
 
-
-              {/* Ползунок точки росы */}
-              <div className="row justify-content-center">
-                <div className="col-12 container-fluid">
-
-                  <div className="range-item">
-                    <label>
-                      Точка росы: <strong>{selectedDewPoint} °C</strong>
-                    </label>
-
-                    <div className="range-input d-flex position-relative">
-                      <input
-                        type="range"
-                        min="-70"
-                        max="-20"
-                        step="10"
-                        className="form-range"
-                        value={selectedDewPoint}
-                        onChange={(e) => setSelectedDewPoint(parseInt(e.target.value))}
-                      />
-                      <div className="range-line">
-                        <span className="active-line"></span>
-                      </div>
-                      <div className="dot-line">
-                        <span className="active-dot"></span>
-                      </div>
-                    </div>
-
-                    <ul className="list-inline list-unstyled">
-                      {nitrogenDewPointOptions.map((val, index) => (
-                        <li key={index} className="list-inline-item">
-                          <span>{val}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              <div className="col-span-full">
+                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                  Точка росы: <span className="font-bold">{selectedDewPoint} °C</span>
+                </label>
+                <input
+                  type="range"
+                  min="-70"
+                  max="-20"
+                  step="10"
+                  value={selectedDewPoint}
+                  onChange={(e) => setSelectedDewPoint(parseInt(e.target.value))}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  {nitrogenDewPointOptions.map((val, index) => (
+                    <span key={index}>{val}</span>
+                  ))}
                 </div>
               </div>
             </>
-
-
-
-
-
-
-
           )}
         </div>
-        <div className="col-md-6 px-5">
-          <h5>Введите желаемую производительность по газу для подбора оборудования</h5>
-          <div className="input-group mb-3">
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Укажите производительность"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-            <select
-              className="form-select"
-              value={unit}
-              onChange={(e) => setUnit(e.target.value)}
-            >
-              <option value="m3h">м³/час</option>
-              <option value="lmin">л/мин</option>
-              <option value="kgh">кг/час</option>
-            </select>
-          </div>
-          <p><strong>Подобранный генератор:</strong> {selectedModel || "—"}</p>
-          <p><strong>Общая цена установки:</strong> {calculateTotalPrice()} рублей</p>
-          <div className="text-center">
-            <button className="btn btn-success" onClick={handleGeneratePdf}>
-              Получить КП на эту конфигурацию
-            </button>
-          </div>
 
-
-        </div>
-      </div>
-      <div className="container-fluid mt-4">
-        <div className="row">
-          <div className="col-12">
-            <h5>Подобранное оборудование</h5>
-            <div className="d-flex flex-wrap justify-content-center w-100">
-              {selectedEquipment.map((item, index) => (
-                <div key={index}
-                  className="card border-0 d-flex flex-column align-items-width"
-                  style={{ flex: "1 1 calc(100% / 6)", maxWidth: "200px", borderRadius: "0", overflow: "hidden" }}>
-                  <img src={item.url} className="card-img-top" alt={item.model}
-                    style={{ height: "250px", objectFit: "cover", margin: "0px", marginTop: "10px" }}
-                  />
-                  <div className="card-body text-center d-flex flex-column justify-content-between"
-                    style={{ flexGrow: 1 }}>
-                    <h6 className="card-title" style={{ marginBottom: "10px" }}>{item.model}</h6>
-                    <p className="card-text">Цена: {item.price} ₽</p>
-                  </div>
-                </div>
-              ))}
+        {/* Производительность + результат */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          {/* Ввод */}
+          <div>
+            <h5 className="text-sm font-semibold text-gray-700 mb-2">Производительность</h5>
+            <div className="flex gap-2">
+              <input
+                type="number"
+                className="w-full border px-3 py-2 rounded text-sm text-black bg-white"
+                placeholder="Введите значение"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <select
+                className="border px-3 py-2 rounded text-sm text-black bg-white"
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+              >
+                <option value="m3h">м³/час</option>
+                <option value="lmin">л/мин</option>
+                <option value="kgh">кг/час</option>
+              </select>
             </div>
           </div>
+
+          {/* Информация */}
+          <div className="text-sm text-gray-800 space-y-2">
+            <p><strong>Подобранный генератор:</strong> {selectedModel || "—"}</p>
+            <p><strong>Общая цена установки:</strong> {calculateTotalPrice()} ₽</p>
+          </div>
         </div>
       </div>
 
-  
+      {/* Оборудование — на всю ширину страницы */}
+      <div className="bg-white py-12 px-4 w-full">
+        <h5 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Подобранное оборудование</h5>
+        <div className="flex flex-wrap justify-center">
+          {selectedEquipment.map((item, index) => {
+            const hasValidModel = item?.model && item.model !== "Модель не выбрана" && item.model !== "Укажите желаемую производительность";
+            return (
+              <div
+              key={index}
+              className="flex flex-col justify-between bg-white rounded shadow-md w-48 h-80 m-2"
+            >
+              <img
+                src={item.url}
+                alt={item.model}
+                className="w-full h-32 object-contain mt-4"
+              />
+              <div className="flex flex-col justify-between flex-grow px-4 pb-4 text-center">
+                <div>
+                  <h6 className="text-sm font-semibold text-gray-800 mb-1">{item.model}</h6>
+                  <p className="text-gray-600 text-xs mb-1">{item.type}</p>
+                  <p className="text-gray-800 text-sm font-medium mb-3">Цена: {item.price} ₽</p>
+                </div>
+                <label className="inline-flex items-center justify-center text-xs text-gray-700 mt-auto">
+                  <input
+                    type="checkbox"
+                    className={`form-checkbox mr-2 ${
+                      !hasValidModel || purity === "custom" || pressure === "custom"
+                        ? "opacity-50 cursor-not-allowed"
+                        : "text-red-500"
+                    }`}
+                    checked={item.includedInQuote || false}
+                    onChange={() => toggleIncludeInQuote(index)}
+                    disabled={!hasValidModel || purity === "custom" || pressure === "custom"}
+                  />
+                  Включить в КП
+                </label>
+              </div>
+            </div>
+            
 
+            );
+          })}
+        </div>
 
-    </div>
+        {/* Кнопка под оборудованием */}
+        <div className="bg-white text-center mt-10">
+          {(purity === "custom" || pressure === "custom") ? (
+            <button
+              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded transition duration-300"
+              onClick={() => console.log("Открыть форму уточнения")}
+            >
+              Уточнить характеристики
+            </button>
+          ) : (
+            isEquipmentValid && anyIncluded && (
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded transition duration-300"
+                onClick={handleGeneratePdf}
+              >
+                Получить КП на эту конфигурацию
+              </button>
+            )
+          )}
+        </div>
+      </div>
+    </>
   );
+
+
+
 };
 
 export default Config;
