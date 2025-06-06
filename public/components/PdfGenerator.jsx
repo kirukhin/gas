@@ -197,26 +197,17 @@ export const generatePdf = async ({
           height: 92,
         },
         {
-          columns: [
-            {
-              width: '*',
-              text: '', // пустой столбец для выравнивания
-            },
-            {
-              width: 'auto',
-              text: "БлицГаз    8 (812) 334-56-38    info@blitzgas.ru",
-              fontSize: 18,
-              alignment: 'center',
-              margin: [0, -65, 40, 0], // подняли текст вверх внутри изображения
-            },
-            {
-              width: '*',
-              text: '', // пустой столбец для выравнивания
-            },
-          ]
+          text: "БлицГаз    8 (812) 334-56-38    info@blitzgas.ru",
+          fontSize: 20,
+          bold: true,
+          font: 'Roboto',
+          alignment: 'center',
+          margin: [0, -50, 0, 0], // немного опустили текст
         }
       ]
     }),
+    
+    
     
     content: [
       {
