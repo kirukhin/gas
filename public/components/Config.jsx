@@ -664,7 +664,7 @@ const Config = () => {
       </button>
       <h2 className="text-xl text-black font-bold mb-4">Вы выбрали нестандартное оборудование</h2>
       <p className="mb-4 text-gray-700">Свяжитесь с нашим менеджером, чтобы уточнить детали.</p>
-      <form method="POST" action="https://script.google.com/macros/s/AKfycbzcDZSe-bHpERzF9nZxX5yyydmT19Qn88o7hramPvcC-0gds1MOnYuZUl1MuGkr5-_giA/exec" className="space-y-4">
+      <form method="POST" action="https://script.google.com/macros/s/AKfycbz3bh5QgSzyn9mfbc7bQhkN1A6sV7yWM6Kj6IKkZicKiiXeyFmo9h1jBA5E2xV15E-R8w/exec" className="space-y-4">
   <input
     type="text"
     name="name"
