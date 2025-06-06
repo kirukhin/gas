@@ -185,15 +185,36 @@ export const generatePdf = async ({
       margin: [0, 0, 0, 0],
       stack: [
         { image: headerBase64, width: 595.28, height: 92 },
-        { image: logoBase64, width: 100, margin: [20, -70, 0, 0], link: "https://kirukhin.github.io/gas/" }
+        { image: logoBase64, width: 200, margin: [20, -70, 0, 0], link: "https://blitzgas.ru" }
       ]
     },
-    footer: () => ({
-      margin: [40, 0, 40, 0],
-      text: "БлицГаз    8 (812) 334-56-38    info@blitzgas.ru",
-      alignment: "center",
-      fontSize: 10
+    footer: (currentPage, pageCount) => ({
+      margin: [0, 0, 0, 0],
+      stack: [
+        {
+          image: footerBase64,
+          width: 595.28,
+          height: 92,
+        },
+        {
+          columns: [
+            {
+              width: '*',
+              text: '', // пустой столбец для выравнивания
+            },
+            {
+              width: 'auto',
+              text: "БлицГаз    8 (812) 334-56-38    info@blitzgas.ru",
+              fontSize: 11,
+              alignment: 'right',
+              margin: [0, -65, 40, 0], // подняли текст вверх внутри изображения
+              
+            }
+          ]
+        }
+      ]
     }),
+    
     content: [
       {
         stack: [
