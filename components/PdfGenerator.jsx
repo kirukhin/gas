@@ -205,11 +205,14 @@ export const generatePdf = async ({
             {
               width: 'auto',
               text: "БлицГаз    8 (812) 334-56-38    info@blitzgas.ru",
-              fontSize: 11,
-              alignment: 'right',
+              fontSize: 18,
+              alignment: 'center',
               margin: [0, -65, 40, 0], // подняли текст вверх внутри изображения
-              
-            }
+            },
+            {
+              width: '*',
+              text: '', // пустой столбец для выравнивания
+            },
           ]
         }
       ]
