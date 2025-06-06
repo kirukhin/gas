@@ -25,9 +25,9 @@ const Config = () => {
   const [unit, setUnit] = useState("m3h");             // Единицы измерения
   const [refillCapacity, setRefillCapacity] = useState("20"); // Произаодительность перезаправки
   const [selectedModel, setSelectedModel] = useState(null); // строка
-const [selectedModelData, setSelectedModelData] = useState(null); // объект
+  const [selectedModelData, setSelectedModelData] = useState(null); // объект
+  const [showModal, setShowModal] = useState(false);
 
-  // const [selectedKompressor, setSelectedKompressor] = useState(null);
 
 
 
@@ -76,8 +76,8 @@ const [selectedModelData, setSelectedModelData] = useState(null); // объек�
       selectedEquipment
     });
   };
-  
-  
+
+
 
   // --- обработчик чекбокса включения в КП ---
 
@@ -596,37 +596,36 @@ const [selectedModelData, setSelectedModelData] = useState(null); // объек�
             const hasValidModel = item?.model && item.model !== "Модель не выбрана" && item.model !== "Укажите желаемую производительность";
             return (
               <div
-              key={index}
-              className="flex flex-col justify-between bg-white rounded shadow-md w-48 h-80 m-2"
-            >
-              <img
-                src={item.url}
-                alt={item.model}
-                className="w-full h-32 object-contain mt-4"
-              />
-              <div className="flex flex-col justify-between flex-grow px-4 pb-4 text-center">
-                <div>
-                  <h6 className="text-sm font-semibold text-gray-800 mb-1">{item.model}</h6>
-                  <p className="text-gray-600 text-xs mb-1">{item.type}</p>
-                  <p className="text-gray-800 text-sm font-medium mb-3">Цена: {item.price} ₽</p>
+                key={index}
+                className="flex flex-col justify-between bg-white rounded shadow-md w-48 h-80 m-2"
+              >
+                <img
+                  src={item.url}
+                  alt={item.model}
+                  className="w-full h-32 object-contain mt-4"
+                />
+                <div className="flex flex-col justify-between flex-grow px-4 pb-4 text-center">
+                  <div>
+                    <h6 className="text-sm font-semibold text-gray-800 mb-1">{item.model}</h6>
+                    <p className="text-gray-600 text-xs mb-1">{item.type}</p>
+                    <p className="text-gray-800 text-sm font-medium mb-3">Цена: {item.price} ₽</p>
+                  </div>
+                  <label className="inline-flex items-center justify-center text-xs text-gray-700 mt-auto">
+                    <input
+                      type="checkbox"
+                      className={`form-checkbox mr-2 ${!hasValidModel || purity === "custom" || pressure === "custom"
+                          ? "opacity-50 cursor-not-allowed"
+                          : "text-red-500"
+                        }`}
+                      checked={item.includedInQuote || false}
+                      onChange={() => toggleIncludeInQuote(index)}
+                      disabled={!hasValidModel || purity === "custom" || pressure === "custom"}
+                    />
+                    Включить в КП
+                  </label>
                 </div>
-                <label className="inline-flex items-center justify-center text-xs text-gray-700 mt-auto">
-                  <input
-                    type="checkbox"
-                    className={`form-checkbox mr-2 ${
-                      !hasValidModel || purity === "custom" || pressure === "custom"
-                        ? "opacity-50 cursor-not-allowed"
-                        : "text-red-500"
-                    }`}
-                    checked={item.includedInQuote || false}
-                    onChange={() => toggleIncludeInQuote(index)}
-                    disabled={!hasValidModel || purity === "custom" || pressure === "custom"}
-                  />
-                  Включить в КП
-                </label>
               </div>
-            </div>
-            
+
 
             );
           })}
@@ -636,11 +635,12 @@ const [selectedModelData, setSelectedModelData] = useState(null); // объек�
         <div className="bg-white text-center mt-10">
           {(purity === "custom" || pressure === "custom") ? (
             <button
-              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded transition duration-300"
-              onClick={() => console.log("Открыть форму уточнения")}
-            >
-              Уточнить характеристики
-            </button>
+            className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded transition duration-300"
+            onClick={() => setShowModal(true)}
+          >
+            Уточнить характеристики
+          </button>
+          
           ) : (
             isEquipmentValid && anyIncluded && (
               <button
@@ -653,6 +653,59 @@ const [selectedModelData, setSelectedModelData] = useState(null); // объек�
           )}
         </div>
       </div>
+      {showModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+    <div className="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
+      <button
+        className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+        onClick={() => setShowModal(false)}
+      >
+        ×
+      </button>
+      <h2 className="text-xl text-black font-bold mb-4">Вы выбрали нестандартное оборудование</h2>
+      <p className="mb-4 text-gray-700">Свяжитесь с нашим менеджером, чтобы уточнить детали.</p>
+      <form method="POST" action="https://script.google.com/macros/s/AKfycbzcDZSe-bHpERzF9nZxX5yyydmT19Qn88o7hramPvcC-0gds1MOnYuZUl1MuGkr5-_giA/exec" className="space-y-4">
+  <input
+    type="text"
+    name="name"
+    required
+    placeholder="Имя / Компания"
+    className="w-full px-4 py-2 border rounded text-black"
+  />
+  <input
+    type="email"
+    name="email"
+    required
+    placeholder="E-mail для обратной связи"
+    className="w-full px-4 py-2 border rounded text-black"
+  />
+  <textarea
+    name="message"
+    required
+    placeholder="Ваш запрос"
+    className="w-full px-4 py-2 border rounded text-black h-28 resize-none"
+  />
+  <div className="flex justify-between">
+    <button
+      type="submit"
+      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded"
+    >
+      Отправить
+    </button>
+    <button
+      type="button"
+      className="text-gray-600 hover:underline"
+      onClick={() => setShowModal(false)}
+    >
+      Отмена
+    </button>
+  </div>
+</form>
+
+    </div>
+  </div>
+)}
+
     </>
   );
 
