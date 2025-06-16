@@ -1,6 +1,7 @@
 const data = {
   nitrogen: {
     "N-15": {
+      "id": "N15",
       "model": "Генератор азота N-15",
       "url": "/adsorber.png",
       "price": 15000,
@@ -33,6 +34,7 @@ const data = {
       }
     },
     "N-30": {
+      "id": "N30",
       "model": "Генератор азота N-30",
       "url": "/adsorber.png",
       "price": 15000,
@@ -65,6 +67,7 @@ const data = {
       }
     },
     "N-45": {
+      "id": "N45",
       "model": "Генератор азота N-45",
       "url": "/adsorber.png",
       "price": 15000,
@@ -76,7 +79,7 @@ const data = {
           "price": 15000
         },
         "nResiver": {
-          "model": "Ресивер азотный 1000 л",
+          "model": "Ресивер азотный 1000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 1.0 * 1000,
           "price": 15000
@@ -97,6 +100,7 @@ const data = {
       }
     },
     "N-60": {
+      "id": "N60",
       "model": "Генератор азота N-60",
       "url": "/adsorber.png",
       "price": 15000,
@@ -128,7 +132,8 @@ const data = {
         ]
       }
     },
-    "N-75": {
+    "N-75": {      
+      "id": "N75",
       "model": "Генератор азота N-75",
       "url": "/adsorber.png",
       "price": 15000,
@@ -161,6 +166,7 @@ const data = {
       }
     },
     "N-90": {
+      "id": "N90",
       "model": "Генератор азота N-90",
       "url": "/adsorber.png",
       "price": 15000,
@@ -193,6 +199,7 @@ const data = {
       }
     },
     "N-110": {
+      "id": "N110",
       "model": "Генератор азота N-110",
       "url": "/adsorber.png",
       "price": 15000,
@@ -225,6 +232,7 @@ const data = {
       }
     },
     "N-135": {
+      "id": "N135",
       "model": "Генератор азота N-135",
       "url": "/adsorber.png",
       "price": 15000,
@@ -257,6 +265,7 @@ const data = {
       }
     },
     "N-165": {
+      "id": "N165",
       "model": "Генератор азота N-165",
       "url": "/adsorber.png",
       "price": 15000,
@@ -289,6 +298,7 @@ const data = {
       }
     },
     "N-200": {
+      "id": "N200",
       "model": "Генератор азота N-200",
       "url": "/adsorber.png",
       "price": 15000,
@@ -321,6 +331,7 @@ const data = {
       }
     },
     "N-240": {
+      "id": "N240",
       "model": "Генератор азота N-240",
       "url": "/adsorber.png",
       "price": 15000,
@@ -353,6 +364,7 @@ const data = {
       }
     },
     "N-300": {
+      "id": "N300",
       "model": "Генератор азота N-300",
       "url": "/adsorber.png",
       "price": 15000,
@@ -385,6 +397,7 @@ const data = {
       }
     },
     "N-400": {
+      "id": "N400",
       "model": "Генератор азота N-400",
       "url": "/adsorber.png",
       "price": 15000,
@@ -417,6 +430,7 @@ const data = {
       }
     },
     "N-500": {
+      "id": "N500",
       "model": "Генератор азота N-500",
       "url": "/adsorber.png",
       "price": 15000,
@@ -449,6 +463,7 @@ const data = {
       }
     },
     "N-600": {
+      "id": "N600",
       "model": "Генератор азота N-600",
       "url": "/adsorber.png",
       "price": 15000,
@@ -480,7 +495,8 @@ const data = {
         ]
       }
     },
-    "N-750": {
+    "N-750": {      
+      "id": "N750",
       "model": "Генератор азота N-750",
       "url": "/adsorber.png",
       "price": 15000,
@@ -513,6 +529,7 @@ const data = {
       }
     },
     "N-900": {
+      "id": "N900",
       "model": "Генератор азота N-900",
       "url": "/adsorber.png",
       "price": 15000,
@@ -545,6 +562,7 @@ const data = {
       }
     },
     "N-1050": {
+      "id": "N1050",
       "model": "Генератор азота N-1050",
       "url": "/adsorber.png",
       "price": 15000,
@@ -577,6 +595,7 @@ const data = {
       }
     },
     "N-1200": {
+      "id": "N1200",
       "model": "Генератор азота N-1200",
       "url": "/adsorber.png",
       "price": 15000,
@@ -609,6 +628,7 @@ const data = {
       }
     },
     "N-1350": {
+      "id": "N1350",
       "model": "Генератор азота N-1350",
       "url": "/adsorber.png",
       "price": 15000,
@@ -641,6 +661,7 @@ const data = {
       }
     },
     "N-1500": {
+      "id": "N1500",
       "model": "Генератор азота N-1500",
       "url": "/adsorber.png",
       "price": 15000,
@@ -673,6 +694,7 @@ const data = {
       }
     },
     "N-1700": {
+      "id": "N1700",
       "model": "Генератор азота N-1700",
       "url": "/adsorber.png",
       "price": 15000,
@@ -705,6 +727,7 @@ const data = {
       }
     },
     "N-1900": {
+      "id": "N1900",
       "model": "Генератор азота N-1900",
       "url": "/adsorber.png",
       "price": 15000,
@@ -737,6 +760,7 @@ const data = {
       }
     },
     "N-2100": {
+      "id": "N2100",
       "model": "Генератор азота N-2100",
       "url": "/adsorber.png",
       "price": 15000,
@@ -771,6 +795,7 @@ const data = {
   },
   oxygen: {
     "O-5": {
+      "id": "O5",
       "model": "Генератор кислорода O-5",
       "url": "/adsorber.png",
       "price": 15000,
@@ -794,6 +819,7 @@ const data = {
       }
     },
     "O-10": {
+      "id": "O10",
       "model": "Генератор кислорода O-10",
       "url": "/adsorber.png",
       "price": 15000,
@@ -817,6 +843,7 @@ const data = {
       }
     },
     "O-15": {
+      "id": "O15",
       "model": "Генератор кислорода O-15",
       "url": "/adsorber.png",
       "price": 15000,
@@ -840,6 +867,7 @@ const data = {
       }
     },
     "O-20": {
+      "id": "O20",
       "model": "Генератор кислорода O-20",
       "url": "/adsorber.png",
       "price": 15000,
@@ -863,6 +891,7 @@ const data = {
       }
     },
     "O-30": {
+      "id": "O30",
       "model": "Генератор кислорода O-30",
       "url": "/adsorber.png",
       "price": 15000,
@@ -886,6 +915,7 @@ const data = {
       }
     },
     "O-40": {
+      "id": "O40",
       "model": "Генератор кислорода O-40",
       "url": "/adsorber.png",
       "price": 15000,
@@ -909,6 +939,7 @@ const data = {
       }
     },
     "O-50": {
+      "id": "O50",
       "model": "Генератор кислорода O-50",
       "url": "/adsorber.png",
       "price": 15000,
@@ -932,6 +963,7 @@ const data = {
       }
     },
     "O-60": {
+      "id": "O60",
       "model": "Генератор кислорода O-60",
       "url": "/adsorber.png",
       "price": 15000,
@@ -955,6 +987,7 @@ const data = {
       }
     },
     "O-80": {
+      "id": "O80",
       "model": "Генератор кислорода O-80",
       "url": "/adsorber.png",
       "price": 15000,
@@ -978,6 +1011,7 @@ const data = {
       }
     },
     "O-100": {
+      "id": "O100",
       "model": "Генератор кислорода O-100",
       "url": "/adsorber.png",
       "price": 15000,
@@ -1001,100 +1035,7 @@ const data = {
       }
     }
   },
-  kompressor: {
-    "5bar": {
-      "model": "Компрессор, 5 бар",
-      "url": "/compressor.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "pressure": 5
-    },
-    "6bar": {
-      "model": "Компрессор, 6 бар",
-      "url": "/compressor.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "pressure": 6
-    },
-    "7bar": {
-      "model": "Компрессор, 7 бар",
-      "url": "/compressor.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "pressure": 7
-    },
-    "8bar": {
-      "model": "Компрессор, 8 бар",
-      "url": "/compressor.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "pressure": 8
-    },
-    "9bar": {
-      "model": "Компрессор, 9 бар",
-      "url": "/compressor.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "pressure": 9
-    },
-    "10bar": {
-      "model": "Компрессор, 10 бар",
-      "url": "/compressor.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "pressure": 10
-    },
-    "11bar": {
-      "model": "Компрессор, 11 бар",
-      "url": "/compressor.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "pressure": 11
-    },
-    "12bar": {
-      "model": "Компрессор, 12 бар",
-      "url": "/compressor.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "pressure": 12
-    },
-    "13bar": {
-      "model": "Компрессор, 13 бар",
-      "url": "/compressor.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "pressure": 13
-    },
-  },
-  osyshitel: {
-    "Os-20": {
-      "model": "Рефрижираторный осушитель, -20 °C",
-      "url": "/osyshitel.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "dewPoint": -20
-    },
-    "Os-30": {
-      "model": "Рефрижираторный осушитель, -30 °C",
-      "url": "/osyshitel.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "dewPoint": -30
-    },
-    "Os-40": {
-      "model": "Рефрижираторный осушитель, -40 °C",
-      "url": "/osyshitel.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "dewPoint": -40
-    },
-    "Os-50": {
-      "model": "Рефрижираторный осушитель, -50 °C",
-      "url": "/osyshitel.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "dewPoint": -50
-    },
-    "Os-60": {
-      "model": "Адсорбционный осушитель, -60 °C",
-      "url": "/osyshitel.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "dewPoint": -60
-    },
-    "Os-70": {
-      "model": "Адсорбционный осушитель, -70 °C",
-      "url": "/osyshitel.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "dewPoint": -70
-    }
-  },
+ 
   dKompressor: {
     "dcomp": {
       "model": "Дожимной компрессор",
@@ -1137,10 +1078,11 @@ const data = {
   },
   filtr: {
     "filtr": {
-      "model": "Трехступенчатый блок фильтров",
-      "url": "/filtr.png",
-      "price": Math.floor(Math.random() * 10) + 1,
-      "capacity": 1
+      "id": "FILTR",
+      model: "Трехступенчатый блок фильтров",
+      url: "/filtr.png",
+      price: Math.floor(Math.random() * 10) + 1,
+      capacity: 1
     }
   }
 }

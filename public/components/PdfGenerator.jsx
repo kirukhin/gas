@@ -93,7 +93,7 @@ export const generatePdf = async ({
     else convertedValue = productivityValue.toFixed(1);
   }
 
-  techSpecs.push(["Производительность", `${convertedValue} ${unitLabel}`]);
+  techSpecs.push(["Производительность", `${inputValue} ${unitLabel}`]);
   if (system === "refill") {
     techSpecs.push(["Производительность (в баллонах)", `${refillCapacity} баллонов в сутки`]);
   }
@@ -128,54 +128,71 @@ export const generatePdf = async ({
 
 
   // === Блок "Список оборудования" ===
-  const equipmentCards = await Promise.all(includedItems.map(async (item) => {
-    const id = item.id || item.model;
-    const info = equipmentInfo[id] || {};
-    const imgBase64 = info.image ? await getBase64ImageFromUrl(new URL(info.image, import.meta.url).href) : null;
-
-    return [
-      {
+  const equipmentCards = await Promise.all(
+    includedItems.map(async (item) => {
+      const id = item.id || item.model;
+      const info = equipmentInfo[id] || {};
+      const imgBase64 = info.image
+        ? await getBase64ImageFromUrl(new URL(info.image, import.meta.url).href)
+        : null;
+  
+      return {
         table: {
-          widths: ["*"],
-          body: [[
-            {
-              text: info.name || item.model,
-              fillColor: "#c00000",
-              color: "white",
-              bold: true,
-              fontSize: 13,
-              alignment: "center"
-            }
-          ]]
+          widths: ["*", "*"],
+          body: [
+            [
+              {
+                colSpan: 2,
+                text: info.name || item.name || item.model,
+                fillColor: "#c00000",
+                color: "white",
+                bold: true,
+                fontSize: 13,
+                alignment: "center",
+                margin: [0, 5, 0, 5],
+              },
+              {},
+            ],
+            [
+              imgBase64
+                ? {
+                    image: imgBase64,
+                    width: 120,
+                    height: 120,
+                    margin: [0, 0, 10, 0],
+                  }
+                : { text: "Нет изображения", italics: true, color: "gray" },
+              {
+                text: info.description || "Описание недоступно",
+                fontSize: 10,
+                margin: [0, 0, 0, 0],
+              },
+            ],
+            [
+              {
+                colSpan: 2,
+                text: `Цена: ${(item.price || 0).toLocaleString("ru-RU")} ₽ с НДС`,
+                fillColor: "#f2f2f2",
+                alignment: "right", // <— выравнивание вправо
+                bold: true,
+                margin: [0, 5, 10, 5], // чуть правее
+              },
+              {},
+            ],
+          ],
         },
-        layout: "noBorders",
-        margin: [0, 20, 0, 10]
-      },
-      {
-        columns: [
-          imgBase64
-            ? {
-              image: imgBase64,
-              width: 120,
-              height: 120,
-              margin: [0, 0, 10, 0]
-            }
-            : {},
-          {
-            text: info.description || "Описание недоступно",
-            fontSize: 10
-          }
-        ]
-      },
-      {
-        text: `Цена: ${(item.price || 0).toLocaleString("ru-RU")} ₽ с НДС`,
-        fillColor: "#f2f2f2",
-        alignment: "center",
-        bold: true,
-        margin: [0, 10, 0, 20]
-      }
-    ];
-  }));
+        layout: {
+          hLineWidth: () => 1,
+          vLineWidth: () => 1,
+          hLineColor: () => "#000000",
+          vLineColor: () => "#000000",
+        },
+        margin: [0, 20, 0, 10],
+      };
+    })
+  );
+  
+
 
   // === Генерация документа ===
   const docDefinition = {
@@ -206,9 +223,9 @@ export const generatePdf = async ({
         }
       ]
     }),
-    
-    
-    
+
+
+
     content: [
       {
         stack: [
@@ -218,10 +235,22 @@ export const generatePdf = async ({
           {
             table: {
               widths: ["*", "*"],
-              body: techSpecs
+              body: [
+                [
+                  { text: "Параметр", bold: true, fillColor: "#c00000", color: "white" },
+                  { text: "Значение", bold: true, fillColor: "#c00000", color: "white" }
+                ],
+                ...techSpecs.slice(1)
+              ]
             },
-            layout: "lightHorizontalLines"
+            layout: {
+              fillColor: function (rowIndex) {
+                return rowIndex % 2 === 0 ? null : "#f9f9f9";
+              }
+            },
+            margin: [0, 0, 0, 20]
           },
+
           {
             text: gas === "oxygen" ? "O₂" : "N₂",
             fontSize: 80,

@@ -146,12 +146,40 @@ const Config = () => {
     return scheme;
   };
 
+
   // --- Поиск подходящего оборудования ---
   useEffect(() => {
     const findEquipment = () => {
       const equipmentScheme = getEquipmentScheme();
 
-      // --- Функция выбора ближайшего оборудования по целевому значению ---
+      const convertToM3h = (value, unit) => {
+        const num = parseFloat(value);
+        if (isNaN(num)) return 0;
+        switch (unit) {
+          case "lmin":
+            return (num / 1000) * 60;
+          case "kgh":
+            return num / 1.2506;
+          default:
+            return num;
+        }
+      };
+
+      const convertedValueM3H = convertToM3h(inputValue, unit);
+
+      // === ВАЛИДАЦИЯ производительности ===
+      if (!inputValue || isNaN(convertedValueM3H) || convertedValueM3H <= 0) {
+        const equipmentDetails = equipmentScheme.map(() => ({
+          model: "Укажите корректную производительность",
+          url: baseImg,
+          price: 0,
+        }));
+        setSelectedEquipment(equipmentDetails);
+        setSelectedModel(null);
+        setSelectedModelData(null);
+        return;
+      }
+
       const findClosestMatch = (dataCategory, key, targetValue) => {
         if (!data[dataCategory]) return null;
         return Object.values(data[dataCategory]).reduce((prev, curr) =>
@@ -159,7 +187,6 @@ const Config = () => {
         );
       };
 
-      // --- Карта изображений по ключам схемы ---
       const imageMap = {
         oAdsorber: adsorberImg,
         nAdsorber: adsorberImg,
@@ -170,104 +197,55 @@ const Config = () => {
         rampa: rampaImg,
       };
 
-      // --- Если пользователь не ввел значение производительности, показываем "пустое" оборудование ---
-      const numericValue = parseFloat(inputValue);
-      if (!inputValue || isNaN(numericValue)) {
-        const equipmentDetails = equipmentScheme.map((key) => ({
-          model: "Укажите желаемую производительность",
-          url: baseImg,
-          price: 0
-        }));
-        setSelectedEquipment(equipmentDetails);
-        setSelectedModel(null);
-        return;
-      }
-
-      // --- Конвертация введенной производительности в м³/ч ---
-      const convertToM3h = (value, unit) => {
-        const num = parseFloat(value);
-        if (isNaN(num)) return 0;
-        if (unit === 'lmin') return (num / 1000) * 60;
-        if (unit === 'kgh') return num / 1.2506;
-        return num;
+      const currentPressure = generator === "oxygen" ? 7 : nitrogenPressureOptions[nitrogenPressureIndex];
+      const allowedPressures = {
+        7: [6, 7],
+        8: [8],
+        10: [9, 10],
+        12.5: [11, 12, 13],
       };
+      const pressureGroup = Object.entries(allowedPressures).find(([_, values]) => values.includes(currentPressure))?.[0];
+      const pressureTarget = parseFloat(pressureGroup);
+
+      // === Компрессор ===
+
+   // === Компрессор ===
+const matchingCompressors = compressors.filter(comp =>
+  comp.specs.some(spec =>
+    spec.pressure === pressureTarget &&
+    spec.minFlow <= convertedValueM3H &&
+    convertedValueM3H <= spec.maxFlow
+  )
+);
+matchingCompressors.sort((a, b) => {
+  const aSpec = a.specs.find(spec => spec.pressure === pressureTarget);
+  const bSpec = b.specs.find(spec => spec.pressure === pressureTarget);
+  return (aSpec?.power || Infinity) - (bSpec?.power || Infinity);
+});
+const selectedKompressor = matchingCompressors[0]
+  ? { ...matchingCompressors[0], model: matchingCompressors[0].id }
+  : null;
+
+// === Осушитель ===
+const matchingDryers = dryers.filter(d => d.flow >= convertedValueM3H);
+matchingDryers.sort((a, b) => a.power - b.power);
+const selectedOsyshitel = matchingDryers[0]
+  ? { ...matchingDryers[0], model: matchingDryers[0].id }
+  : null;
 
 
-      // --- Конвертируем введённую производительность ---
-      const convertedValueM3H = convertToM3h(inputValue, unit);
 
-      // --- Подбор компрессора ---
-      let selectedKompressor = {};
-      if (generator === "oxygen") {
-        // Давление фиксированное: 7 бар
-        const matching = compressors.filter(comp =>
-          comp.specs.some(spec =>
-            spec.pressure === 7 &&
-            spec.minFlow < convertedValueM3H &&
-            spec.maxFlow > convertedValueM3H
-          )
-        );
-
-        matching.sort((a, b) => {
-          const aSpec = a.specs.find(spec => spec.pressure === 7);
-          const bSpec = b.specs.find(spec => spec.pressure === 7);
-          return (aSpec?.power || Infinity) - (bSpec?.power || Infinity);
-        });
-
-        selectedKompressor = matching[0] || {};
-      } else {
-        // Давление: nitrogenPressureOptions[nitrogenPressureIndex]
-        const currentPressure = nitrogenPressureOptions[nitrogenPressureIndex];
-
-        const allowedPressures = {
-          7: [6, 7],
-          8: [8],
-          10: [9, 10],
-          12.5: [11, 12, 13]
-        };
-
-        const pressureGroup = Object.entries(allowedPressures)
-          .find(([_, values]) => values.includes(currentPressure))?.[0];
-
-        const pressureTarget = parseFloat(pressureGroup);
-
-        const matching = compressors.filter(comp =>
-          comp.specs.some(spec =>
-            spec.pressure === pressureTarget &&
-            spec.minFlow < convertedValueM3H &&
-            spec.maxFlow > convertedValueM3H
-          )
-        );
-
-        matching.sort((a, b) => {
-          const aSpec = a.specs.find(spec => spec.pressure === pressureTarget);
-          const bSpec = b.specs.find(spec => spec.pressure === pressureTarget);
-          return (aSpec?.power || Infinity) - (bSpec?.power || Infinity);
-        });
-
-        selectedKompressor = matching[0] || {};
-      }
-
-      // --- Подбор осушителя ---
-      const matchingDryers = dryers.filter(d => d.flow >= convertedValueM3H);
-      matchingDryers.sort((a, b) => a.power - b.power);
-      const selectedOsyshitel = matchingDryers[0] || {};
-
-
-      // --- Подбор остальных элементов ---
+      // === Остальные элементы ===
       const selectedDKompressor = data.dKompressor?.["dcomp"] || {};
       const selectedFiltr = data.filtr?.["filtr"] || {};
       const selectedRampa = findClosestMatch("rampa", "capacity", parseInt(refillCapacity)) || {};
 
-      // --- Поиск основной модели генератора ---
-      if (!data || !data[generator]) return;
+      // === Генератор ===
       const generatorData = data[generator];
-
       let selectedModelData = null;
       const targetPurity = generator === "oxygen"
         ? `${purity}%`
         : nitrogenPurityOptions[nitrogenPurityIndex];
-
       const reversedIndex = generator === "nitrogen"
         ? nitrogenPurityOptions.length - 1 - nitrogenPurityIndex
         : null;
@@ -276,59 +254,59 @@ const Config = () => {
         const prodA = generator === "oxygen"
           ? a.equipment?.productivity.find(p => p.purity === targetPurity)?.value || Infinity
           : a.equipment?.productivity[reversedIndex]?.value || Infinity;
-
         const prodB = generator === "oxygen"
           ? b.equipment?.productivity.find(p => p.purity === targetPurity)?.value || Infinity
           : b.equipment?.productivity[reversedIndex]?.value || Infinity;
-
         return prodA - prodB;
       });
 
       for (const modelData of sortedModels) {
         const productivities = modelData.equipment?.productivity;
-
-        if (generator === "nitrogen") {
-          const productivityEntry = productivities?.[reversedIndex];
-          if (productivityEntry && productivityEntry.value >= convertedValueM3H) {
-            selectedModelData = modelData;
-            break;
-          }
-        } else {
-          const productivityEntry = productivities?.find(p => p.purity === targetPurity);
-          if (productivityEntry && productivityEntry.value >= convertedValueM3H) {
-            selectedModelData = modelData;
-            break;
-          }
+        const entry = generator === "oxygen"
+          ? productivities?.find(p => p.purity === targetPurity)
+          : productivities?.[reversedIndex];
+        if (entry && entry.value >= convertedValueM3H) {
+          selectedModelData = modelData;
+          break;
         }
       }
 
-      if (!selectedModelData) {
-        setSelectedEquipment(equipmentScheme.map(() => ({
-          model: "Модель не выбрана",
-          url: baseImg,
-          price: 0,
-        })));
-        setSelectedModel(null);
-        return;
-      }
-
-      // --- Заполняем массив оборудования ---
-      // --- Заполняем массив оборудования ---
+      // === Сборка оборудования ===
       const equipmentDetails = equipmentScheme.map((key) => {
+        let selected = {};
+
         if (key === "oAdsorber" || key === "nAdsorber") {
+          if (!selectedModelData) {
+            return {
+              model: `${generator === "oxygen" ? "Кислородный" : "Азотный"} адсорбер не подобран`,
+              id: "blankAdsorber",
+              url: baseImg,
+              price: 0,
+            };
+          }
           return {
+            id: selectedModelData.model,
             model: selectedModelData.model,
-            name: selectedModelData.name || selectedModelData.model, // если есть
+            name: selectedModelData.name || selectedModelData.model,
             type: selectedModelData.type || "Адсорбер",
             url: selectedModelData.url || imageMap[key],
             price: selectedModelData.price || 0,
           };
         }
 
-        if (key === "vResiver" || key === "oResiver" || key === "nResiver") {
-          const resiverData = selectedModelData?.equipment?.[key] || {};
+        if (["vResiver", "oResiver", "nResiver"].includes(key)) {
+          const resiverData = selectedModelData?.equipment?.[key];
+          if (!resiverData) {
+            return {
+              model: "Ресивер не подобран",
+              id: "blankReceiver",
+              url: baseImg,
+              price: 0,
+            };
+          }
           return {
-            model: resiverData.model || "Неизвестно",
+            id: resiverData.model || "resiver",
+            model: resiverData.model || "Ресивер",
             name: resiverData.name || resiverData.model || "Ресивер",
             type: resiverData.type || "Газовый ресивер",
             url: resiverData.url || baseImg,
@@ -336,32 +314,38 @@ const Config = () => {
           };
         }
 
-        let selectedEquipment = {};
-        if (key === "kompressor") selectedEquipment = selectedKompressor;
-        if (key === "osyshitel") selectedEquipment = selectedOsyshitel;
-        if (key === "dKompressor") selectedEquipment = selectedDKompressor;
-        if (key === "filtr") selectedEquipment = selectedFiltr;
-        if (key === "rampa") selectedEquipment = selectedRampa;
+        if (key === "kompressor") selected = selectedKompressor;
+        if (key === "osyshitel") selected = selectedOsyshitel;
+        if (key === "dKompressor") selected = selectedDKompressor;
+        if (key === "filtr") selected = selectedFiltr;
+        if (key === "rampa") selected = selectedRampa;
+
+        if (!selected || !selected.model) {
+          return {
+            model: `${key === "kompressor" ? "Компрессор" : key === "osyshitel" ? "Осушитель" : "Оборудование"} не подобран`,
+            id: `blank_${key}`,
+            url: baseImg,
+            price: 0,
+          };
+        }
 
         return {
-          model: selectedEquipment?.model || selectedEquipment?.name || "Неизвестно",
-          name: selectedEquipment?.name || selectedEquipment?.model || "Оборудование",
-          type: selectedEquipment?.type || "Элемент схемы",
-          url: selectedEquipment?.url || imageMap[key] || baseImg,
-          price: selectedEquipment?.price || 0,
+          id: selected.id || selected.model || "unknown",
+          model: selected.model || "Оборудование",
+          name: selected.name || selected.model || "Оборудование",
+          type: selected.type || "Элемент схемы",
+          url: selected.url || imageMap[key] || baseImg,
+          price: selected.price || 0,
         };
       });
 
-
       setSelectedEquipment(equipmentDetails);
-      setSelectedModel(selectedModelData.model);
-      setSelectedModelData(selectedModelData);           // объект для PDF
-
+      setSelectedModel(selectedModelData?.model || null);
+      setSelectedModelData(selectedModelData || null);
     };
 
     findEquipment();
   }, [unit, generator, system, pressure, purity, nitrogenPurityIndex, nitrogenPressureIndex, inputValue, refillCapacity, selectedDewPoint]);
-
 
 
 
@@ -593,12 +577,12 @@ const Config = () => {
         <h5 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Подобранное оборудование</h5>
         <div className="flex flex-wrap justify-center">
           {selectedEquipment.map((item, index) => {
-            const hasValidModel = item?.model && item.model !== "Модель не выбрана" && item.model !== "Укажите желаемую производительность";
+            const isPlaceholder = item.model?.includes("не подобран") || item.model === "Укажите желаемую производительность";
+            const isCustomMode = purity === "custom" || pressure === "custom";
+            const isDisabled = isPlaceholder || isCustomMode;
+
             return (
-              <div
-                key={index}
-                className="flex flex-col justify-between bg-white rounded shadow-md w-48 h-80 m-2"
-              >
+              <div key={index} className="flex flex-col justify-between bg-white rounded shadow-md w-48 h-80 m-2">
                 <img
                   src={item.url}
                   alt={item.model}
@@ -607,104 +591,107 @@ const Config = () => {
                 <div className="flex flex-col justify-between flex-grow px-4 pb-4 text-center">
                   <div>
                     <h6 className="text-sm font-semibold text-gray-800 mb-1">{item.model}</h6>
-                    <p className="text-gray-600 text-xs mb-1">{item.type}</p>
-                    <p className="text-gray-800 text-sm font-medium mb-3">Цена: {item.price} ₽</p>
+                    {!isPlaceholder && (
+                      <>
+                        <p className="text-gray-600 text-xs mb-1">{item.type}</p>
+                        <p className="text-gray-800 text-sm font-medium mb-3">Цена: {item.price.toLocaleString("ru-RU")} ₽</p>
+                      </>
+                    )}
                   </div>
                   <label className="inline-flex items-center justify-center text-xs text-gray-700 mt-auto">
                     <input
                       type="checkbox"
-                      className={`form-checkbox mr-2 ${!hasValidModel || purity === "custom" || pressure === "custom"
-                          ? "opacity-50 cursor-not-allowed"
-                          : "text-red-500"
-                        }`}
+                      className={`form-checkbox mr-2 ${isDisabled ? "opacity-50 cursor-not-allowed" : "text-red-500"}`}
                       checked={item.includedInQuote || false}
                       onChange={() => toggleIncludeInQuote(index)}
-                      disabled={!hasValidModel || purity === "custom" || pressure === "custom"}
+                      disabled={isDisabled}
                     />
                     Включить в КП
                   </label>
                 </div>
               </div>
-
-
             );
           })}
         </div>
+      </div>
 
-        {/* Кнопка под оборудованием */}
-        <div className="bg-white text-center mt-10">
-          {(purity === "custom" || pressure === "custom") ? (
-            <button
+      {/* Кнопка под оборудованием */}
+
+
+
+      <div className="bg-white text-center mt-10">
+        {(purity === "custom" || pressure === "custom") ? (
+          <button
             className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded transition duration-300"
             onClick={() => setShowModal(true)}
           >
             Уточнить характеристики
           </button>
-          
-          ) : (
-            isEquipmentValid && anyIncluded && (
-              <button
-                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded transition duration-300"
-                onClick={handleGeneratePdf}
-              >
-                Получить КП на эту конфигурацию
-              </button>
-            )
-          )}
-        </div>
-      </div>
-      {showModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-    <div className="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
-      <button
-        className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-        onClick={() => setShowModal(false)}
-      >
-        ×
-      </button>
-      <h2 className="text-xl text-black font-bold mb-4">Вы выбрали нестандартное оборудование</h2>
-      <p className="mb-4 text-gray-700">Свяжитесь с нашим менеджером, чтобы уточнить детали.</p>
-      <form method="POST" action="https://script.google.com/macros/s/AKfycbz3bh5QgSzyn9mfbc7bQhkN1A6sV7yWM6Kj6IKkZicKiiXeyFmo9h1jBA5E2xV15E-R8w/exec" className="space-y-4">
-  <input
-    type="text"
-    name="name"
-    required
-    placeholder="Имя / Компания"
-    className="w-full px-4 py-2 border rounded text-black"
-  />
-  <input
-    type="email"
-    name="email"
-    required
-    placeholder="E-mail для обратной связи"
-    className="w-full px-4 py-2 border rounded text-black"
-  />
-  <textarea
-    name="message"
-    required
-    placeholder="Ваш запрос"
-    className="w-full px-4 py-2 border rounded text-black h-28 resize-none"
-  />
-  <div className="flex justify-between">
-    <button
-      type="submit"
-      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded"
-    >
-      Отправить
-    </button>
-    <button
-      type="button"
-      className="text-gray-600 hover:underline"
-      onClick={() => setShowModal(false)}
-    >
-      Отмена
-    </button>
-  </div>
-</form>
 
-    </div>
-  </div>
-)}
+        ) : (
+          isEquipmentValid && anyIncluded && (
+            <button
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded transition duration-300"
+              onClick={handleGeneratePdf}
+            >
+              Получить КП на эту конфигурацию
+            </button>
+          )
+        )}
+      </div>
+
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+          <div className="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+              onClick={() => setShowModal(false)}
+            >
+              ×
+            </button>
+            <h2 className="text-xl text-black font-bold mb-4">Вы выбрали нестандартное оборудование</h2>
+            <p className="mb-4 text-gray-700">Свяжитесь с нашим менеджером, чтобы уточнить детали.</p>
+            <form method="POST" action="https://script.google.com/macros/s/AKfycbz3bh5QgSzyn9mfbc7bQhkN1A6sV7yWM6Kj6IKkZicKiiXeyFmo9h1jBA5E2xV15E-R8w/exec" className="space-y-4">
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Имя / Компания"
+                className="w-full px-4 py-2 border rounded text-black"
+              />
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="E-mail для обратной связи"
+                className="w-full px-4 py-2 border rounded text-black"
+              />
+              <textarea
+                name="message"
+                required
+                placeholder="Ваш запрос"
+                className="w-full px-4 py-2 border rounded text-black h-28 resize-none"
+              />
+              <div className="flex justify-between">
+                <button
+                  type="submit"
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded"
+                >
+                  Отправить
+                </button>
+                <button
+                  type="button"
+                  className="text-gray-600 hover:underline"
+                  onClick={() => setShowModal(false)}
+                >
+                  Отмена
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      )}
 
     </>
   );
