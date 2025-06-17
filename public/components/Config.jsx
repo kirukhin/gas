@@ -294,6 +294,11 @@ const Config = () => {
             type: selectedModelData.type || "Адсорбер",
             url: selectedModelData.url || imageMap[key],
             price: selectedModelData.price || 0,
+            includedInQuote:
+              selectedModelData.model &&
+              !selectedModelData.model.includes("не подобран") &&
+              pressure !== "custom" &&
+              purity !== "custom"
           };
         }
 
@@ -315,6 +320,11 @@ const Config = () => {
             type: resiverData.type || "Газовый ресивер",
             url: resiverData.url || baseImg,
             price: resiverData.price || 0,
+            includedInQuote:
+              resiverData.model &&
+              !resiverData.model.includes("не подобран") &&
+              pressure !== "custom" &&
+              purity !== "custom"
           };
         }
 
@@ -340,6 +350,12 @@ const Config = () => {
           type: selected.type || "Элемент схемы",
           url: selected.url || imageMap[key] || baseImg,
           price: selected.price || 0,
+          includedInQuote:
+            selected.model &&
+            !selected.model.includes("не подобран") &&
+            pressure !== "custom" &&
+            purity !== "custom" &&
+            key !== "dKompressor" // исключаем dКомпрессор
         };
       });
 
