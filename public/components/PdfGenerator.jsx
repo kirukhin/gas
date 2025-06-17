@@ -110,14 +110,25 @@ export const generatePdf = async ({
 
   // Только если есть включённые элементы, добавим строки
   if (includedItems.length > 0) {
-    supplyTable.push(
-      ...includedItems.map((item, index) => ([
-        `${index + 1}`,
-        item.name || item.model,
-        "1 шт.",
-        `${item.price?.toLocaleString("ru-RU")} ₽`
-      ]))
-    );
+    const supplyRows = includedItems.map((item, index) => ([
+      `${index + 1}`,
+      item.name || item.model,
+      "1 шт.",
+      `${item.price?.toLocaleString("ru-RU")} ₽`
+    ]));
+    
+    // Считаем итог
+    const totalPrice = includedItems.reduce((sum, item) => sum + (item.price || 0), 0);
+    
+    // Добавляем строки и итог
+    supplyTable.push(...supplyRows);
+    
+    supplyTable.push([
+      { text: "Итого", colSpan: 3, alignment: "right", bold: true }, {}, {},
+      { text: `${totalPrice.toLocaleString("ru-RU")} ₽`, bold: true }
+    ]);
+    
+    
   } else {
     // Добавим заглушку
     supplyTable.push([
@@ -137,13 +148,14 @@ export const generatePdf = async ({
         : null;
   
       return {
+        unbreakable: true,
         table: {
-          widths: ["*", "*"],
+          widths: ["25%", "*"],
           body: [
             [
               {
                 colSpan: 2,
-                text: info.name || item.name || item.model,
+                text: item.name || item.model || info.name,
                 fillColor: "#c00000",
                 color: "white",
                 bold: true,

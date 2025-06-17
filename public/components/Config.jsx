@@ -27,6 +27,7 @@ const Config = () => {
   const [selectedModel, setSelectedModel] = useState(null); // строка
   const [selectedModelData, setSelectedModelData] = useState(null); // объект
   const [showModal, setShowModal] = useState(false);
+  const [hasDkompressor, setHasDkompressor] = useState(false);
 
 
 
@@ -151,6 +152,8 @@ const Config = () => {
   useEffect(() => {
     const findEquipment = () => {
       const equipmentScheme = getEquipmentScheme();
+      setHasDkompressor(equipmentScheme.includes("dKompressor"));
+
 
       const convertToM3h = (value, unit) => {
         const num = parseFloat(value);
@@ -209,29 +212,29 @@ const Config = () => {
 
       // === Компрессор ===
 
-   // === Компрессор ===
-const matchingCompressors = compressors.filter(comp =>
-  comp.specs.some(spec =>
-    spec.pressure === pressureTarget &&
-    spec.minFlow <= convertedValueM3H &&
-    convertedValueM3H <= spec.maxFlow
-  )
-);
-matchingCompressors.sort((a, b) => {
-  const aSpec = a.specs.find(spec => spec.pressure === pressureTarget);
-  const bSpec = b.specs.find(spec => spec.pressure === pressureTarget);
-  return (aSpec?.power || Infinity) - (bSpec?.power || Infinity);
-});
-const selectedKompressor = matchingCompressors[0]
-  ? { ...matchingCompressors[0], model: matchingCompressors[0].id }
-  : null;
+      // === Компрессор ===
+      const matchingCompressors = compressors.filter(comp =>
+        comp.specs.some(spec =>
+          spec.pressure === pressureTarget &&
+          spec.minFlow <= convertedValueM3H &&
+          convertedValueM3H <= spec.maxFlow
+        )
+      );
+      matchingCompressors.sort((a, b) => {
+        const aSpec = a.specs.find(spec => spec.pressure === pressureTarget);
+        const bSpec = b.specs.find(spec => spec.pressure === pressureTarget);
+        return (aSpec?.power || Infinity) - (bSpec?.power || Infinity);
+      });
+      const selectedKompressor = matchingCompressors[0]
+        ? { ...matchingCompressors[0], model: matchingCompressors[0].id }
+        : null;
 
-// === Осушитель ===
-const matchingDryers = dryers.filter(d => d.flow >= convertedValueM3H);
-matchingDryers.sort((a, b) => a.power - b.power);
-const selectedOsyshitel = matchingDryers[0]
-  ? { ...matchingDryers[0], model: matchingDryers[0].id }
-  : null;
+      // === Осушитель ===
+      const matchingDryers = dryers.filter(d => d.flow >= convertedValueM3H);
+      matchingDryers.sort((a, b) => a.power - b.power);
+      const selectedOsyshitel = matchingDryers[0]
+        ? { ...matchingDryers[0], model: matchingDryers[0].id }
+        : null;
 
 
 
@@ -285,7 +288,7 @@ const selectedOsyshitel = matchingDryers[0]
             };
           }
           return {
-            id: selectedModelData.model,
+            id: selectedModelData.id || selectedModelData.model, // 🔧 исправлено
             model: selectedModelData.model,
             name: selectedModelData.name || selectedModelData.model,
             type: selectedModelData.type || "Адсорбер",
@@ -293,6 +296,7 @@ const selectedOsyshitel = matchingDryers[0]
             price: selectedModelData.price || 0,
           };
         }
+
 
         if (["vResiver", "oResiver", "nResiver"].includes(key)) {
           const resiverData = selectedModelData?.equipment?.[key];
@@ -577,12 +581,22 @@ const selectedOsyshitel = matchingDryers[0]
         <h5 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Подобранное оборудование</h5>
         <div className="flex flex-wrap justify-center">
           {selectedEquipment.map((item, index) => {
-            const isPlaceholder = item.model?.includes("не подобран") || item.model === "Укажите желаемую производительность";
-            const isCustomMode = purity === "custom" || pressure === "custom";
-            const isDisabled = isPlaceholder || isCustomMode;
+            const hasValidModel =
+              item?.model &&
+              !item.model.includes("не подобран") &&
+              item.model !== "Укажите корректную производительность";
+
+            const isDisabled =
+              !hasValidModel ||
+              purity === "custom" ||
+              pressure === "custom" ||
+              item.id === "blank_dKompressor"; // или другой способ проверки D-компрессора
 
             return (
-              <div key={index} className="flex flex-col justify-between bg-white rounded shadow-md w-48 h-80 m-2">
+              <div
+                key={index}
+                className="flex flex-col justify-between bg-white rounded shadow-md w-48 h-80 m-2"
+              >
                 <img
                   src={item.url}
                   alt={item.model}
@@ -591,17 +605,18 @@ const selectedOsyshitel = matchingDryers[0]
                 <div className="flex flex-col justify-between flex-grow px-4 pb-4 text-center">
                   <div>
                     <h6 className="text-sm font-semibold text-gray-800 mb-1">{item.model}</h6>
-                    {!isPlaceholder && (
+                    {hasValidModel && (
                       <>
                         <p className="text-gray-600 text-xs mb-1">{item.type}</p>
-                        <p className="text-gray-800 text-sm font-medium mb-3">Цена: {item.price.toLocaleString("ru-RU")} ₽</p>
+                        <p className="text-gray-800 text-sm font-medium mb-3">Цена: {item.price} ₽</p>
                       </>
                     )}
                   </div>
                   <label className="inline-flex items-center justify-center text-xs text-gray-700 mt-auto">
                     <input
                       type="checkbox"
-                      className={`form-checkbox mr-2 ${isDisabled ? "opacity-50 cursor-not-allowed" : "text-red-500"}`}
+                      className={`form-checkbox mr-2 ${isDisabled ? "opacity-50 cursor-not-allowed" : "text-red-500"
+                        }`}
                       checked={item.includedInQuote || false}
                       onChange={() => toggleIncludeInQuote(index)}
                       disabled={isDisabled}
@@ -612,6 +627,7 @@ const selectedOsyshitel = matchingDryers[0]
               </div>
             );
           })}
+
         </div>
       </div>
 
@@ -620,7 +636,7 @@ const selectedOsyshitel = matchingDryers[0]
 
 
       <div className="bg-white text-center mt-10">
-        {(purity === "custom" || pressure === "custom") ? (
+        {(purity === "custom" || pressure === "custom" || hasDkompressor) ? (
           <button
             className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded transition duration-300"
             onClick={() => setShowModal(true)}
