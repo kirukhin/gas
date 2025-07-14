@@ -5,6 +5,7 @@ const data = {
       "model": "Генератор азота N-15",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 0.25,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 200 литров",
@@ -38,6 +39,7 @@ const data = {
       "model": "Генератор азота N-30",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 0.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 400 литров",
@@ -71,6 +73,7 @@ const data = {
       "model": "Генератор азота N-45",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 0.75,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 500 литров",
@@ -104,6 +107,7 @@ const data = {
       "model": "Генератор азота N-60",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 1.25,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 500 литров",
@@ -137,6 +141,7 @@ const data = {
       "model": "Генератор азота N-75",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 2.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 750 литров",
@@ -170,6 +175,7 @@ const data = {
       "model": "Генератор азота N-90",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 3.75,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 750 литров",
@@ -203,6 +209,7 @@ const data = {
       "model": "Генератор азота N-110",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1000 литров",
@@ -236,6 +243,7 @@ const data = {
       "model": "Генератор азота N-135",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 6.25,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1500 литров",
@@ -269,6 +277,7 @@ const data = {
       "model": "Генератор азота N-165",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 7.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1500 литров",
@@ -302,6 +311,7 @@ const data = {
       "model": "Генератор азота N-200",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 8.75,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 2000 литров",
@@ -335,6 +345,7 @@ const data = {
       "model": "Генератор азота N-240",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 10,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 2000 литров",
@@ -368,6 +379,7 @@ const data = {
       "model": "Генератор азота N-300",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 11.25,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 3000 литров",
@@ -401,6 +413,7 @@ const data = {
       "model": "Генератор азота N-400",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 12.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 4000 литров",
@@ -434,6 +447,7 @@ const data = {
       "model": "Генератор азота N-500",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 13.75,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 5000 литров",
@@ -467,6 +481,7 @@ const data = {
       "model": "Генератор азота N-600",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 15,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 6000 литров",
@@ -500,6 +515,7 @@ const data = {
       "model": "Генератор азота N-750",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 17,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 7000 литров",
@@ -533,6 +549,7 @@ const data = {
       "model": "Генератор азота N-900",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 19,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 8000 литров",
@@ -566,6 +583,7 @@ const data = {
       "model": "Генератор азота N-1050",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 21,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 9000 литров",
@@ -599,6 +617,7 @@ const data = {
       "model": "Генератор азота N-1200",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 23,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 10000 литров",
@@ -632,6 +651,7 @@ const data = {
       "model": "Генератор азота N-1350",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 25,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 11000 литров",
@@ -665,6 +685,7 @@ const data = {
       "model": "Генератор азота N-1500",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 27,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 12000 литров",
@@ -698,6 +719,7 @@ const data = {
       "model": "Генератор азота N-1700",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 29,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 13000 литров",
@@ -731,6 +753,7 @@ const data = {
       "model": "Генератор азота N-1900",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 31,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 14000 литров",
@@ -764,6 +787,7 @@ const data = {
       "model": "Генератор азота N-2100",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 33,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 15000 литров",
@@ -799,6 +823,7 @@ const data = {
       "model": "Генератор кислорода O-5",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 0.25,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 500 литров",
@@ -823,6 +848,7 @@ const data = {
       "model": "Генератор кислорода O-10",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 0.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 750 литров",
@@ -847,6 +873,7 @@ const data = {
       "model": "Генератор кислорода O-15",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 0.75,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1000 литров",
@@ -871,6 +898,7 @@ const data = {
       "model": "Генератор кислорода O-20",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 1.25,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1500 литров",
@@ -895,6 +923,7 @@ const data = {
       "model": "Генератор кислорода O-30",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 2.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 2000 литров",
@@ -919,6 +948,7 @@ const data = {
       "model": "Генератор кислорода O-40",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 3.75,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 3000 литров",
@@ -943,6 +973,7 @@ const data = {
       "model": "Генератор кислорода O-50",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 4000 литров",
@@ -967,6 +998,7 @@ const data = {
       "model": "Генератор кислорода O-60",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 6.25,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 5000 литров",
@@ -991,6 +1023,7 @@ const data = {
       "model": "Генератор кислорода O-80",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 7.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 6000 литров",
@@ -1015,6 +1048,7 @@ const data = {
       "model": "Генератор кислорода O-100",
       "url": "/adsorber.png",
       "price": 15000,
+      "airNeed": 8.75,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 7000 литров",
