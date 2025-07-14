@@ -6,9 +6,9 @@ const compressors = [
     url: '/compressor.png',
     price: 140000, // 11471 CNY × 12 = 137652 ≈ 140000 RUB
     specs: [
-      { pressure: 7, minFlow: 24.6, maxFlow: 55.2, power: 5.5 },
-      { pressure: 8, minFlow: 24.0, maxFlow: 52.2, power: 5.5 },
-      { pressure: 10, minFlow: 21.0, maxFlow: 42.0, power: 5.5 }
+      { pressure: 7, minFlow: 0, maxFlow: 55.2, power: 5.5 },
+      { pressure: 8, minFlow: 0, maxFlow: 52.2, power: 5.5 },
+      { pressure: 10, minFlow: 0, maxFlow: 42.0, power: 5.5 }
     ]
   },
   {
