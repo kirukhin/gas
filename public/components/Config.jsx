@@ -20,7 +20,7 @@ const Config = () => {
   const [generator, setGenerator] = useState("oxygen"); // Генератор: кислород/азот
   const [system, setSystem] = useState("generation");   // Система: генерация/заправка
   const [pressure, setPressure] = useState("5bar");     // Давление: 5/нестандартное бар
-  const [purity, setPurity] = useState("93");           // Чистота кислорода
+  const [purity, setPurity] = useState("90");           // Чистота кислорода
   const [inputValue, setInputValue] = useState("");     // Производительность
   const [unit, setUnit] = useState("m3h");             // Единицы измерения
   const [refillCapacity, setRefillCapacity] = useState("20"); // Произаодительность перезаправки
@@ -149,177 +149,189 @@ const Config = () => {
 
 
   // === ХУК ПОДБОРА ОБОРУДОВАНИЯ ===
-useEffect(() => {
-  /** Пересчёт пользовательского значения в м³/ч */
-  const toM3h = (val, unit) => {
-    const num = parseFloat(val);
-    if (isNaN(num)) return 0;
-    switch (unit) {
-      case "lmin":  return (num / 1000) * 60;
-      case "kgh":   return num / 1.2506;
-      default:      return num;          // m³/ч
-    }
-  };
+  useEffect(() => {
+    /** Пересчёт пользовательского значения в м³/ч */
+    const toM3h = (val, unit) => {
+      const num = parseFloat(val);
+      if (isNaN(num)) return 0;
+      switch (unit) {
+        case "lmin": return (num / 1000) * 60;
+        case "kgh": return num / 1.2506;
+        default: return num;          // m³/ч
+      }
+    };
 
-  /** Поиск ближайшего элемента по числовому полю */
-  const closest = (cat, key, target) =>
-    data[cat]
-      ? Object.values(data[cat]).reduce((a, b) =>
+    /** Поиск ближайшего элемента по числовому полю */
+    const closest = (cat, key, target) =>
+      data[cat]
+        ? Object.values(data[cat]).reduce((a, b) =>
           Math.abs(b[key] - target) < Math.abs(a[key] - target) ? b : a)
+        : null;
+
+    /** КАРТИНКИ ПО УМОЛЧАНИЮ ------------------------------------------------ */
+    const img = {
+      oAdsorber: adsorberImg,
+      nAdsorber: adsorberImg,
+      kompressor: compressorImg,
+      osyshitel: osyshitelImg,
+      dKompressor: dcompressorImg,
+      filtr: filtrImg,
+      rampa: rampaImg,
+      base: baseImg
+    };
+
+    /** ---------------------------------------------------------------------- */
+    const equipmentScheme = getEquipmentScheme();
+    setHasDkompressor(equipmentScheme.includes("dKompressor"));
+
+    /*------------------------ ВАЛИДАЦИЯ ВХОДА -------------------------------*/
+    const convertedUserM3h = toM3h(inputValue, unit);
+    if (!inputValue || isNaN(convertedUserM3h) || convertedUserM3h <= 0) {
+      setSelectedEquipment(equipmentScheme.map(() => ({
+        model: "Укажите корректную производительность", url: img.base, price: 0
+      })));
+      setSelectedModel(null);
+      setSelectedModelData(null);
+      return;
+    }
+
+    /*------------------------ ПОДБОР ГЕНЕРАТОРА -----------------------------*/
+    const generatorData = data[generator];
+    const targetPurity =
+      generator === "oxygen" ? `${purity}%` : nitrogenPurityOptions[nitrogenPurityIndex];
+    const purityIndexReverse =
+      generator === "nitrogen" ? nitrogenPurityOptions.length - 1 - nitrogenPurityIndex : null;
+
+    let selectedModelData = null;
+    Object.values(generatorData)
+      .sort((a, b) => {
+        const getVal = m => generator === "oxygen"
+          ? m.equipment?.productivity.find(p => p.purity === targetPurity)?.value ?? Infinity
+          : m.equipment?.productivity[purityIndexReverse]?.value ?? Infinity;
+        return getVal(a) - getVal(b);
+      })
+      .some(m => {
+        const prodLine = generator === "oxygen"
+          ? m.equipment?.productivity.find(p => p.purity === targetPurity)
+          : m.equipment?.productivity[purityIndexReverse];
+        if (prodLine && prodLine.value >= convertedUserM3h) {
+          selectedModelData = m;
+          return true;
+        }
+        return false;
+      });
+
+    /*------------------------ ПОДБОР КОМПРЕССОРА ----------------------------*/
+    // 1. Требуемый расход воздуха: от генератора или от пользователя
+    const requiredAirM3h = selectedModelData?.airNeed
+      ? selectedModelData.airNeed * 60   // airNeed записан в м³/мин, переводим
+      : convertedUserM3h;
+
+    // 2. Группа допустимых давлений → pressureTarget
+    const currentPressure = generator === "oxygen"
+      ? 7
+      : nitrogenPressureOptions[nitrogenPressureIndex];
+    const allowed = { 7: [6, 7], 8: [8], 10: [9, 10], 12.5: [11, 12, 13] };
+    const pressureTarget = parseFloat(
+      Object.entries(allowed).find(([_, arr]) => arr.includes(currentPressure))?.[0] ?? 7
+    );
+
+    // 3. Фильтр и сортировка компрессоров
+    const matchingCompressors = compressors
+      .filter(c => c.specs.some(s =>
+        s.pressure === pressureTarget &&
+        s.minFlow <= requiredAirM3h &&
+        requiredAirM3h <= s.maxFlow))
+      .sort((a, b) => {
+        const aPower = a.specs.find(s => s.pressure === pressureTarget).power;
+        const bPower = b.specs.find(s => s.pressure === pressureTarget).power;
+        return aPower - bPower;          // ищем НАИМЕНЬШУЮ мощность
+      });
+
+    const selectedKompressor = matchingCompressors[0]
+      ? { ...matchingCompressors[0], model: matchingCompressors[0].id }
       : null;
 
-  /** КАРТИНКИ ПО УМОЛЧАНИЮ ------------------------------------------------ */
-  const img = {
-    oAdsorber: adsorberImg,
-    nAdsorber: adsorberImg,
-    kompressor: compressorImg,
-    osyshitel: osyshitelImg,
-    dKompressor: dcompressorImg,
-    filtr: filtrImg,
-    rampa: rampaImg,
-    base: baseImg
-  };
+    /*------------------------ ПРОЧЕЕ ОБОРУДОВАНИЕ ---------------------------*/
+    /*------------------------ ПРОЧЕЕ ОБОРУДОВАНИЕ ---------------------------*/
+    // Подбор осушителя по airNeed генератора (если есть), иначе — от пользователя
+    const requiredDryerFlowM3h = selectedModelData?.airNeed
+      ? selectedModelData.airNeed * 60  // airNeed в м³/мин → м³/ч
+      : convertedUserM3h;
 
-  /** ---------------------------------------------------------------------- */
-  const equipmentScheme   = getEquipmentScheme();
-  setHasDkompressor(equipmentScheme.includes("dKompressor"));
+    const matchingDryers = dryers
+      .filter(d => d.flow >= requiredDryerFlowM3h)
+      .sort((a, b) => a.flow - b.flow); // наименьшее допустимое значение flow
 
-  /*------------------------ ВАЛИДАЦИЯ ВХОДА -------------------------------*/
-  const convertedUserM3h = toM3h(inputValue, unit);
-  if (!inputValue || isNaN(convertedUserM3h) || convertedUserM3h <= 0) {
-    setSelectedEquipment(equipmentScheme.map(() => ({
-      model: "Укажите корректную производительность", url: img.base, price: 0
-    })));
-    setSelectedModel(null);
-    setSelectedModelData(null);
-    return;
-  }
+    const selectedOsyshitel = matchingDryers[0]
+      ? { ...matchingDryers[0], model: matchingDryers[0].id }
+      : null;
 
-  /*------------------------ ПОДБОР ГЕНЕРАТОРА -----------------------------*/
-  const generatorData = data[generator];
-  const targetPurity =
-    generator === "oxygen" ? `${purity}%` : nitrogenPurityOptions[nitrogenPurityIndex];
-  const purityIndexReverse =
-    generator === "nitrogen" ? nitrogenPurityOptions.length - 1 - nitrogenPurityIndex : null;
+    const selectedDKompressor = data.dKompressor?.["dcomp"] ?? {};
+    const selectedFiltr = data.filtr?.["filtr"] ?? {};
+    const selectedRampa = closest("rampa", "capacity", parseInt(refillCapacity)) ?? {};
 
-  let selectedModelData = null;
-  Object.values(generatorData)
-    .sort((a, b) => {
-      const getVal = m => generator === "oxygen"
-        ? m.equipment?.productivity.find(p => p.purity === targetPurity)?.value ?? Infinity
-        : m.equipment?.productivity[purityIndexReverse]?.value ?? Infinity;
-      return getVal(a) - getVal(b);
-    })
-    .some(m => {
-      const prodLine = generator === "oxygen"
-        ? m.equipment?.productivity.find(p => p.purity === targetPurity)
-        : m.equipment?.productivity[purityIndexReverse];
-      if (prodLine && prodLine.value >= convertedUserM3h) {
-        selectedModelData = m;
-        return true;
+    /*------------------------ СБОРКА СПИСКА --------------------------------*/
+    const equipmentDetails = equipmentScheme.map(key => {
+      /* --- Генератор и его ресиверы --- */
+      if (key === "oAdsorber" || key === "nAdsorber") {
+        if (!selectedModelData)
+          return { id: "blankAdsorber", model: `${generator === "oxygen" ? "Кислородный" : "Азотный"} адсорбер не подобран`, url: img.base, price: 0 };
+        return {
+          id: selectedModelData.id ?? selectedModelData.model,
+          model: selectedModelData.model,
+          name: selectedModelData.name ?? selectedModelData.model,
+          type: selectedModelData.type ?? "Адсорбер",
+          url: selectedModelData.url ?? img[key],
+          price: selectedModelData.price ?? 0,
+          includedInQuote: true
+        };
       }
-      return false;
+      if (["vResiver", "oResiver", "nResiver"].includes(key)) {
+        const r = selectedModelData?.equipment?.[key];
+        if (!r) return { id: "blankReceiver", model: "Ресивер не подобран", url: img.base, price: 0 };
+        return {
+          id: r.model,
+          model: r.model,
+          name: r.name ?? r.model,
+          type: r.type ?? "Газовый ресивер",
+          url: r.url ?? img.base,
+          price: r.price ?? 0,
+          includedInQuote: true
+        };
+      }
+      /* --- Компрессор, осушитель и пр. --- */
+      const map = {
+        kompressor: selectedKompressor,
+        osyshitel: selectedOsyshitel,
+        dKompressor: selectedDKompressor,
+        filtr: selectedFiltr,
+        rampa: selectedRampa
+      };
+      const sel = map[key];
+      if (!sel || !sel.model)
+        return { id: `blank_${key}`, model: `${key === "kompressor" ? "Компрессор" : key === "osyshitel" ? "Осушитель" : "Оборудование"} не подобран`, url: img.base, price: 0 };
+      return {
+        id: sel.id ?? sel.model,
+        model: sel.model ?? "Оборудование",
+        name: sel.name ?? sel.model,
+        type: sel.type ?? "Элемент схемы",
+        url: sel.url ?? img[key] ?? img.base,
+        price: sel.price ?? 0,
+        includedInQuote:
+          key !== "dKompressor"      // d‑компрессор не включаем в КП
+      };
     });
 
-  /*------------------------ ПОДБОР КОМПРЕССОРА ----------------------------*/
-  // 1. Требуемый расход воздуха: от генератора или от пользователя
-  const requiredAirM3h = selectedModelData?.airNeed
-    ? selectedModelData.airNeed * 60   // airNeed записан в м³/мин, переводим
-    : convertedUserM3h;
-
-  // 2. Группа допустимых давлений → pressureTarget
-  const currentPressure = generator === "oxygen"
-    ? 7
-    : nitrogenPressureOptions[nitrogenPressureIndex];
-  const allowed = { 7:[6,7], 8:[8], 10:[9,10], 12.5:[11,12,13] };
-  const pressureTarget = parseFloat(
-    Object.entries(allowed).find(([_, arr]) => arr.includes(currentPressure))?.[0] ?? 7
-  );
-
-  // 3. Фильтр и сортировка компрессоров
-  const matchingCompressors = compressors
-    .filter(c => c.specs.some(s =>
-        s.pressure === pressureTarget &&
-        s.minFlow < requiredAirM3h &&
-        requiredAirM3h < s.maxFlow))
-    .sort((a, b) => {
-      const aPower = a.specs.find(s => s.pressure === pressureTarget).power;
-      const bPower = b.specs.find(s => s.pressure === pressureTarget).power;
-      return aPower - bPower;          // ищем НАИМЕНЬШУЮ мощность
-    });
-
-  const selectedKompressor = matchingCompressors[0]
-    ? { ...matchingCompressors[0], model: matchingCompressors[0].id }
-    : null;
-
-  /*------------------------ ПРОЧЕЕ ОБОРУДОВАНИЕ ---------------------------*/
-  const selectedOsyshitel  = dryers          .filter(d => d.flow >= requiredAirM3h)
-                                            .sort((a,b)=>a.power-b.power)[0] ?? null;
-  const selectedDKompressor = data.dKompressor?.["dcomp"] ?? {};
-  const selectedFiltr       = data.filtr?.["filtr"] ?? {};
-  const selectedRampa       = closest("rampa", "capacity", parseInt(refillCapacity)) ?? {};
-
-  /*------------------------ СБОРКА СПИСКА --------------------------------*/
-  const equipmentDetails = equipmentScheme.map(key => {
-    /* --- Генератор и его ресиверы --- */
-    if (key === "oAdsorber" || key === "nAdsorber") {
-      if (!selectedModelData)
-        return { id:"blankAdsorber", model:`${generator==="oxygen"?"Кислородный":"Азотный"} адсорбер не подобран`, url:img.base, price:0 };
-      return {
-        id:    selectedModelData.id ?? selectedModelData.model,
-        model: selectedModelData.model,
-        name:  selectedModelData.name ?? selectedModelData.model,
-        type:  selectedModelData.type ?? "Адсорбер",
-        url:   selectedModelData.url  ?? img[key],
-        price: selectedModelData.price??0,
-        includedInQuote: true
-      };
-    }
-    if (["vResiver","oResiver","nResiver"].includes(key)) {
-      const r = selectedModelData?.equipment?.[key];
-      if (!r) return { id:"blankReceiver", model:"Ресивер не подобран", url:img.base, price:0 };
-      return {
-        id:    r.model,
-        model: r.model,
-        name:  r.name ?? r.model,
-        type:  r.type ?? "Газовый ресивер",
-        url:   r.url  ?? img.base,
-        price: r.price??0,
-        includedInQuote: true
-      };
-    }
-    /* --- Компрессор, осушитель и пр. --- */
-    const map = {
-      kompressor: selectedKompressor,
-      osyshitel:  selectedOsyshitel,
-      dKompressor:selectedDKompressor,
-      filtr:      selectedFiltr,
-      rampa:      selectedRampa
-    };
-    const sel = map[key];
-    if (!sel || !sel.model)
-      return { id:`blank_${key}`, model:`${key==="kompressor"?"Компрессор":key==="osyshitel"?"Осушитель":"Оборудование"} не подобран`, url:img.base, price:0 };
-    return {
-      id:    sel.id    ?? sel.model,
-      model: sel.model ?? "Оборудование",
-      name:  sel.name  ?? sel.model,
-      type:  sel.type  ?? "Элемент схемы",
-      url:   sel.url   ?? img[key] ?? img.base,
-      price: sel.price ?? 0,
-      includedInQuote:
-        key !== "dKompressor"      // d‑компрессор не включаем в КП
-    };
-  });
-
-  /*------------------------ ФИНИШ ----------------------------------------*/
-  setSelectedEquipment(equipmentDetails);
-  setSelectedModel(selectedModelData?.model ?? null);
-  setSelectedModelData(selectedModelData ?? null);
-}, [
-  unit, generator, system, pressure, purity,
-  nitrogenPurityIndex, nitrogenPressureIndex,
-  inputValue, refillCapacity, selectedDewPoint
-]);
+    /*------------------------ ФИНИШ ----------------------------------------*/
+    setSelectedEquipment(equipmentDetails);
+    setSelectedModel(selectedModelData?.model ?? null);
+    setSelectedModelData(selectedModelData ?? null);
+  }, [
+    unit, generator, system, pressure, purity,
+    nitrogenPurityIndex, nitrogenPressureIndex,
+    inputValue, refillCapacity, selectedDewPoint
+  ]);
 
 
 
@@ -414,10 +426,10 @@ useEffect(() => {
                 <h5 className="text-sm font-semibold text-gray-700 mb-2">Чистота кислорода</h5>
                 <div className="flex gap-2">
                   <button
-                    className={`flex-1 px-3 py-2 border rounded text-sm ${purity === "93" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
-                    onClick={() => setPurity("93")}
+                    className={`flex-1 px-3 py-2 border rounded text-sm ${purity === "90" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
+                    onClick={() => setPurity("90")}
                   >
-                    93%
+                    90%
                   </button>
                   <button
                     className={`flex-1 px-3 py-2 border rounded text-sm ${purity === "custom" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
