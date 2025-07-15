@@ -5,7 +5,7 @@ const data = {
       "model": "Генератор азота N-15",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 0.25,
+      "airNeed": 0.75,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 200 литров",
@@ -39,7 +39,7 @@ const data = {
       "model": "Генератор азота N-30",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 0.5,
+      "airNeed": 1.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 400 литров",
@@ -73,7 +73,7 @@ const data = {
       "model": "Генератор азота N-45",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 0.75,
+      "airNeed": 2.25,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 500 литров",
@@ -107,7 +107,7 @@ const data = {
       "model": "Генератор азота N-60",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 1.25,
+      "airNeed": 3,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 500 литров",
@@ -141,7 +141,7 @@ const data = {
       "model": "Генератор азота N-75",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 2.5,
+      "airNeed": 3.75,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 750 литров",
@@ -175,7 +175,7 @@ const data = {
       "model": "Генератор азота N-90",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 3.75,
+      "airNeed": 4.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 750 литров",
@@ -209,7 +209,7 @@ const data = {
       "model": "Генератор азота N-110",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 5,
+      "airNeed": 5.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1000 литров",
@@ -243,7 +243,7 @@ const data = {
       "model": "Генератор азота N-135",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 6.25,
+      "airNeed": 6.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1500 литров",
@@ -277,7 +277,7 @@ const data = {
       "model": "Генератор азота N-165",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 7.5,
+      "airNeed": 8,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1500 литров",
@@ -311,7 +311,7 @@ const data = {
       "model": "Генератор азота N-200",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 8.75,
+      "airNeed": 9.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 2000 литров",
@@ -345,7 +345,7 @@ const data = {
       "model": "Генератор азота N-240",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 10,
+      "airNeed": 11.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 2000 литров",
@@ -379,7 +379,7 @@ const data = {
       "model": "Генератор азота N-300",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 11.25,
+      "airNeed": 14.5,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 3000 литров",
@@ -413,7 +413,7 @@ const data = {
       "model": "Генератор азота N-400",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 12.5,
+      "airNeed": 19,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 4000 литров",
@@ -447,7 +447,7 @@ const data = {
       "model": "Генератор азота N-500",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 13.75,
+      "airNeed": 24,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 5000 литров",
@@ -481,7 +481,7 @@ const data = {
       "model": "Генератор азота N-600",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 15,
+      "airNeed": 29,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 6000 литров",
@@ -515,7 +515,7 @@ const data = {
       "model": "Генератор азота N-750",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 17,
+      "airNeed": 36,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 7000 литров",
@@ -549,7 +549,7 @@ const data = {
       "model": "Генератор азота N-900",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 19,
+      "airNeed": 43,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 8000 литров",
@@ -583,7 +583,7 @@ const data = {
       "model": "Генератор азота N-1050",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 21,
+      "airNeed": 50,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 9000 литров",
@@ -611,219 +611,39 @@ const data = {
           { "purity": "95%", "value": 1930 }
         ]
       }
-    },
-    "N-1200": {
-      "id": "N1200",
-      "model": "Генератор азота N-1200",
-      "url": "/adsorber.png",
-      "price": 15000,
-      "airNeed": 23,
-      "equipment": {
-        "vResiver": {
-          "model": "Ресивер воздушный 10000 литров",
-          "url": "/reciver.png",
-          "inputReceiverVolumeL": 10.0 * 1000,
-          "price": 15000
-        },
-        "nResiver": {
-          "model": "Ресивер азотный 20000 литров",
-          "url": "/reciver.png",
-          "outputReceiverVolumeL": 20.0 * 1000,
-          "price": 15000
-        },
-        "productivity": [
-          { "purity": "99.9995%", "value": 265 },
-          { "purity": "99.999%", "value": 335 },
-          { "purity": "99.995%", "value": 472 },
-          { "purity": "99.99%", "value": 552 },
-          { "purity": "99.95%", "value": 750 },
-          { "purity": "99.9%", "value": 882 },
-          { "purity": "99.5%", "value": 1200 },
-          { "purity": "99%", "value": 1412 },
-          { "purity": "98%", "value": 1703 },
-          { "purity": "97%", "value": 1941 },
-          { "purity": "95%", "value": 2206 }
-        ]
-      }
-    },
-    "N-1350": {
-      "id": "N1350",
-      "model": "Генератор азота N-1350",
-      "url": "/adsorber.png",
-      "price": 15000,
-      "airNeed": 25,
-      "equipment": {
-        "vResiver": {
-          "model": "Ресивер воздушный 11000 литров",
-          "url": "/reciver.png",
-          "inputReceiverVolumeL": 11.0 * 1000,
-          "price": 15000
-        },
-        "nResiver": {
-          "model": "Ресивер азотный 22000 литров",
-          "url": "/reciver.png",
-          "outputReceiverVolumeL": 22.0 * 1000,
-          "price": 15000
-        },
-        "productivity": [
-          { "purity": "99.9995%", "value": 298 },
-          { "purity": "99.999%", "value": 377 },
-          { "purity": "99.995%", "value": 531 },
-          { "purity": "99.99%", "value": 621 },
-          { "purity": "99.95%", "value": 844 },
-          { "purity": "99.9%", "value": 993 },
-          { "purity": "99.5%", "value": 1350 },
-          { "purity": "99%", "value": 1588 },
-          { "purity": "98%", "value": 1916 },
-          { "purity": "97%", "value": 2184 },
-          { "purity": "95%", "value": 2482 }
-        ]
-      }
-    },
-    "N-1500": {
-      "id": "N1500",
-      "model": "Генератор азота N-1500",
-      "url": "/adsorber.png",
-      "price": 15000,
-      "airNeed": 27,
-      "equipment": {
-        "vResiver": {
-          "model": "Ресивер воздушный 12000 литров",
-          "url": "/reciver.png",
-          "inputReceiverVolumeL": 12.0 * 1000,
-          "price": 15000
-        },
-        "nResiver": {
-          "model": "Ресивер азотный 24000 литров",
-          "url": "/reciver.png",
-          "outputReceiverVolumeL": 24.0 * 1000,
-          "price": 15000
-        },
-        "productivity": [
-          { "purity": "99.9995%", "value": 331 },
-          { "purity": "99.999%", "value": 419 },
-          { "purity": "99.995%", "value": 590 },
-          { "purity": "99.99%", "value": 689 },
-          { "purity": "99.95%", "value": 937 },
-          { "purity": "99.9%", "value": 1103 },
-          { "purity": "99.5%", "value": 1500 },
-          { "purity": "99%", "value": 1764 },
-          { "purity": "98%", "value": 2128 },
-          { "purity": "97%", "value": 2426 },
-          { "purity": "95%", "value": 2757 }
-        ]
-      }
-    },
-    "N-1700": {
-      "id": "N1700",
-      "model": "Генератор азота N-1700",
-      "url": "/adsorber.png",
-      "price": 15000,
-      "airNeed": 29,
-      "equipment": {
-        "vResiver": {
-          "model": "Ресивер воздушный 13000 литров",
-          "url": "/reciver.png",
-          "inputReceiverVolumeL": 13.0 * 1000,
-          "price": 15000
-        },
-        "nResiver": {
-          "model": "Ресивер азотный 26000 литров",
-          "url": "/reciver.png",
-          "outputReceiverVolumeL": 26.0 * 1000,
-          "price": 15000
-        },
-        "productivity": [
-          { "purity": "99.9995%", "value": 375 },
-          { "purity": "99.999%", "value": 475 },
-          { "purity": "99.995%", "value": 669 },
-          { "purity": "99.99%", "value": 781 },
-          { "purity": "99.95%", "value": 1063 },
-          { "purity": "99.9%", "value": 1250 },
-          { "purity": "99.5%", "value": 1700 },
-          { "purity": "99%", "value": 2000 },
-          { "purity": "98%", "value": 2413 },
-          { "purity": "97%", "value": 2750 },
-          { "purity": "95%", "value": 3125 }
-        ]
-      }
-    },
-    "N-1900": {
-      "id": "N1900",
-      "model": "Генератор азота N-1900",
-      "url": "/adsorber.png",
-      "price": 15000,
-      "airNeed": 31,
-      "equipment": {
-        "vResiver": {
-          "model": "Ресивер воздушный 14000 литров",
-          "url": "/reciver.png",
-          "inputReceiverVolumeL": 14.0 * 1000,
-          "price": 15000
-        },
-        "nResiver": {
-          "model": "Ресивер азотный 28000 литров",
-          "url": "/reciver.png",
-          "outputReceiverVolumeL": 28.0 * 1000,
-          "price": 15000
-        },
-        "productivity": [
-          { "purity": "99.9995%", "value": 419 },
-          { "purity": "99.999%", "value": 531 },
-          { "purity": "99.995%", "value": 747 },
-          { "purity": "99.99%", "value": 973 },
-          { "purity": "99.95%", "value": 1187 },
-          { "purity": "99.9%", "value": 1397 },
-          { "purity": "99.5%", "value": 1900 },
-          { "purity": "99%", "value": 2235 },
-          { "purity": "98%", "value": 2696 },
-          { "purity": "97%", "value": 3073 },
-          { "purity": "95%", "value": 3492 }
-        ]
-      }
-    },
-    "N-2100": {
-      "id": "N2100",
-      "model": "Генератор азота N-2100",
-      "url": "/adsorber.png",
-      "price": 15000,
-      "airNeed": 33,
-      "equipment": {
-        "vResiver": {
-          "model": "Ресивер воздушный 15000 литров",
-          "url": "/reciver.png",
-          "inputReceiverVolumeL": 15.0 * 1000,
-          "price": 15000
-        },
-        "nResiver": {
-          "model": "Ресивер азотный 30000 литров",
-          "url": "/reciver.png",
-          "outputReceiverVolumeL": 30.0 * 1000,
-          "price": 15000
-        },
-        "productivity": [
-          { "purity": "99.9995%", "value": 463 },
-          { "purity": "99.999%", "value": 587 },
-          { "purity": "99.995%", "value": 826 },
-          { "purity": "99.99%", "value": 965 },
-          { "purity": "99.95%", "value": 1312 },
-          { "purity": "99.9%", "value": 1544 },
-          { "purity": "99.5%", "value": 2100 },
-          { "purity": "99%", "value": 2470 },
-          { "purity": "98%", "value": 2980 },
-          { "purity": "97%", "value": 3397 },
-          { "purity": "95%", "value": 3860 }
-        ]
-      }
     }
   },
   oxygen: {
+    "O-3": {
+      "id": "O3",
+      "model": "Генератор кислорода O-3",
+      "url": "/adsorber.png",
+      "price": 15000,
+      "airNeed": 0.92,
+      "equipment": {
+        "vResiver": {
+          "model": "Ресивер воздушный 500 литров",
+          "url": "/reciver.png",
+          "inputReceiverVolumeL": 0.5 * 1000,
+          "price": 15000
+        },
+        "oResiver": {
+          "model": "Ресивер кислородный 500 литров",
+          "url": "/reciver.png",
+          "outputReceiverVolumeL": 0.5 * 1000,
+          "price": 15000
+        },
+        "productivity": [
+          { "purity": "90%", "value": 3 }
+        ]
+      }
+    },
     "O-5": {
       "id": "O5",
       "model": "Генератор кислорода O-5",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 0.25,
+      "airNeed": 1.29,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 500 литров",
@@ -843,12 +663,36 @@ const data = {
         ]
       }
     },
+    "O-7": {
+      "id": "O7",
+      "model": "Генератор кислорода O-7",
+      "url": "/adsorber.png",
+      "price": 15000,
+      "airNeed": 1.99,
+      "equipment": {
+        "vResiver": {
+          "model": "Ресивер воздушный 750 литров",
+          "url": "/reciver.png",
+          "inputReceiverVolumeL": 0.75 * 1000,
+          "price": 15000
+        },
+        "oResiver": {
+          "model": "Ресивер кислородный 750 литров",
+          "url": "/reciver.png",
+          "outputReceiverVolumeL": 0.75 * 1000,
+          "price": 15000
+        },
+        "productivity": [
+          { "purity": "90%", "value": 7 }
+        ]
+      }
+    },
     "O-10": {
       "id": "O10",
       "model": "Генератор кислорода O-10",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 0.5,
+      "airNeed": 2.51,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 750 литров",
@@ -868,12 +712,36 @@ const data = {
         ]
       }
     },
+    "O-12": {
+      "id": "O12",
+      "model": "Генератор кислорода O-12",
+      "url": "/adsorber.png",
+      "price": 15000,
+      "airNeed": 3.11,
+      "equipment": {
+        "vResiver": {
+          "model": "Ресивер воздушный 1000 литров",
+          "url": "/reciver.png",
+          "inputReceiverVolumeL": 1.0 * 1000,
+          "price": 15000
+        },
+        "oResiver": {
+          "model": "Ресивер кислородный 1000 литров",
+          "url": "/reciver.png",
+          "outputReceiverVolumeL": 1.0 * 1000,
+          "price": 15000
+        },
+        "productivity": [
+          { "purity": "90%", "value": 12 }
+        ]
+      }
+    },
     "O-15": {
       "id": "O15",
       "model": "Генератор кислорода O-15",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 0.75,
+      "airNeed": 3.63,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1000 литров",
@@ -898,7 +766,7 @@ const data = {
       "model": "Генератор кислорода O-20",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 1.25,
+      "airNeed": 5.07,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 1500 литров",
@@ -918,12 +786,36 @@ const data = {
         ]
       }
     },
+    "O-25": {
+      "id": "O25",
+      "model": "Генератор кислорода O-25",
+      "url": "/adsorber.png",
+      "price": 15000,
+      "airNeed": 6.2,
+      "equipment": {
+        "vResiver": {
+          "model": "Ресивер воздушный 2000 литров",
+          "url": "/reciver.png",
+          "inputReceiverVolumeL": 2.0 * 1000,
+          "price": 15000
+        },
+        "oResiver": {
+          "model": "Ресивер кислородный 2000 литров",
+          "url": "/reciver.png",
+          "outputReceiverVolumeL": 2.0 * 1000,
+          "price": 15000
+        },
+        "productivity": [
+          { "purity": "90%", "value": 25 }
+        ]
+      }
+    },
     "O-30": {
       "id": "O30",
       "model": "Генератор кислорода O-30",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 2.5,
+      "airNeed": 7.51,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 2000 литров",
@@ -948,7 +840,7 @@ const data = {
       "model": "Генератор кислорода O-40",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 3.75,
+      "airNeed": 9.95,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 3000 литров",
@@ -973,7 +865,7 @@ const data = {
       "model": "Генератор кислорода O-50",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 5,
+      "airNeed": 12.19,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 4000 литров",
@@ -998,7 +890,7 @@ const data = {
       "model": "Генератор кислорода O-60",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 6.25,
+      "airNeed": 16.68,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 5000 литров",
@@ -1018,12 +910,12 @@ const data = {
         ]
       }
     },
-    "O-80": {
-      "id": "O80",
-      "model": "Генератор кислорода O-80",
+    "O-75": {
+      "id": "O75",
+      "model": "Генератор кислорода O-75",
       "url": "/adsorber.png",
       "price": 15000,
-      "airNeed": 7.5,
+      "airNeed": 19.32,
       "equipment": {
         "vResiver": {
           "model": "Ресивер воздушный 6000 литров",
@@ -1038,33 +930,7 @@ const data = {
           "price": 15000
         },
         "productivity": [
-          { "purity": "90%", "value": 80 },
-          { "purity": "93%", "value": 71.2 }
-        ]
-      }
-    },
-    "O-100": {
-      "id": "O100",
-      "model": "Генератор кислорода O-100",
-      "url": "/adsorber.png",
-      "price": 15000,
-      "airNeed": 8.75,
-      "equipment": {
-        "vResiver": {
-          "model": "Ресивер воздушный 7000 литров",
-          "url": "/reciver.png",
-          "inputReceiverVolumeL": 7.0 * 1000,
-          "price": 15000
-        },
-        "oResiver": {
-          "model": "Ресивер кислородный 7000 литров",
-          "url": "/reciver.png",
-          "outputReceiverVolumeL": 7.0 * 1000,
-          "price": 15000
-        },
-        "productivity": [
-          { "purity": "90%", "value": 100 },
-          { "purity": "93%", "value": 89 }
+          { "purity": "90%", "value": 75 }
         ]
       }
     }
