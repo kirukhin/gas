@@ -940,7 +940,7 @@ const data = {
     "dcomp": {
       "model": "Дожимной компрессор",
       "url": "/dcompressor.png",
-      "price": "?",
+      "price": 0,
       "pressure": 10
     }
   },
@@ -948,31 +948,31 @@ const data = {
     "ramp-20": {
       "model": "Заправочная рампа на 20 баллонов/сутки",
       "url": "/rampa.png",
-      "price": "?",
+      "price": 0,
       "capacity": 20
     },
     "ramp-45": {
       "model": "Заправочная рампа на 45 баллонов/сутки",
       "url": "/rampa.png",
-      "price": "?",
+      "price": 0,
       "capacity": 45
     },
     "ramp-65": {
       "model": "Заправочная рампа на 65 баллонов/сутки",
       "url": "/rampa.png",
-      "price": "?",
+      "price": 0,
       "capacity": 65
     },
     "ramp-90": {
       "model": "Заправочная рампа на 90 баллонов/сутки",
       "url": "/rampa.png",
-      "price": "?",
+      "price": 0,
       "capacity": 90
     },
     "ramp-125": {
       "model": "Заправочная рампа на 125 баллонов/сутки",
       "url": "/rampa.png",
-      "price": "?",
+      "price": 0,
       "capacity": 125
     }
   },
@@ -981,7 +981,7 @@ const data = {
       "id": "FILTR",
       model: "Трехступенчатый блок фильтров",
       url: "/filtr.png",
-      price: "?",
+      price: 0,
       capacity: 1
     }
   }
