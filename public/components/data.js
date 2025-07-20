@@ -4,7 +4,7 @@ const data = {
       "id": "N15",
       "model": "Генератор азота N-15",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 2661100,
       "airNeed": 0.75,
       "equipment": {
         "vResiver": {
@@ -38,7 +38,7 @@ const data = {
       "id": "N30",
       "model": "Генератор азота N-30",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 2895800,
       "airNeed": 1.5,
       "equipment": {
         "vResiver": {
@@ -72,7 +72,7 @@ const data = {
       "id": "N45",
       "model": "Генератор азота N-45",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 3112600,
       "airNeed": 2.25,
       "equipment": {
         "vResiver": {
@@ -106,7 +106,7 @@ const data = {
       "id": "N60",
       "model": "Генератор азота N-60",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 3365000,
       "airNeed": 3,
       "equipment": {
         "vResiver": {
@@ -140,7 +140,7 @@ const data = {
       "id": "N75",
       "model": "Генератор азота N-75",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 3668000,
       "airNeed": 3.75,
       "equipment": {
         "vResiver": {
@@ -174,7 +174,7 @@ const data = {
       "id": "N90",
       "model": "Генератор азота N-90",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 4036200,
       "airNeed": 4.5,
       "equipment": {
         "vResiver": {
@@ -208,7 +208,7 @@ const data = {
       "id": "N110",
       "model": "Генератор азота N-110",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 4241200,
       "airNeed": 5.5,
       "equipment": {
         "vResiver": {
@@ -242,7 +242,7 @@ const data = {
       "id": "N135",
       "model": "Генератор азота N-135",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 4570800,
       "airNeed": 6.5,
       "equipment": {
         "vResiver": {
@@ -276,7 +276,7 @@ const data = {
       "id": "N165",
       "model": "Генератор азота N-165",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 4954000,
       "airNeed": 8,
       "equipment": {
         "vResiver": {
@@ -310,7 +310,7 @@ const data = {
       "id": "N200",
       "model": "Генератор азота N-200",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 5381600,
       "airNeed": 9.5,
       "equipment": {
         "vResiver": {
@@ -344,7 +344,7 @@ const data = {
       "id": "N240",
       "model": "Генератор азота N-240",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 5648900,
       "airNeed": 11.5,
       "equipment": {
         "vResiver": {
@@ -378,7 +378,7 @@ const data = {
       "id": "N300",
       "model": "Генератор азота N-300",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 6144900,
       "airNeed": 14.5,
       "equipment": {
         "vResiver": {
@@ -412,7 +412,7 @@ const data = {
       "id": "N400",
       "model": "Генератор азота N-400",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 7647800,
       "airNeed": 19,
       "equipment": {
         "vResiver": {
@@ -446,7 +446,7 @@ const data = {
       "id": "N500",
       "model": "Генератор азота N-500",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 8915900,
       "airNeed": 24,
       "equipment": {
         "vResiver": {
@@ -480,7 +480,7 @@ const data = {
       "id": "N600",
       "model": "Генератор азота N-600",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 10371200,
       "airNeed": 29,
       "equipment": {
         "vResiver": {
@@ -514,7 +514,7 @@ const data = {
       "id": "N750",
       "model": "Генератор азота N-750",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 12444300,
       "airNeed": 36,
       "equipment": {
         "vResiver": {
@@ -548,7 +548,7 @@ const data = {
       "id": "N900",
       "model": "Генератор азота N-900",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 14401500,
       "airNeed": 43,
       "equipment": {
         "vResiver": {
@@ -582,7 +582,7 @@ const data = {
       "id": "N1050",
       "model": "Генератор азота N-1050",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 16759700,
       "airNeed": 50,
       "equipment": {
         "vResiver": {
@@ -618,7 +618,7 @@ const data = {
       "id": "O3",
       "model": "Генератор кислорода O-3",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 2432400,
       "airNeed": 0.92,
       "equipment": {
         "vResiver": {
@@ -642,7 +642,7 @@ const data = {
       "id": "O5",
       "model": "Генератор кислорода O-5",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 2622500,
       "airNeed": 1.29,
       "equipment": {
         "vResiver": {
@@ -667,7 +667,7 @@ const data = {
       "id": "O7",
       "model": "Генератор кислорода O-7",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 2839300,
       "airNeed": 1.99,
       "equipment": {
         "vResiver": {
@@ -691,7 +691,7 @@ const data = {
       "id": "O10",
       "model": "Генератор кислорода O-10",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 3103700,
       "airNeed": 2.51,
       "equipment": {
         "vResiver": {
@@ -716,7 +716,7 @@ const data = {
       "id": "O12",
       "model": "Генератор кислорода O-12",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 3145200,
       "airNeed": 3.11,
       "equipment": {
         "vResiver": {
@@ -740,7 +740,7 @@ const data = {
       "id": "O15",
       "model": "Генератор кислорода O-15",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 3344200,
       "airNeed": 3.63,
       "equipment": {
         "vResiver": {
@@ -765,7 +765,7 @@ const data = {
       "id": "O20",
       "model": "Генератор кислорода O-20",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 3676900,
       "airNeed": 5.07,
       "equipment": {
         "vResiver": {
@@ -790,7 +790,7 @@ const data = {
       "id": "O25",
       "model": "Генератор кислорода O-25",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 3905600,
       "airNeed": 6.2,
       "equipment": {
         "vResiver": {
@@ -814,7 +814,7 @@ const data = {
       "id": "O30",
       "model": "Генератор кислорода O-30",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 4264900,
       "airNeed": 7.51,
       "equipment": {
         "vResiver": {
@@ -839,7 +839,7 @@ const data = {
       "id": "O40",
       "model": "Генератор кислорода O-40",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 4760900,
       "airNeed": 9.95,
       "equipment": {
         "vResiver": {
@@ -864,7 +864,7 @@ const data = {
       "id": "O50",
       "model": "Генератор кислорода O-50",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 5351900,
       "airNeed": 12.19,
       "equipment": {
         "vResiver": {
@@ -889,7 +889,7 @@ const data = {
       "id": "O60",
       "model": "Генератор кислорода O-60",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 6067700,
       "airNeed": 16.68,
       "equipment": {
         "vResiver": {
@@ -914,7 +914,7 @@ const data = {
       "id": "O75",
       "model": "Генератор кислорода O-75",
       "url": "/adsorber.png",
-      "price": 15000,
+      "price": 7300300,
       "airNeed": 19.32,
       "equipment": {
         "vResiver": {
