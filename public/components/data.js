@@ -631,7 +631,7 @@ const data = {
           "model": "Ресивер кислородный 500 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 0.5 * 1000,
-          "price": 15000
+          "price": 117000
         },
         "productivity": [
           { "purity": "90%", "value": 3 }
@@ -655,7 +655,7 @@ const data = {
           "model": "Ресивер кислородный 500 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 0.5 * 1000,
-          "price": 15000
+          "price": 117000
         },
         "productivity": [
           { "purity": "90%", "value": 5 },

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import data from "/public/components/data.js";
-import { compressors, dryers } from './equipment';
+import { compressors, dryers, filters } from './equipment';
 // import "../../src/styles.css";
 import baseImg from "/base.png";
 import adsorberImg from "/adsorber.png";
@@ -252,7 +252,7 @@ const Config = () => {
       ? { ...matchingCompressors[0], model: matchingCompressors[0].id }
       : null;
 
-    /*------------------------ ПРОЧЕЕ ОБОРУДОВАНИЕ ---------------------------*/
+
     /*------------------------ ПРОЧЕЕ ОБОРУДОВАНИЕ ---------------------------*/
     // Подбор осушителя по airNeed генератора (если есть), иначе — от пользователя
     const requiredDryerFlowM3h = selectedModelData?.airNeed
@@ -268,7 +268,24 @@ const Config = () => {
       : null;
 
     const selectedDKompressor = data.dKompressor?.["dcomp"] ?? {};
-    const selectedFiltr = data.filtr?.["filtr"] ?? {};
+
+    // Подбор фильтра по maxFlow компрессора
+const selectedFiltr = (() => {
+  if (!selectedKompressor) return null;
+  const maxFlow = selectedKompressor.specs.find(s => s.pressure === pressureTarget)?.maxFlow;
+  if (!maxFlow) return null;
+
+  const matchingFilters = filters
+    .filter(f => f.flow >= maxFlow)
+    .sort((a, b) => a.flow - b.flow); // наименьший подходящий
+
+  const f = matchingFilters[0];
+  return f ? { ...f, model: f.id } : null;
+})();
+
+
+
+
     const selectedRampa = closest("rampa", "capacity", parseInt(refillCapacity)) ?? {};
 
     /*------------------------ СБОРКА СПИСКА --------------------------------*/

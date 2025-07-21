@@ -416,6 +416,106 @@ const dryers = [
     voltage: '380/50',
     power: 10.2
   }
-]
+];
 
-export { compressors, dryers }
+const filters = [
+  {
+    id: 'AAF0056',
+    name: 'Фильтр AAF 0056',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 16900 * 3,
+    flow: 60
+  },
+  {
+    id: 'AAF0076',
+    name: 'Фильтр AAF 0076',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 18400 * 3,
+    flow: 78
+  },
+  {
+    id: 'AAF0106',
+    name: 'Фильтр AAF 0106',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 21000 * 3,
+    flow: 120
+  },
+  {
+    id: 'AAF0186',
+    name: 'Фильтр AAF 0186',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 26800 * 3,
+    flow: 198
+  },
+  {
+    id: 'AAF0306',
+    name: 'Фильтр AAF 0306',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 40400 * 3,
+    flow: 335
+  },
+  {
+    id: 'AAF0476',
+    name: 'Фильтр AAF 0476',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 46700 * 3,
+    flow: 510
+  },
+  {
+    id: 'AAF0706',
+    name: 'Фильтр AAF 0706',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 56100 * 3,
+    flow: 780
+  },
+  {
+    id: 'AAF0946',
+    name: 'Фильтр AAF 0946',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 63900 * 3,
+    flow: 1000
+  },
+  {
+    id: 'AAF1506',
+    name: 'Фильтр AAF 1506',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 96000 * 3,
+    flow: 1500
+  },
+  {
+    id: 'AAF1756',
+    name: 'Фильтр AAF 1756',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 98100 * 3,
+    flow: 1680
+  },
+  {
+    id: 'AAF2006',
+    name: 'Фильтр AAF 2006',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 127300 * 3,
+    flow: 2160
+  },
+  {
+    id: 'AAF2406',
+    name: 'Фильтр AAF 2406',
+    type: 'Трехступенчатый блок фильтров',
+    url: '/filtr.png',
+    price: 156500 * 3,
+    flow: 2760
+  }
+];
+
+
+export { compressors, dryers, filters }
