@@ -11,13 +11,13 @@ const data = {
           "model": "Ресивер воздушный 200 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.2 * 1000,
-          "price": 15000
+          "price": 60300
         },
         "nResiver": {
           "model": "Ресивер азотный 400 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 0.4 * 1000,
-          "price": 15000
+          "price": 80600
         },
         "productivity": [
           { "purity": "99.9995%", "value": 3.5 },
@@ -45,13 +45,13 @@ const data = {
           "model": "Ресивер воздушный 400 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.4 * 1000,
-          "price": 15000
+          "price": 80600
         },
         "nResiver": {
           "model": "Ресивер азотный 800 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 0.8 * 1000,
-          "price": 15000
+          "price": 137300
         },
         "productivity": [
           { "purity": "99.9995%", "value": 7 },
@@ -79,13 +79,13 @@ const data = {
           "model": "Ресивер воздушный 500 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.5 * 1000,
-          "price": 15000
+          "price": 80600
         },
         "nResiver": {
           "model": "Ресивер азотный 1000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 1.0 * 1000,
-          "price": 15000
+          "price": 137300 + 51800
         },
         "productivity": [
           { "purity": "99.9995%", "value": 10 },
@@ -113,13 +113,13 @@ const data = {
           "model": "Ресивер воздушный 500 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.5 * 1000,
-          "price": 15000
+          "price": 80600
         },
         "nResiver": {
           "model": "Ресивер азотный 1000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 1.0 * 1000,
-          "price": 15000
+          "price": 137300 + 51800
         },
         "productivity": [
           { "purity": "99.9995%", "value": 13 },
@@ -147,13 +147,13 @@ const data = {
           "model": "Ресивер воздушный 750 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.75 * 1000,
-          "price": 15000
+          "price": 80600 + 60300
         },
         "nResiver": {
           "model": "Ресивер азотный 1500 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 1.5 * 1000,
-          "price": 15000
+          "price": 137300 + 137300
         },
         "productivity": [
           { "purity": "99.9995%", "value": 17 },
@@ -181,13 +181,13 @@ const data = {
           "model": "Ресивер воздушный 750 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.75 * 1000,
-          "price": 15000
+          "price": 80600 + 60300
         },
         "nResiver": {
           "model": "Ресивер азотный 1500 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 1.5 * 1000,
-          "price": 15000
+          "price": 137300 + 137300
         },
         "productivity": [
           { "purity": "99.9995%", "value": 20 },
@@ -215,13 +215,13 @@ const data = {
           "model": "Ресивер воздушный 1000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 1.0 * 1000,
-          "price": 15000
+          "price": 137300 + 51800
         },
         "nResiver": {
           "model": "Ресивер азотный 2000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 2.0 * 1000,
-          "price": 15000
+          "price": 137300 + 137300 + 60300
         },
         "productivity": [
           { "purity": "99.9995%", "value": 24 },
@@ -249,13 +249,13 @@ const data = {
           "model": "Ресивер воздушный 1500 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 1.5 * 1000,
-          "price": 15000
+          "price": 137300 + 137300
         },
         "nResiver": {
           "model": "Ресивер азотный 3000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 3.0 * 1000,
-          "price": 15000
+          "price": 137300 + 137300 + 137300 + 80600
         },
         "productivity": [
           { "purity": "99.9995%", "value": 30 },
@@ -283,13 +283,13 @@ const data = {
           "model": "Ресивер воздушный 1500 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 1.5 * 1000,
-          "price": 15000
+          "price": 137300 + 137300
         },
         "nResiver": {
           "model": "Ресивер азотный 3000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 3.0 * 1000,
-          "price": 15000
+          "price": 137300 + 137300 + 137300 + 80600
         },
         "productivity": [
           { "purity": "99.9995%", "value": 36 },
@@ -317,13 +317,13 @@ const data = {
           "model": "Ресивер воздушный 2000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 2.0 * 1000,
-          "price": 15000
+          "price": 137300 + 137300 + 60300
         },
         "nResiver": {
           "model": "Ресивер азотный 4000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 4.0 * 1000,
-          "price": 15000
+          "price": 137300 * 4 + 80600
         },
         "productivity": [
           { "purity": "99.9995%", "value": 44 },
@@ -351,13 +351,13 @@ const data = {
           "model": "Ресивер воздушный 2000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 2.0 * 1000,
-          "price": 15000
+          "price": 137300 + 137300 + 60300
         },
         "nResiver": {
           "model": "Ресивер азотный 4000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 4.0 * 1000,
-          "price": 15000
+          "price": 137300 * 4 + 80600
         },
         "productivity": [
           { "purity": "99.9995%", "value": 53 },
@@ -385,13 +385,13 @@ const data = {
           "model": "Ресивер воздушный 3000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 3.0 * 1000,
-          "price": 15000
+          "price": 137300 + 137300 + 137300 + 80600
         },
         "nResiver": {
           "model": "Ресивер азотный 6000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 6.0 * 1000,
-          "price": 15000
+          "price": 137300 * 7
         },
         "productivity": [
           { "purity": "99.9995%", "value": 66 },
@@ -419,13 +419,13 @@ const data = {
           "model": "Ресивер воздушный 4000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 4.0 * 1000,
-          "price": 15000
+          "price": 137300 * 4 + 80600
         },
         "nResiver": {
           "model": "Ресивер азотный 8000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 8.0 * 1000,
-          "price": 15000
+          "price": 137300 * 9
         },
         "productivity": [
           { "purity": "99.9995%", "value": 88 },
@@ -453,13 +453,13 @@ const data = {
           "model": "Ресивер воздушный 5000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 5.0 * 1000,
-          "price": 15000
+          "price": 137300 * 5 + 80600
         },
         "nResiver": {
           "model": "Ресивер азотный 10000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 10.0 * 1000,
-          "price": 15000
+          "price": 137300 * 11 + 51800
         },
         "productivity": [
           { "purity": "99.9995%", "value": 110 },
@@ -487,13 +487,13 @@ const data = {
           "model": "Ресивер воздушный 6000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 6.0 * 1000,
-          "price": 15000
+          "price": 137300 * 7
         },
         "nResiver": {
           "model": "Ресивер азотный 12000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 12.0 * 1000,
-          "price": 15000
+          "price": 137300 * 13 + 80600
         },
         "productivity": [
           { "purity": "99.9995%", "value": 132 },
@@ -521,13 +521,14 @@ const data = {
           "model": "Ресивер воздушный 7000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 7.0 * 1000,
-          "price": 15000
+          "price": 137300 * 8
         },
         "nResiver": {
           "model": "Ресивер азотный 14000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 14.0 * 1000,
-          "price": 15000
+          "price": 137300 * 15 + 80600
+
         },
         "productivity": [
           { "purity": "99.9995%", "value": 166 },
@@ -555,13 +556,13 @@ const data = {
           "model": "Ресивер воздушный 8000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 8.0 * 1000,
-          "price": 15000
+          "price": 137300 * 9
         },
         "nResiver": {
           "model": "Ресивер азотный 16000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 16.0 * 1000,
-          "price": 15000
+          "price": 137300 * 18
         },
         "productivity": [
           { "purity": "99.9995%", "value": 199 },
@@ -589,13 +590,13 @@ const data = {
           "model": "Ресивер воздушный 9000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 9.0 * 1000,
-          "price": 15000
+          "price": 137300 * 10
         },
         "nResiver": {
           "model": "Ресивер азотный 18000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 18.0 * 1000,
-          "price": 15000
+          "price": 137300 * 20
         },
         "productivity": [
           { "purity": "99.9995%", "value": 232 },
@@ -625,7 +626,7 @@ const data = {
           "model": "Ресивер воздушный 500 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.5 * 1000,
-          "price": 15000
+          "price": 80600
         },
         "oResiver": {
           "model": "Ресивер кислородный 500 литров",
@@ -649,7 +650,7 @@ const data = {
           "model": "Ресивер воздушный 500 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.5 * 1000,
-          "price": 15000
+          "price": 80600
         },
         "oResiver": {
           "model": "Ресивер кислородный 500 литров",
@@ -674,13 +675,14 @@ const data = {
           "model": "Ресивер воздушный 750 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.75 * 1000,
-          "price": 15000
+          "price": 80600 + 60300
         },
         "oResiver": {
           "model": "Ресивер кислородный 750 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 0.75 * 1000,
-          "price": 15000
+          "price": 117000 + 102900
+
         },
         "productivity": [
           { "purity": "90%", "value": 7 }
@@ -698,13 +700,13 @@ const data = {
           "model": "Ресивер воздушный 750 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 0.75 * 1000,
-          "price": 15000
+          "price": 80600 + 60300
         },
         "oResiver": {
           "model": "Ресивер кислородный 750 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 0.75 * 1000,
-          "price": 15000
+          "price": 117000 + 102900
         },
         "productivity": [
           { "purity": "90%", "value": 10 },
@@ -723,13 +725,13 @@ const data = {
           "model": "Ресивер воздушный 1000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 1.0 * 1000,
-          "price": 15000
+          "price": 137300 + 51800
         },
         "oResiver": {
           "model": "Ресивер кислородный 1000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 1.0 * 1000,
-          "price": 15000
+          "price": 189000 + 71250
         },
         "productivity": [
           { "purity": "90%", "value": 12 }
@@ -747,13 +749,13 @@ const data = {
           "model": "Ресивер воздушный 1000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 1.0 * 1000,
-          "price": 15000
+          "price": 137300 + 51800
         },
         "oResiver": {
           "model": "Ресивер кислородный 1000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 1.0 * 1000,
-          "price": 15000
+          "price": 189000 + 71250
         },
         "productivity": [
           { "purity": "90%", "value": 15 },
@@ -772,13 +774,13 @@ const data = {
           "model": "Ресивер воздушный 1500 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 1.5 * 1000,
-          "price": 15000
+          "price": 137300 * 2
         },
         "oResiver": {
           "model": "Ресивер кислородный 1500 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 1.5 * 1000,
-          "price": 15000
+          "price": 189000 + 117000 + 71250
         },
         "productivity": [
           { "purity": "90%", "value": 20 },
@@ -797,13 +799,13 @@ const data = {
           "model": "Ресивер воздушный 2000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 2.0 * 1000,
-          "price": 15000
+          "price": 137300 * 2 + 60300
         },
         "oResiver": {
           "model": "Ресивер кислородный 2000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 2.0 * 1000,
-          "price": 15000
+          "price": 189000 + 189000 + 102900
         },
         "productivity": [
           { "purity": "90%", "value": 25 }
@@ -821,13 +823,13 @@ const data = {
           "model": "Ресивер воздушный 2000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 2.0 * 1000,
-          "price": 15000
+          "price": 137300 * 2 + 60300
         },
         "oResiver": {
           "model": "Ресивер кислородный 2000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 2.0 * 1000,
-          "price": 15000
+          "price": 189000 + 189000 + 102900
         },
         "productivity": [
           { "purity": "90%", "value": 30 },
@@ -846,13 +848,13 @@ const data = {
           "model": "Ресивер воздушный 3000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 3.0 * 1000,
-          "price": 15000
+          "price": 137300 * 3 + 80600
         },
         "oResiver": {
           "model": "Ресивер кислородный 3000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 3.0 * 1000,
-          "price": 15000
+          "price": 189000 + 189000 + 189000 + 117000
         },
         "productivity": [
           { "purity": "90%", "value": 40 },
@@ -871,13 +873,13 @@ const data = {
           "model": "Ресивер воздушный 4000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 4.0 * 1000,
-          "price": 15000
+          "price": 137300 * 4 + 80600
         },
         "oResiver": {
           "model": "Ресивер кислородный 4000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 4.0 * 1000,
-          "price": 15000
+          "price": 189000 + 189000 + 189000 + 189000 + 117000
         },
         "productivity": [
           { "purity": "90%", "value": 50 },
@@ -896,13 +898,13 @@ const data = {
           "model": "Ресивер воздушный 5000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 5.0 * 1000,
-          "price": 15000
+          "price": 137300 * 5 + 80600
         },
         "oResiver": {
           "model": "Ресивер кислородный 5000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 5.0 * 1000,
-          "price": 15000
+          "price": 189000 + 189000 + 189000 + 189000 + 189000 + 117000
         },
         "productivity": [
           { "purity": "90%", "value": 60 },
@@ -921,13 +923,13 @@ const data = {
           "model": "Ресивер воздушный 6000 литров",
           "url": "/reciver.png",
           "inputReceiverVolumeL": 6.0 * 1000,
-          "price": 15000
+          "price": 137300 * 7
         },
         "oResiver": {
           "model": "Ресивер кислородный 6000 литров",
           "url": "/reciver.png",
           "outputReceiverVolumeL": 6.0 * 1000,
-          "price": 15000
+          "price": 189000 * 7
         },
         "productivity": [
           { "purity": "90%", "value": 75 }
