@@ -16,7 +16,7 @@ const compressors = [
     name: 'Масляный винтовой компрессор BGV7',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/compressor.png',
-    price: 345100, 
+    price: 345100,
     specs: [
       { pressure: 7, minFlow: 24.0, maxFlow: 77.4, power: 7.5 },
       { pressure: 8, minFlow: 22.8, maxFlow: 76.8, power: 7.5 },
@@ -415,6 +415,259 @@ const dryers = [
     flow: 3300,
     voltage: '380/50',
     power: 10.2
+  },
+  {
+    id: 'DA 130',
+    name: 'Осушитель DryAir DA 130',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 130.2,
+    specs: [
+      { maxPressure: 10, price: 798600 },
+      { maxPressure: 16, price: 971731 }
+    ]
+  },
+  {
+    id: 'DA 185',
+    name: 'Осушитель DryAir DA 185',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 184.8,
+    specs: [
+      { maxPressure: 10, price: 871200 },
+      { maxPressure: 16, price: 1098847 }
+    ]
+  },
+  {
+    id: 'DA 250',
+    name: 'Осушитель DryAir DA 250',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 250.2,
+    specs: [
+      { maxPressure: 10, price: 945120 },
+      { maxPressure: 16, price: 1220314 }
+    ]
+  },
+  {
+    id: 'DA 300',
+    name: 'Осушитель DryAir DA 300',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 300.0,
+    specs: [
+      { maxPressure: 10, price: 1019040 },
+      { maxPressure: 16, price: 1302233 }
+    ]
+  },
+  {
+    id: 'DA 360',
+    name: 'Осушитель DryAir DA 360',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 360.0,
+    specs: [
+      { maxPressure: 10, price: 1141800 },
+      { maxPressure: 16, price: 1502794 }
+    ]
+  },
+  {
+    id: 'DA 440',
+    name: 'Осушитель DryAir DA 440',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 439.8,
+    specs: [
+      { maxPressure: 10, price: 1475100 },
+      { maxPressure: 16, price: 1954762 }
+    ]
+  },
+  {
+    id: 'DA 575',
+    name: 'Осушитель DryAir DA 575',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 574.8,
+    specs: [
+      { maxPressure: 10, price: 1782000 },
+      { maxPressure: 16, price: 2331872 }
+    ]
+  },
+  {
+    id: 'DA 680',
+    name: 'Осушитель DryAir DA 680',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 679.8,
+    specs: [
+      { maxPressure: 10, price: 1900800 },
+      { maxPressure: 16, price: 2556444 }
+    ]
+  },
+  {
+    id: 'DA 850',
+    name: 'Осушитель DryAir DA 850',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 850.2,
+    specs: [
+      { maxPressure: 10, price: 2081640 },
+      { maxPressure: 16, price: 2781016 }
+    ]
+  },
+  {
+    id: 'DA 1000',
+    name: 'Осушитель DryAir DA 1000',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 1000.2,
+    specs: [
+      { maxPressure: 10, price: 2415600 },
+      { maxPressure: 16, price: 3084682 }
+    ]
+  },
+  {
+    id: 'DA 1250',
+    name: 'Осушитель DryAir DA 1250',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 1249.8,
+    specs: [
+      { maxPressure: 10, price: 2653200 },
+      { maxPressure: 16, price: 3268294 }
+    ]
+  },
+  {
+    id: 'DA 1500',
+    name: 'Осушитель DryAir DA 1500',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 1500.0,
+    specs: [
+      { maxPressure: 10, price: 2805000 },
+      { maxPressure: 16, price: 3560660 }
+    ]
+  },
+  {
+    id: 'DA 1800',
+    name: 'Осушитель DryAir DA 1800',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 1800.0,
+    specs: [
+      { maxPressure: 10, price: 3465000 },
+      { maxPressure: 16, price: 4396801 }
+    ]
+  },
+  {
+    id: 'DA 2200',
+    name: 'Осушитель DryAir DA 2200',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 2200.2,
+    specs: [
+      { maxPressure: 10, price: 3920400 },
+      { maxPressure: 16, price: 4771087 }
+    ]
+  },
+  {
+    id: 'DA 2700',
+    name: 'Осушитель DryAir DA 2700',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 2700.0,
+    specs: [
+      { maxPressure: 10, price: 4323000 },
+      { maxPressure: 16, price: 5259778 }
+    ]
+  },
+  {
+    id: 'DA 3200',
+    name: 'Осушитель DryAir DA 3200',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 3199.8,
+    specs: [
+      { maxPressure: 10, price: 5306400 },
+      { maxPressure: 16, price: 6576134 }
+    ]
+  },
+  {
+    id: 'DA 3600',
+    name: 'Осушитель DryAir DA 3600',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 3600.0,
+    specs: [
+      { maxPressure: 10, price: 6072000 },
+      { maxPressure: 16, price: 7511143 }
+    ]
+  },
+  {
+    id: 'DA 4400',
+    name: 'Осушитель DryAir DA 4400',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 4399.8,
+    specs: [
+      { maxPressure: 10, price: 6811200 },
+      { maxPressure: 16, price: 8487112 }
+    ]
+  },
+  {
+    id: 'DA 5000',
+    name: 'Осушитель DryAir DA 5000',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 4999.8,
+    specs: [
+      { maxPressure: 10, price: 7220400 },
+      { maxPressure: 16, price: 9088794 }
+    ]
+  },
+  {
+    id: 'DA 6300',
+    name: 'Осушитель DryAir DA 6300',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 6300.0,
+    specs: [
+      { maxPressure: 10, price: 8131200 },
+      { maxPressure: 16, price: 10214477 }
+    ]
+  },
+  {
+    id: 'DA 7200',
+    name: 'Осушитель DryAir DA 7200',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 7200.0,
+    specs: [
+      { maxPressure: 10, price: 8896800 },
+      { maxPressure: 16, price: 11340160 }
+    ]
+  },
+  {
+    id: 'DA 8800',
+    name: 'Осушитель DryAir DA 8800',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 8800.2,
+    specs: [
+      { maxPressure: 10, price: 10408200 },
+      { maxPressure: 16, price: 13217239 }
+    ]
+  },
+  {
+    id: 'DA 10800',
+    name: 'Осушитель DryAir DA 10800',
+    type: 'Адсорбционный осушитель',
+    url: '/osyshitel.png',
+    flow: 10800.0,
+    specs: [
+      { maxPressure: 10, price: 12084600 },
+      { maxPressure: 16, price: 15321715 }
+    ]
   }
 ];
 
@@ -517,5 +770,63 @@ const filters = [
   }
 ];
 
+const dCompressors = [
+  {
+    id: 'VWZT-3/5-150',
+    name: 'Дожимающий компрессор VWZT-3/5-150',
+    type: 'Дожимающий компрессор для заправки баллонов',
+    url: '/dcompressor.png',
+    price: 1520500,
+    flow: 3
+  },
+  {
+    id: 'VWZT-6/5-150',
+    name: 'Дожимающий компрессор VWZT-6/5-150',
+    type: 'Дожимающий компрессор для заправки баллонов',
+    url: '/dcompressor.png',
+    price: 1596700,
+    flow: 6
+  },
+  {
+    id: 'WWZT-12/5-150',
+    name: 'Дожимающий компрессор WWZT-12/5-150',
+    type: 'Дожимающий компрессор для заправки баллонов',
+    url: '/dcompressor.png',
+    price: 1898300,
+    flow: 12
+  },
+  {
+    id: 'WWZT-15/5-150',
+    name: 'Дожимающий компрессор WWZT-15/5-150',
+    type: 'Дожимающий компрессор для заправки баллонов',
+    url: '/dcompressor.png',
+    price: 1920500,
+    flow: 15
+  },
+  {
+    id: 'WWZT-18/5-150',
+    name: 'Дожимающий компрессор WWZT-18/5-150',
+    type: 'Дожимающий компрессор для заправки баллонов',
+    url: '/dcompressor.png',
+    price: 2171200,
+    flow: 18
+  },
+  {
+    id: 'WWZT-24/5-150',
+    name: 'Дожимающий компрессор WWZT-24/5-150',
+    type: 'Дожимающий компрессор для заправки баллонов',
+    url: '/dcompressor.png',
+    price: 2278700,
+    flow: 24
+  },
+  {
+    id: 'HWZT-33/5-150',
+    name: 'Дожимающий компрессор HWZT-33/5-150',
+    type: 'Дожимающий компрессор для заправки баллонов',
+    url: '/dcompressor.png',
+    price: 2537900,
+    flow: 33
+  }
+];
 
-export { compressors, dryers, filters }
+export { compressors, dryers, filters, dCompressors }

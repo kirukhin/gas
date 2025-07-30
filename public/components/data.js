@@ -948,35 +948,23 @@ const data = {
   },
   rampa: {
     "ramp-20": {
-      "model": "Заправочная рампа на 20 баллонов/сутки",
+      "model": "Заправочная рампа 2*3 баллона",
       "url": "/rampa.png",
-      "price": 0,
-      "capacity": 20
+      "price": 248000,
+      "capacity": 6
     },
     "ramp-45": {
-      "model": "Заправочная рампа на 45 баллонов/сутки",
+      "model": "Заправочная рампа 5 баллонов",
       "url": "/rampa.png",
       "price": 0,
-      "capacity": 45
+      "capacity": 5
     },
     "ramp-65": {
-      "model": "Заправочная рампа на 65 баллонов/сутки",
+      "model": "Заправочная рампа 10 баллонов",
       "url": "/rampa.png",
       "price": 0,
-      "capacity": 65
+      "capacity": 10
     },
-    "ramp-90": {
-      "model": "Заправочная рампа на 90 баллонов/сутки",
-      "url": "/rampa.png",
-      "price": 0,
-      "capacity": 90
-    },
-    "ramp-125": {
-      "model": "Заправочная рампа на 125 баллонов/сутки",
-      "url": "/rampa.png",
-      "price": 0,
-      "capacity": 125
-    }
   },
   filtr: {
     "filtr": {
