@@ -95,7 +95,7 @@ export const generatePdf = async ({
 
   techSpecs.push(["Производительность", `${inputValue} ${unitLabel}`]);
   if (system === "refill") {
-    techSpecs.push(["Производительность (в баллонах)", `${refillCapacity} баллонов в сутки`]);
+    techSpecs.push(["Станция заправки", `${refillCapacity} баллонов за цикл`]);
   }
 
   // === Таблица "Комплект поставки" ===
@@ -226,7 +226,7 @@ export const generatePdf = async ({
           height: 92,
         },
         {
-          text: "БлицГаз    8 (812) 334-56-38    info@blitzgas.ru",
+          text: "БлицГаз    +7 (495) 065-92-76    info@blitzgas.ru",
           fontSize: 20,
           bold: true,
           font: 'Roboto',

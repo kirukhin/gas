@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
@@ -11,6 +11,11 @@
   <meta name="author" content="" />
   <script src="https://cdn.tailwindcss.com"></script>
 
+
+
+
+
+
   <!--Replace with your tailwind.css once created-->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
   <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
@@ -20,7 +25,18 @@
     }
   </style>
 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103957835', 'ym');
 
+    ym(103957835, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
 
 
 
@@ -60,7 +76,7 @@
       <!-- Контакты по центру (абсолютно центрированы) -->
       <div class="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6 order-2">
         <span class="text-black text-lg font-medium hover:text-gray-800">info@blitzgas.ru</span>
-        <span class="text-black text-lg font-medium hover:text-gray-800">+7 (000) 000-00-00</span>
+        <span class="text-black text-lg font-medium hover:text-gray-800">+7 (495) 065-92-76</span>
       </div>
 
 
@@ -68,10 +84,10 @@
       <div class="hidden lg:flex items-center pr-4 order-3">
         <ul class="list-reset flex space-x-6">
           <li>
-            <a class="text-black text-lg font-medium hover:text-gray-800" href="#about">Блицгаз</a>
+            <a class="text-black text-lg font-medium hover:text-gray-800" href="#about">Технология</a>
           </li>
           <li>
-            <a class="text-black text-lg font-medium hover:text-gray-800" href="#footer">Конфигуратор</a>
+            <a class="text-black text-lg font-medium hover:text-gray-800" href="#config">Конфигуратор</a>
           </li>
         </ul>
       </div>
@@ -100,12 +116,11 @@
           Сервисная поддержка от специалистов с 30-летним стажем в газовой генерации.
         </p>
 
-        <button
-        onclick="location.href='#about'"
-        class="bg-white text-red-600 font-semibold rounded-full py-3 px-8 shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400">
-        Подробнее
-      </button>
-      
+        <a href="#config"
+          class="cursor-pointer bg-white text-red-600 font-semibold rounded-full py-3 px-8 shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 inline-block relative z-50">
+          Сконфигурировать установку
+        </a>
+
       </div>
       <!--Right Col-->
       <div class="w-full md:w-3/5 py-6 text-center">
@@ -158,13 +173,13 @@
             азот или кислород селективно удерживаются сорбентами.
           </p>
           <h4 class="text-
-          l text-gray-800 font-bold leading-none mb-3">Подготовка воздуха</h4>             
-            <ol class="list-decimal list-inside text-gray-600 mb-8">
-              <li>Сжатие атмосферного воздуха с помощью винтового компрессора</li>
-              <li>Удаление влаги в рефрижераторном или адсорбционном осушителе</li>
-              <li>Фильтрация воздуха от пыли, масла и примесей</li>
-              <li>Накопление воздуха в буферном ресивере и подача в адсорберы</li>
-            </ol>
+          l text-gray-800 font-bold leading-none mb-3">Подготовка воздуха</h4>
+          <ol class="list-decimal list-inside text-gray-600 mb-8">
+            <li>Сжатие атмосферного воздуха с помощью винтового компрессора</li>
+            <li>Удаление влаги в рефрижераторном или адсорбционном осушителе</li>
+            <li>Фильтрация воздуха от пыли, масла и примесей</li>
+            <li>Накопление воздуха в буферном ресивере и подача в адсорберы</li>
+          </ol>
 
 
           <p class="text-gray-600 mb-8">
@@ -180,10 +195,10 @@
         <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
           <img src="/gen2.png" alt="Короткоцикловое адсорбционное газоразделение" class="max-w-full h-auto" />
         </div>
-        
+
       </div>
       <div class="flex flex-wrap flex-col-reverse sm:flex-row">
-         <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
+        <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
           <img src="/gen1.png" alt="PSA-генератор Блицгаз" class="max-w-full h-auto" />
         </div>
         <div class="w-full sm:w-1/2 p-6 mt-6">
@@ -265,56 +280,62 @@
 
       </div>
     </div>
-    
-  </section>
-  
-  <section>
-    <div  class="bg-white py-12" id="root"></div>
+
   </section>
 
-    <!-- Change the colour #f8fafc to match the previous section colour -->
-    <svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
-          <g class="wave" fill="#ffffff">
+  <section>
+    <div class="bg-white py-12" id="root"></div>
+  </section>
+
+  <!-- Change the colour #f8fafc to match the previous section colour -->
+  <svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
+        <g class="wave" fill="#ffffff">
+          <path
+            d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z">
+          </path>
+        </g>
+        <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
+          <g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
             <path
-              d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"
-            ></path>
-          </g>
-          <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
-            <g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
-              <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
-              <path
-                d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
-                opacity="0.100000001"
-              ></path>
-              <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" opacity="0.200000003"></path>
-            </g>
+              d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
+              opacity="0.100000001"></path>
+            <path
+              d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
+              opacity="0.100000001"></path>
+            <path
+              d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
+              opacity="0.200000003"></path>
           </g>
         </g>
       </g>
-    </svg>
+    </g>
+  </svg>
 
 
 
   <section id="footer" class="text-white py-12">
     <div class="container mx-auto px-4 max-w-6xl">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        
+
         <!-- Контактная информация -->
         <div class="text-2xl font-semibold">
 
           <h2 class="text-3xl font-bold mb-4">Контакты</h2>
           <p class="mb-2 text-black">Блицгаз</p>
-          <p class="mb-2 text-black">г. Подольск, ул. Большая Серпуховская, д. 43</p>
-          <p class="mb-2 text-black">Тел: +7 (000) 000-00-00</p>
+          <p class="mb-2 text-black">г. Подольск, Революционный проспект, 53/44</p>
+          <p class="mb-2 text-black">Тел: +7 (495) 065-92-76</p>
           <p class="mb-2 text-black">Email: info@blitzgas.ru</p>
         </div>
-  
+
         <!-- Форма обратной связи -->
         <div>
           <h2 class="text-3xl font-bold mb-4">Связаться с нами</h2>
-          <form action="https://script.google.com/macros/s/AKfycbz3bh5QgSzyn9mfbc7bQhkN1A6sV7yWM6Kj6IKkZicKiiXeyFmo9h1jBA5E2xV15E-R8w/exec" method="POST" class="space-y-4">
+          <form
+            action="https://script.google.com/macros/s/AKfycbz3bh5QgSzyn9mfbc7bQhkN1A6sV7yWM6Kj6IKkZicKiiXeyFmo9h1jBA5E2xV15E-R8w/exec"
+            method="POST" class="space-y-4">
             <input type="text" name="name" required placeholder="Имя / Компания"
               class="w-full px-4 py-2 rounded bg-white text-black" />
             <input type="email" name="email" required placeholder="E-mail для обратной связи"
@@ -326,35 +347,37 @@
               Отправить
             </button>
           </form>
-          
+
         </div>
       </div>
-  
+
       <!-- Встроенная карта -->
-      <div class="w-full">
-        <iframe
-          src="https://www.openstreetmap.org/export/embed.html?bbox=37.528%2C55.422%2C37.558%2C55.432&layer=mapnik&marker=55.427%2C37.543"
-          style="width: 100%; height: 300px; border: 0;" allowfullscreen loading="lazy">
-        </iframe>
-      </div>
-  
-      <p class="text-center text-sm mt-6 opacity-50">&copy; 2025 Блицгаз. Все права защищены.</p>
-    </div>
-  </section>
-  
+<div class="w-full">
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=37.534809%2C55.424926%2C37.554809%2C55.444926&layer=mapnik&marker=55.434926%2C37.544809"
+    style="width: 100%; height: 300px; border: 0;" allowfullscreen loading="lazy">
+  </iframe>
+</div>
+
+<p class="text-center text-sm mt-6 opacity-50">&copy; 2025 Блицгаз. Все права защищены.</p>
+</div>
+</section>
+
+
+
 
   <!-- React-приложение -->
-  
+
   <script type="module" src="/src/index.jsx"></script>
-  
+
 
   <script>
     document.addEventListener("scroll", function () {
       const scrollY = window.scrollY;
       const header = document.getElementById("header");
-  
+
       if (!header) return;
-  
+
       if (scrollY > 10) {
         header.classList.add("bg-white", "shadow");
       } else {
@@ -362,8 +385,10 @@
       }
     });
   </script>
-  
- 
+<noscript><div><img src="https://mc.yandex.ru/watch/103957835" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+
 </body>
 
 </html>
