@@ -12,6 +12,8 @@ import dcompressorImg from "/dcompressor.png";
 import rampaImg from "/rampa.png";
 import { generatePdf } from './PdfGenerator';
 // import Main from './Main'
+import PdfButton from './PdfButton'; // путь — где поместите файл
+
 
 
 const Config = () => {
@@ -769,29 +771,33 @@ const Config = () => {
         </div>
       </div>
 
-      {/* Кнопка под оборудованием */}
+ {/* Кнопка под оборудованием */}
+<div className="bg-white text-center mt-10">
+  <PdfButton
+    showClarifyButton={showClarifyButton}
+    setShowModal={setShowModal}
+    isEquipmentValid={isEquipmentValid}
+    anyIncluded={anyIncluded}
 
+    // данные для PDF (обязательно прокинуть pressure)
+    generator={generator}
+    // вот важное добавление:
+    pressure={pressure}                  // <- прокиньте state pressure (для кислорода)
+    system={system}
+    selectedModelData={selectedModelData}
+    purity={purity}
+    nitrogenPurityOptions={nitrogenPurityOptions}
+    nitrogenPurityIndex={nitrogenPurityIndex}
+    nitrogenPressureOptions={nitrogenPressureOptions}
+    nitrogenPressureIndex={nitrogenPressureIndex}
+    selectedDewPoint={selectedDewPoint}
+    unit={unit}
+    inputValue={inputValue}
+    refillCapacity={refillCapacity}
+    selectedEquipment={selectedEquipment}
+  />
+</div>
 
-
-      <div className="bg-white text-center mt-10">
-        {showClarifyButton ? (
-          <button
-            className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded transition duration-300"
-            onClick={() => setShowModal(true)}
-          >
-            Уточнить характеристики
-          </button>
-        ) : (
-          isEquipmentValid && anyIncluded && (
-            <button
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded transition duration-300"
-              onClick={handleGeneratePdf}
-            >
-              Получить КП на эту конфигурацию
-            </button>
-          )
-        )}
-      </div>
 
 
       {showModal && (
