@@ -9,9 +9,15 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "dev:next": "next dev",
+    "build:next": "next build",
+    "export:next": "next export",
+    "build:export": "next build && next export",
+    "deploy:next": "npm run build:export && gh-pages -d out"
   },
   "dependencies": {
+    "next": "^15.5.4",
     "pdfmake": "^0.2.18",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
