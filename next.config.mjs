@@ -9,7 +9,7 @@ const nextConfig = {
   },
   compiler: {},
   eslint: { ignoreDuringBuilds: true },
-  basePath: '',
+  basePath: '/gas',
   assetPrefix: '',
 
   // Включаем статический экспорт (Next 15+)
