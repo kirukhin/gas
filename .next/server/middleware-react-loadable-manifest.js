@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST='{"components/PdfGenerator.jsx -> pdfmake/build/pdfmake":{"id":1980,"files":["static/chunks/6a4906b0.7344abbad3075c78.js"]},"components/PdfGenerator.jsx -> pdfmake/build/vfs_fonts":{"id":6316,"files":["static/chunks/e2ce810f.b71fbd694accc1fd.js"]}}';
