@@ -7,14 +7,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint .",
-    "preview": "next preview",
     "deploy": "npm run build && gh-pages -d out",
-    "dev:next": "next dev",
-    "export:next": "next export",
-    "build:export": "next build && next export",
-    "deploy:next": "npm run build:export && gh-pages -d out"
+    "start": "next start",
+    "lint": "eslint ."
   },
   "dependencies": {
     "next": "^15.5.4",
