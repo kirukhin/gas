@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "eslint .",
     "preview": "next preview",
-    "deploy": "npm run build && gh-pages -d dist",
+    "deploy": "npm run build && gh-pages -d out",
     "dev:next": "next dev",
     "export:next": "next export",
     "build:export": "next build && next export",

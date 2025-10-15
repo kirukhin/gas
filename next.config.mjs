@@ -11,6 +11,8 @@ const nextConfig = {
     // domains: ['example.com', 'another-cdn.com']
   },
 
+  output: 'export',
+
   compiler: {
     // Если используешь styled-components или emotion, можно включить
     // styledComponents: true,
