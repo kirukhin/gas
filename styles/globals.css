@@ -4,10 +4,6 @@
 /* Tailwind imports */
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* Ensure body uses Source Sans Pro as a fallback */
 body {
   font-family: "Source Sans Pro", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -20,10 +16,6 @@ body {
   background: linear-gradient(120deg, rgba(224, 224, 224, 1) 0%, rgba(126, 140, 166, 1) 30%);
 }
 
-/* Utility to mirror small dot/shadowed wave elements' opacity style when reused */
-.gradient.w-64 {
-  /* keeps the small decorative bar subtle when used in white sections */
-}
 
 /* Wave / svg helpers (optional adjustments) */
 .wave-top {
