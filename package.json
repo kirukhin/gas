@@ -5,13 +5,12 @@
   "type": "module",
   "homepage": "https://blitzgas.ru",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "next dev",
+    "build": "next build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "next preview",
     "deploy": "npm run build && gh-pages -d dist",
     "dev:next": "next dev",
-    "build:next": "next build",
     "export:next": "next export",
     "build:export": "next build && next export",
     "deploy:next": "npm run build:export && gh-pages -d out"
@@ -28,7 +27,6 @@
     "@tailwindcss/postcss": "^4.1.14",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
@@ -36,11 +34,8 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "gh-pages": "6.3.0",
     "globals": "^15.14.0",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.14",
-    "vite": "^6.0.5"
-  },
-  "overrides": {
-    "postcss": "8.4.31"
+    "postcss": "^8.4.31",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.14"
   }
 }

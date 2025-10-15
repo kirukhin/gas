@@ -1,24 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Конфигуратор газоразделительного оборудования</title>
-  <meta name="description" content="Simple landind page" />
-  <meta name="keywords" content="" />
-  <meta name="author" content="" />
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <title>Блицгаз | Газоразделительные установки</title>
+  <meta name="description" content="БлицГаз: сервис онлайн-подбора газоразделительного оборудования" />
+  <meta name="keywords" content="Генераторы азота, генераторы кислорода, газоразделительное оборудование" />
+  <meta name="author" content="БлицГаз" />
+  <meta name="yandex-verification" content="139f65124a8ab735" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+
+
+
+
   <!--Replace with your tailwind.css once created-->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
   <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
   <style>
     .gradient {
-      background: linear-gradient(90deg, rgba(224, 224, 224, 1) 0%, rgba(126, 140, 166, 1) 100%);
+      background: linear-gradient(120deg, rgba(224, 224, 224, 1) 0%, rgba(126, 140, 166, 1) 30%);
+    }
   </style>
 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103957835', 'ym');
 
+    ym(103957835, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
 
 
 
@@ -57,18 +76,19 @@
 
       <!-- Контакты по центру (абсолютно центрированы) -->
       <div class="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6 order-2">
-        <span class="text-black no-underline hover:text-gray-800 font-normal">info@blitzgas.ru</span>
-        <span class="text-black no-underline hover:text-gray-800 font-normal">+7 (000) 000-00-00</span>
+        <span class="text-black text-lg font-medium hover:text-gray-800">info@blitzgas.ru</span>
+        <span class="text-black text-lg font-medium hover:text-gray-800">+7 (495) 065-92-76</span>
       </div>
+
 
       <!-- Меню справа -->
       <div class="hidden lg:flex items-center pr-4 order-3">
         <ul class="list-reset flex space-x-6">
           <li>
-            <a class="text-black font-bold no-underline hover:text-orange-600 smoothscroll" href="#about">БлицГаз</a>
+            <a class="text-black text-lg font-medium hover:text-gray-800" href="#about">Технология</a>
           </li>
           <li>
-            <a class="text-black no-underline hover:text-orange-600 smoothscroll" href="#footer">Конфигуратор</a>
+            <a class="text-black text-lg font-medium hover:text-gray-800" href="#config">Конфигуратор</a>
           </li>
         </ul>
       </div>
@@ -97,10 +117,11 @@
           Сервисная поддержка от специалистов с 30-летним стажем в газовой генерации.
         </p>
 
-        <a href="#about"
-          class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-          Подробнее
+        <a href="#config"
+          class="cursor-pointer bg-white text-red-600 font-semibold rounded-full py-3 px-8 shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 inline-block relative z-50">
+          Сконфигурировать установку
         </a>
+
       </div>
       <!--Right Col-->
       <div class="w-full md:w-3/5 py-6 text-center">
@@ -135,7 +156,7 @@
   </div>
 
 
-  <section class="bg-white border-b py-8">
+  <section id="about" class="bg-white border-b py-8">
     <div class="container max-w-5xl mx-auto m-8">
       <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
         Короткоцикловая безнагревная адсорбция (КЦА - PSA)
@@ -151,8 +172,18 @@
           <p class="text-gray-600 mb-8">
             Энергоэффективная технология короткоцикловой безнагревной адсорбции (КЦА): воздух подается в адсорберы, где
             азот или кислород селективно удерживаются сорбентами.
-            <br />
-            <br />
+          </p>
+          <h4 class="text-
+          l text-gray-800 font-bold leading-none mb-3">Подготовка воздуха</h4>
+          <ol class="list-decimal list-inside text-gray-600 mb-8">
+            <li>Сжатие атмосферного воздуха с помощью винтового компрессора</li>
+            <li>Удаление влаги в рефрижераторном или адсорбционном осушителе</li>
+            <li>Фильтрация воздуха от пыли, масла и примесей</li>
+            <li>Накопление воздуха в буферном ресивере и подача в адсорберы</li>
+          </ol>
+
+
+          <p class="text-gray-600 mb-8">
             Чистота получаемого газа: кислород 95%, азота - от 95% до 99.9995%.
             <br />
             Стандартное давление от 5 до 13 бар, любое по запросу.
@@ -162,13 +193,14 @@
             Энергоэффективность — от 0,95 кВт·ч/м³.
           </p>
         </div>
-        <div class="w-full sm:w-1/2 p-6">
-          <img src="/gen2.png" alt="Короткоцикловое адсорбционное газоразделение" />
+        <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
+          <img src="/gen2.png" alt="Короткоцикловое адсорбционное газоразделение" class="max-w-full h-auto" />
         </div>
+
       </div>
       <div class="flex flex-wrap flex-col-reverse sm:flex-row">
-        <div class="w-full sm:w-1/2 p-6 mt-6">
-          <img src="/gen1.png" alt="PSA-генератор Блицгаз" />
+        <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
+          <img src="/gen1.png" alt="PSA-генератор Блицгаз" class="max-w-full h-auto" />
         </div>
         <div class="w-full sm:w-1/2 p-6 mt-6">
           <div class="align-middle">
@@ -178,18 +210,16 @@
             <p class="text-gray-600 mb-8">
               Установки Блицгаз доступны в трёх вариантах исполнениях с сохранением полной производственной мощности и
               компактных габаритов.
-              <br />
 
-            <ul class="list-disc">
-              <li>свободное размещение для стационарных объектов</li>
-              <li>платформенные комплексы для мобильных решений</li>
-              <li>блочно-модульные контейнерные станции для автономной эксплуатации в любых климатических условиях</li>
-            </ul>
             </p>
-
-            <br />
-            <br />
-
+            <ul class="list-disc list-inside text-gray-600 mb-8">
+              <li>Свободное размещение для стационарных объектов</li>
+              <li>Платформенные комплексы для мобильных решений</li>
+              <li>Блочно-модульные контейнерные станции для автономной эксплуатации в любых климатических условиях</li>
+            </ul>
+            <p class="text-gray-600 mb-8">
+              Оптимизация для круглосуточной или сменной эксплуатации. Станции заправки баллонов.
+            </p>
 
           </div>
         </div>
@@ -204,15 +234,18 @@
 
   <section class="bg-white border-b py-12">
     <div class="container max-w-6xl mx-auto px-6">
+
       <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">
         Удобство решения Блицгаз для автономной газогенерации
       </h2>
 
       <div class="grid md:grid-cols-2 gap-10 mb-10">
+
         <div>
           <h3 class="text-2xl font-semibold text-gray-800 mb-4">Самостоятельный подбор оборудования</h3>
           <p class="text-gray-600">
-            Удобный конфигуратор оборудования Блицгаз позволяет вам онлайн подобрать компоненты установки и сформировать на них актуальное технико-коммерческое предложение.
+            Удобный конфигуратор оборудования Блицгаз позволяет вам онлайн подобрать компоненты установки и сформировать
+            на них актуальное технико-коммерческое предложение.
           </p>
         </div>
 
@@ -220,7 +253,9 @@
         <div>
           <h3 class="text-2xl font-semibold text-gray-800 mb-4">Адаптация решения под любые нужды</h3>
           <p class="text-gray-600">
-            Модульное решение позволяет легко сконфигурировать систему под любые задачи и любые технические условия. Сообщите нам необходимое давление или ваши пожелания по производительности, если они выходят за рамки стандартной линейки Блицгаз.
+            Модульное решение позволяет легко сконфигурировать систему под любые задачи и любые технические условия.
+            Сообщите нам необходимое давление или ваши пожелания по производительности, если они выходят за рамки
+            стандартной линейки Блицгаз.
           </p>
         </div>
 
@@ -228,216 +263,133 @@
         <div>
           <h3 class="text-2xl font-semibold text-gray-800 mb-4">Простой монтаж и быстрый запуск</h3>
           <p class="text-gray-600">
-            Широкая сервисная сеть инженеров по всей России, более 30 лет занимающаяся разработкой, монтажом и обслуживанием газоразделительных установок готова оперативно реализовать установку под ваши нужды в любой точке восточной Европы.
+            Широкая сервисная сеть инженеров по всей России, более 30 лет занимающаяся разработкой, монтажом и
+            обслуживанием газоразделительных установок готова оперативно реализовать установку под ваши нужды в любой
+            точке восточной Европы.
           </p>
         </div>
-      </div>
 
-      <div class="grid md:grid-cols-2 gap-10">
+
         <div>
           <h3 class="text-2xl font-semibold text-gray-800 mb-4">Сервис и гарантия на оборудование</h3>
           <p class="text-gray-600">
-            Прямое сопровождение от компании-производителя PSA-генераторов с 30-летним опытом в эксплуатации и обслуживании КЦА-установок. Честные сервисные контракты на послепродажное обслуживание.
+            Прямое сопровождение от компании-производителя PSA-генераторов с 30-летним опытом в эксплуатации и
+            обслуживании КЦА-установок. Честные сервисные контракты на послепродажное обслуживание.
             Гарантия на оборудование 1 год.
           </p>
         </div>
-        
+
       </div>
     </div>
+
   </section>
 
-
-
-
-  <section class="bg-white border-b py-8">
-    <div class="container mx-auto flex flex-wrap pt-4 pb-12">
-      <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-        Title
-      </h2>
-      <div class="w-full mb-4">
-        <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-      </div>
-      <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-              xGETTING STARTED
-            </p>
-            <div class="w-full font-bold text-xl text-gray-800 px-6">
-              Lorem ipsum dolor sit amet.
-            </div>
-            <p class="text-gray-800 text-base px-6 mb-5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
-              posuere et sit amet ligula.
-            </p>
-          </a>
-        </div>
-        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-          <div class="flex items-center justify-start">
-            <button
-              class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-              Action
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-              xGETTING STARTED
-            </p>
-            <div class="w-full font-bold text-xl text-gray-800 px-6">
-              Lorem ipsum dolor sit amet.
-            </div>
-            <p class="text-gray-800 text-base px-6 mb-5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
-              posuere et sit amet ligula.
-            </p>
-          </a>
-        </div>
-        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-          <div class="flex items-center justify-center">
-            <button
-              class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-              Action
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-              xGETTING STARTED
-            </p>
-            <div class="w-full font-bold text-xl text-gray-800 px-6">
-              Lorem ipsum dolor sit amet.
-            </div>
-            <p class="text-gray-800 text-base px-6 mb-5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
-              posuere et sit amet ligula.
-            </p>
-          </a>
-        </div>
-        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-          <div class="flex items-center justify-end">
-            <button
-              class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-              Action
-            </button>
-          </div>
-        </div>
-      </div>
-      <div id="root"></div>
-    </div>
+  <section>
+    <div class="bg-white py-12" id="root"></div>
   </section>
 
-  <section class="container mx-auto text-center py-6 mb-12">
-    <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
-      Call to Action
-    </h2>
-    <div class="w-full mb-4">
-      <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
-    </div>
-    <h3 class="my-4 text-3xl leading-tight">
-      Main Hero Message to sell yourself!
-    </h3>
+  <!-- Change the colour #f8fafc to match the previous section colour -->
+  <svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
+        <g class="wave" fill="#ffffff">
+          <path
+            d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z">
+          </path>
+        </g>
+        <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
+          <g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
+            <path
+              d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
+              opacity="0.100000001"></path>
+            <path
+              d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
+              opacity="0.100000001"></path>
+            <path
+              d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
+              opacity="0.200000003"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
 
 
-    <button
-      class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-      Action!
-    </button>
-  </section>
+
+  <section id="footer" class="text-white py-12">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+
+        <!-- Контактная информация -->
+        <div class="text-2xl font-semibold">
+
+          <h2 class="text-3xl font-bold mb-4">Контакты</h2>
+          <p class="mb-2 text-black">Блицгаз</p>
+          <p class="mb-2 text-black">г. Подольск, Революционный проспект, 53/44</p>
+          <p class="mb-2 text-black">Тел: +7 (495) 065-92-76</p>
+          <p class="mb-2 text-black">Email: info@blitzgas.ru</p>
+        </div>
+
+        <!-- Форма обратной связи -->
+        <div>
+          <h2 class="text-3xl font-bold mb-4">Связаться с нами</h2>
+          <form
+            action="https://script.google.com/macros/s/AKfycbz3bh5QgSzyn9mfbc7bQhkN1A6sV7yWM6Kj6IKkZicKiiXeyFmo9h1jBA5E2xV15E-R8w/exec"
+            method="POST" class="space-y-4">
+            <input type="text" name="name" required placeholder="Имя / Компания"
+              class="w-full px-4 py-2 rounded bg-white text-black" />
+            <input type="email" name="email" required placeholder="E-mail для обратной связи"
+              class="w-full px-4 py-2 rounded bg-white text-black" />
+            <textarea name="message" required placeholder="Ваш запрос"
+              class="w-full px-4 py-2 rounded bg-white text-black h-32 resize-none"></textarea>
+            <button type="submit"
+              class="bg-red-500 hover:bg-orange-700 text-white font-bold py-2 px-6 rounded transition duration-300">
+              Отправить
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+      <!-- Встроенная карта -->
+<div class="w-full">
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=37.534809%2C55.424926%2C37.554809%2C55.444926&layer=mapnik&marker=55.434926%2C37.544809"
+    style="width: 100%; height: 300px; border: 0;" allowfullscreen loading="lazy">
+  </iframe>
+</div>
+
+<p class="text-center text-sm mt-6 opacity-50">&copy; 2025 Блицгаз. Все права защищены.</p>
+</div>
+</section>
+
+
+
 
   <!-- React-приложение -->
+
   <script type="module" src="/src/index.jsx"></script>
 
-  <!-- jQuery if you need it
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  -->
+
   <script>
-    var scrollpos = window.scrollY;
-    var header = document.getElementById("header");
-    var navcontent = document.getElementById("nav-content");
-    var navaction = document.getElementById("navAction");
-    var brandname = document.getElementById("brandname");
-    var toToggle = document.querySelectorAll(".toggleColour");
-
     document.addEventListener("scroll", function () {
-      /*Apply classes for slide in bar*/
-      scrollpos = window.scrollY;
+      const scrollY = window.scrollY;
+      const header = document.getElementById("header");
 
-      if (scrollpos > 10) {
-        header.classList.add("bg-white");
-        navaction.classList.remove("bg-white");
-        navaction.classList.add("gradient");
-        navaction.classList.remove("text-gray-800");
-        navaction.classList.add("text-white");
-        //Use to switch toggleColour colours
-        for (var i = 0; i < toToggle.length; i++) {
-          toToggle[i].classList.add("text-gray-800");
-          toToggle[i].classList.remove("text-white");
-        }
-        header.classList.add("shadow");
-        navcontent.classList.remove("bg-gray-100");
-        navcontent.classList.add("bg-white");
+      if (!header) return;
+
+      if (scrollY > 10) {
+        header.classList.add("bg-white", "shadow");
       } else {
-        header.classList.remove("bg-white");
-        navaction.classList.remove("gradient");
-        navaction.classList.add("bg-white");
-        navaction.classList.remove("text-white");
-        navaction.classList.add("text-gray-800");
-        //Use to switch toggleColour colours
-        for (var i = 0; i < toToggle.length; i++) {
-          toToggle[i].classList.add("text-white");
-          toToggle[i].classList.remove("text-gray-800");
-        }
-
-        header.classList.remove("shadow");
-        navcontent.classList.remove("bg-white");
-        navcontent.classList.add("bg-gray-100");
+        header.classList.remove("bg-white", "shadow");
       }
     });
   </script>
-  <script>
-    /*Toggle dropdown list*/
-    /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+<noscript><div><img src="https://mc.yandex.ru/watch/103957835" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
-    var navMenuDiv = document.getElementById("nav-content");
-    var navMenu = document.getElementById("nav-toggle");
 
-    document.onclick = check;
-    function check(e) {
-      var target = (e && e.target) || (event && event.srcElement);
 
-      //Nav Menu
-      if (!checkParent(target, navMenuDiv)) {
-        // click NOT on the menu
-        if (checkParent(target, navMenu)) {
-          // click on the link
-          if (navMenuDiv.classList.contains("hidden")) {
-            navMenuDiv.classList.remove("hidden");
-          } else {
-            navMenuDiv.classList.add("hidden");
-          }
-        } else {
-          // click both outside link and outside menu, hide menu
-          navMenuDiv.classList.add("hidden");
-        }
-      }
-    }
-    function checkParent(t, elm) {
-      while (t.parentNode) {
-        if (t == elm) {
-          return true;
-        }
-        t = t.parentNode;
-      }
-      return false;
-    }
-  </script>
 </body>
 
 </html>
