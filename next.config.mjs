@@ -9,6 +9,8 @@ const nextConfig = {
   },
   compiler: {},
   eslint: { ignoreDuringBuilds: true },
+  basePath: '',
+  assetPrefix: '',
 
   // Включаем статический экспорт (Next 15+)
   output: 'export'
