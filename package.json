@@ -7,14 +7,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "deploy": "npm run build && gh-pages -d out",
     "start": "next start",
-    "lint": "eslint .",
-    "preview": "next preview",
-    "deploy": "npm run build && gh-pages -d dist",
-    "dev:next": "next dev",
-    "export:next": "next export",
-    "build:export": "next build && next export",
-    "deploy:next": "npm run build:export && gh-pages -d out"
+    "lint": "eslint ."
   },
   "dependencies": {
     "next": "^15.5.4",
@@ -33,7 +28,7 @@
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
-    "gh-pages": "6.3.0",
+    "gh-pages": "^6.3.0",
     "globals": "^15.14.0",
     "postcss": "^8.4.31",
     "postcss-cli": "^11.0.1",
