@@ -10,7 +10,7 @@
     "deploy": "npm run build && gh-pages -d out",
     "start": "next start",
     "lint": "eslint .",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap --config next-sitemap.config.cjs"
   },
   "dependencies": {
     "next": "^15.5.4",
