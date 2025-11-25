@@ -13,7 +13,25 @@ const nextConfig = {
   assetPrefix: '',
 
   // Включаем статический экспорт (Next 15+)
-  output: 'export'
+  output: 'export',
+
+  // Рерайты — работают при запуске Next.js как серверного приложения.
+  // Заметь: при `next export` эти рерайты могут не применяться на целевом хостинге.
+  async rewrites() {
+    return [
+      { source: '/compressors', destination: '/categories/compressors' },
+      { source: '/compressors/:rest*', destination: '/categories/compressors/:rest*' },
+
+      { source: '/dryers', destination: '/categories/dryers' },
+      { source: '/dryers/:rest*', destination: '/categories/dryers/:rest*' },
+
+      { source: '/filters', destination: '/categories/filters' },
+      { source: '/filters/:rest*', destination: '/categories/filters/:rest*' },
+
+      { source: '/dcompressors', destination: '/categories/dcompressors' },
+      { source: '/dcompressors/:rest*', destination: '/categories/dcompressors/:rest*' }
+    ];
+  }
 };
 
 export default nextConfig;

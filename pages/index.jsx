@@ -2,8 +2,10 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import Config from "../components/Config";
+import Link from 'next/link';
+import { getCategories } from '../lib/equipmentHelpers';
 
-export default function Home() {
+export default function Home({ cats }) {
   useEffect(() => {
     const onScroll = () => {
       const header = document.getElementById("header");
@@ -22,11 +24,18 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  
+
   return (
     <div
       className="leading-normal tracking-normal text-white"
       style={{ fontFamily: "'Source Sans Pro', sans-serif" }}
     >
+      <Head>
+        <title>Блицгаз — генераторы азота и кислорода, компрессоры и осушители</title>
+        <meta name="description" content="Блицгаз — модульные газоразделительные установки, подбор оборудования, компрессоры серии BGV, осушители и фильтры." />
+      </Head>
+
       {/* Hero */}
       <div className="pt-24">
         <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
@@ -43,9 +52,8 @@ export default function Home() {
               Сервисная поддержка от специалистов с 30-летним стажем в газовой генерации.
             </p>
 
-            <a
-              href="#config"
-              className="cursor-pointer bg-white text-red-600 font-semibold rounded-full py-3 px-8 shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 inline-block relative"
+            <a href="#config"
+              className="cursor-pointer bg-white text-red-600 font-semibold rounded-full py-3 px-8 shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 inline-block relative z-5"
             >
               Сконфигурировать установку
             </a>
@@ -202,6 +210,48 @@ export default function Home() {
         </div>
       </section>
 
+ 
+{/* --- UPDATED: Компактные карточки категорий, градиент по умолчанию, только h3 и p --- */}
+<section className="bg-white border-b py-12">
+  <div className="container max-w-6xl mx-auto px-6">
+    <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Категории оборудования</h2>
+    <p className="text-center text-gray-600 mb-8">
+      Выберите интересующее вас оборудование из категории или сконфигурируйте свою газоразделительную установку
+    </p>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {cats.map((c) => (
+        <Link
+          key={c.id}
+          href={`/${c.slug}`}
+          aria-label={`Перейти в категорию ${c.title}`}
+          className="block relative overflow-hidden rounded-lg p-6 shadow-lg transform transition hover:-translate-y-1 gradient"
+        >
+          {/* Контент карточки: только заголовок и описание */}
+          <div className="relative z-10">
+            <h3 className="text-xl font-semibold text-white">{c.title}</h3>
+
+            <p className="text-sm text-white/90 mt-2 max-w-full">
+              {c.id === 'compressors' && 'Винтовые и частотно-регулируемые компрессоры для промышленных и сервисных задач.'}
+              {c.id === 'dryers' && 'Рефрижераторные и адсорбционные осушители для защиты линии от влаги.'}
+              {c.id === 'filters' && 'Трёхступенчатые блоки фильтров для удаления масла, воды и частиц.'}
+              {c.id === 'dcompressors' && 'Дожимные установки для заправки баллонов и работы под высоким давлением.'}
+              {!['compressors','dryers','filters','dcompressors'].includes(c.id) && 'Оборудование и комплектующие для подготовки сжатого воздуха.'}
+            </p>
+          </div>
+
+          {/* лёгкий overlay для контраста (не перекрывает градиент) */}
+          <div className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-t from-black/6 to-transparent"></div>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
+{/* --- END Категории --- */}
+
+
+
+
       <section>
         <div id="config" className="bg-white py-12">
           <Config />
@@ -237,4 +287,12 @@ export default function Home() {
       </svg>
     </div>
   );
+}
+
+// SSG: получаем список категорий при сборке
+export async function getStaticProps() {
+  const cats = getCategories();
+  return {
+    props: { cats }
+  };
 }

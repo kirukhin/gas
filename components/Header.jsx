@@ -1,39 +1,67 @@
 // components/Header.jsx
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export default function Header() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false) // мобильное меню
+  const [equipOpen, setEquipOpen] = useState(false) // выпадающее меню "Оборудование" (десктоп)
   const router = useRouter()
-
   const isHome = router.pathname === '/'
+
+  const equipRef = useRef(null)
 
   // Закрываем мобильное меню при смене страницы
   useEffect(() => {
-    const handleRouteChange = () => setOpen(false)
+    const handleRouteChange = () => {
+      setOpen(false)
+      setEquipOpen(false)
+    }
     router.events.on('routeChangeStart', handleRouteChange)
     return () => router.events.off('routeChangeStart', handleRouteChange)
   }, [router.events])
 
   // Закрытие по ESC
   useEffect(() => {
-    const onKey = (e) => e.key === 'Escape' && setOpen(false)
-    if (open) window.addEventListener('keydown', onKey)
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        setEquipOpen(false)
+      }
+    }
+    window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [open])
+  }, [])
+
+  // Закрытие выпадашки при клике вне
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (equipRef.current && !equipRef.current.contains(e.target)) {
+        setEquipOpen(false)
+      }
+    }
+    if (equipOpen) document.addEventListener('click', onDocClick)
+    return () => document.removeEventListener('click', onDocClick)
+  }, [equipOpen])
+
+  // статический список подкатегорий (каталога) — можно менять при необходимости
+  const equipmentCategories = [
+    { href: '/compressors', label: 'Компрессоры' },
+    { href: '/dryers', label: 'Осушители' },
+    { href: '/filters', label: 'Фильтры' },
+    { href: '/dcompressors', label: 'Дожимающие компрессоры' }
+  ]
 
   const navLinks = [
-    { href: '#about', label: 'Технология' },
+    // заменяем ссылку "Технология" на пустой — теперь этот слот занимает dropdown
+    // { href: '#about', label: 'Технология' },
     { href: '#config', label: 'Конфигуратор' },
     { href: '/about', label: 'О компании' },
     { href: '#footer', label: 'Контакты' }, // теперь ведёт на футер (на всех страницах)
   ]
 
-  // Генерация корректного href:
-  // - если текущая страница — главная, оставляем просто "#anchor"
-  // - если не на главной, делаем "/#anchor" чтобы сначала перейти на главную, а затем скроллить (см. _app.jsx)
+  // Генерация корректного href для якорей (как у тебя в предыдущем коде)
   const getHref = (href) => {
     if (href.startsWith('#')) {
       return isHome ? href : `/${href}`
@@ -61,8 +89,7 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Контакты — центр (pointer-events-none чтобы не блокировать навигацию;
-            внутренним ссылкам даём pointer-events-auto) */}
+        {/* Контакты — центр */}
         <div className="hidden xl:flex xl:items-center xl:gap-8 absolute inset-x-0 justify-center pointer-events-none">
           <a
             href="mailto:info@blitzgas.ru"
@@ -78,13 +105,65 @@ export default function Header() {
           </a>
         </div>
 
-        {/* Десктоп-нав — ссылки растянуты на высоту панели (h-16) */}
+        {/* Десктоп-нав — теперь с выпадающим меню "Оборудование" */}
         <nav className="hidden lg:flex items-center space-x-6">
+          {/* Выпадающее меню "Оборудование" */}
+          <div
+  ref={equipRef}
+  onMouseEnter={() => {
+    clearTimeout(equipRef.current?.closeTimer)
+    setEquipOpen(true)
+  }}
+  onMouseLeave={() => {
+    equipRef.current.closeTimer = setTimeout(() => {
+      setEquipOpen(false)
+    }, 250) // задержка 250 мс — можно подстроить (150–400)
+  }}
+  className="relative"
+>
+
+            <button
+              type="button"
+              aria-haspopup="menu"
+              aria-expanded={equipOpen}
+              onClick={() => setEquipOpen((v) => !v)}
+              className="text-black text-lg font-medium hover:text-gray-800 transition h-16 flex items-center px-2"
+            >
+              Оборудование
+              <svg className="ml-2 w-4 h-4 text-black/70" viewBox="0 0 20 20" fill="none" aria-hidden>
+                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+
+            {/* Dropdown panel */}
+            <div
+              className={`absolute left-0 mt-2 w-56 rounded-lg shadow-lg ring-1 ring-black/5 bg-white transition transform origin-top ${
+                equipOpen ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 -translate-y-1 pointer-events-none'
+              }`}
+              role="menu"
+              aria-label="Оборудование"
+            >
+              <div className="py-2">
+                {equipmentCategories.map((ec) => (
+                  <Link
+                    key={ec.href}
+                    href={ec.href}
+                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50"
+                    onClick={() => setEquipOpen(false)}
+                  >
+                    {ec.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Остальные nav links */}
           {navLinks.map((l) => (
             <Link
               key={l.href}
               href={getHref(l.href)}
-              scroll={false} // прокрутку обрабатываем централизованно в _app.jsx
+              scroll={false}
               className="text-black text-lg font-medium hover:text-gray-800 transition h-16 flex items-center px-2"
             >
               {l.label}
@@ -138,6 +217,29 @@ export default function Header() {
         }`}
       >
         <div className="px-4 pt-4 pb-6 space-y-2">
+          {/* Делаем пункт "Оборудование" раскрывающимся в мобильном меню */}
+          <details className="group bg-white rounded-md" open={false}>
+            <summary className="flex items-center justify-between px-2 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100 cursor-pointer">
+              Оборудование
+              <svg className="w-4 h-4 text-gray-700" viewBox="0 0 20 20" fill="none" aria-hidden>
+                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </summary>
+            <div className="mt-1 space-y-1">
+              {equipmentCategories.map((ec) => (
+                <Link
+                  key={ec.href}
+                  href={ec.href}
+                  onClick={() => setOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+                >
+                  {ec.label}
+                </Link>
+              ))}
+            </div>
+          </details>
+
+          {/* остальные navLinks */}
           {navLinks.map((l) => (
             <Link
               key={l.href}

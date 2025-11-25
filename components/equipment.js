@@ -1,3 +1,5 @@
+//components/equipment.js
+
 const compressors = [
   {
     id: 'BGV5',

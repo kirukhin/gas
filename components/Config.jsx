@@ -580,7 +580,7 @@ const Config = () => {
                 className={`flex-1 px-3 py-2 border rounded text-sm ${system === "refill" ? "bg-gray-700 text-white" : "border-gray-300 text-gray-800"}`}
                 onClick={() => setSystem("refill")}
               >
-                Заправка
+                Заправка баллонов
               </button>
             </div>
           </div>

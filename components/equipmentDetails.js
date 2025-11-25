@@ -1,3 +1,5 @@
+//components/equipmentDetails.js
+
 export const equipmentInfo = {
   BGV5: {
     name: "Винтовой воздушный компрессор BGV5",
@@ -9,7 +11,7 @@ export const equipmentInfo = {
 Максимальная производительность: 55.8 м³/ч  
 Мощность: 5.5 кВт  
 Рабочее давление: 7/8/10 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV7: {
@@ -22,7 +24,7 @@ export const equipmentInfo = {
 Максимальная производительность: 77.4 м³/ч   
 Мощность: 7.5 кВт  
 Рабочее давление: 7/8/10 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV11: {
@@ -35,7 +37,7 @@ export const equipmentInfo = {
 Максимальная производительность: 119.4 м³/ч  
 Мощность: 11 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV15: {
@@ -48,7 +50,7 @@ export const equipmentInfo = {
 Максимальная производительность: 150.6 м³/ч  
 Мощность: 15 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV18: {
@@ -61,7 +63,7 @@ export const equipmentInfo = {
 Максимальная производительность: 186.6 м³/ч  
 Мощность: 18.5 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV22: {
@@ -74,7 +76,7 @@ export const equipmentInfo = {
 Максимальная производительность: 217.8 м³/ч  
 Мощность: 22 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV30: {
@@ -87,7 +89,7 @@ export const equipmentInfo = {
 Максимальная производительность: 304.2 м³/ч  
 Мощность: 30 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV37: {
@@ -100,7 +102,7 @@ export const equipmentInfo = {
 Максимальная производительность: 372 м³/ч  
 Мощность: 37 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV45: {
@@ -113,7 +115,7 @@ export const equipmentInfo = {
 Максимальная производительность: 450.6 м³/ч  
 Мощность: 45 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV55: {
@@ -126,7 +128,7 @@ export const equipmentInfo = {
 Максимальная производительность: 597 м³/ч  
 Мощность: 55 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-one.png"
   },
 
   BGV75: {
@@ -139,7 +141,7 @@ export const equipmentInfo = {
 Максимальная производительность: 731.4 м³/ч  
 Мощность: 75 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-two.png"
   },
 
   BGV90: {
@@ -152,7 +154,7 @@ export const equipmentInfo = {
 Максимальная производительность: 1120.8 м³/ч  
 Мощность: 90 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-two.png"
   },
 
   BGV110: {
@@ -165,7 +167,7 @@ export const equipmentInfo = {
 Максимальная производительность: 1159.2 м³/ч  
 Мощность: 110 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-two.png"
   },
 
   BGV132: {
@@ -178,7 +180,7 @@ export const equipmentInfo = {
 Максимальная производительность: 1360.8 м³/ч  
 Мощность: 132 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-two.png"
   },
 
   BGV160: {
@@ -191,7 +193,7 @@ export const equipmentInfo = {
 Максимальная производительность: 1694.4 м³/ч  
 Мощность: 160 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-three.png"
   },
 
   BGV185: {
@@ -204,7 +206,7 @@ export const equipmentInfo = {
 Максимальная производительность: 1949.4 м³/ч  
 Мощность: 185 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-three.png"
   },
 
   BGV200: {
@@ -217,7 +219,7 @@ export const equipmentInfo = {
 Максимальная производительность: 2244 м³/ч  
 Мощность: 200 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-three.png"
   },
 
   BGV220: {
@@ -230,7 +232,7 @@ export const equipmentInfo = {
 Максимальная производительность: 2564.4 м³/ч  
 Мощность: 220 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-three.png"
   },
 
   BGV250: {
@@ -243,7 +245,7 @@ export const equipmentInfo = {
 Максимальная производительность: 2713.2 м³/ч  
 Мощность: 250 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-three.png"
   },
 
   BGV280: {
@@ -256,7 +258,7 @@ export const equipmentInfo = {
 Максимальная производительность: 3084.6 м³/ч  
 Мощность: 280 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-three.png"
   },
 
   BGV315: {
@@ -269,7 +271,7 @@ export const equipmentInfo = {
 Максимальная производительность: 3312.6 м³/ч  
 Мощность: 315 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-three.png"
   },
 
   BGV355: {
@@ -282,7 +284,7 @@ export const equipmentInfo = {
 Максимальная производительность: 3667.8 м³/ч  
 Мощность: 355 кВт  
 Рабочее давление: 7/8/10/12.5 бар`,
-    image: "/assets/comp1.png"
+    image: "/assets/bvg-three.png"
   },
 
 
