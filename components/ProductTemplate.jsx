@@ -89,17 +89,17 @@ export default function ProductTemplate({ product }) {
             <p className="text-gray-600 text-lg mb-6">{product.type}</p>
 
             <div className="text-3xl font-semibold mb-6">
-              <span className="text-gray-800">Цена: </span>
-              <span className="text-green-700">
+              <span className="text-red-500">Цена: </span>
+              <span className="text-red-500">
                 {product.price?.toLocaleString?.('ru-RU') || 'по запросу'} ₽
               </span>
             </div>
 
             <a
-              href="/quote"
-              className="inline-block bg-green-600 text-white px-7 py-3 rounded-xl text-lg font-medium shadow hover:bg-green-700 transition"
+              href="#footer"
+              className="text-center bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 rounded-lg transition p-15"
             >
-              Запросить расчёт
+              Заказать
             </a>
           </div>
         </div>
