@@ -1,5 +1,4 @@
-//components/AnalyticsRouter.jsx
-
+// components/AnalyticsRouter.jsx
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -7,24 +6,33 @@ export default function AnalyticsRouter() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!window.ym) return;
+    // Функция отправки хитa
+    const sendHit = (url) => {
+      if (typeof window === "undefined" || !window.ym) return;
 
-    const handleRoute = (url) => {
       try {
-        window.ym(103957835, "hit", url);
-        // console.log("YM HIT:", url);
+        window.ym(103957835, "hit", url, {
+          referer: document.referrer
+        });
       } catch (e) {
-        console.error("YM route hit error:", e);
+        console.error("YM hit error:", e);
       }
     };
 
-    router.events.on("routeChangeComplete", handleRoute);
+    // Ждём загрузки метрики
+    const onYMLoaded = () => {
+      // hit на первую страницу
+      sendHit(window.location.pathname + window.location.search);
 
-    // отправляем hit сразу после загрузки страницы (SSR)
-    handleRoute(window.location.pathname + window.location.search);
+      // SPA-навигация
+      router.events.on("routeChangeComplete", sendHit);
+    };
+
+    window.addEventListener("ym-loaded", onYMLoaded);
 
     return () => {
-      router.events.off("routeChangeComplete", handleRoute);
+      window.removeEventListener("ym-loaded", onYMLoaded);
+      router.events.off("routeChangeComplete", sendHit);
     };
   }, [router.events]);
 
