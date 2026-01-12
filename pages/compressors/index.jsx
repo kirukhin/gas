@@ -1,154 +1,149 @@
 // pages/compressors/index.jsx
-
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState, useMemo } from 'react'
 import PageLayout from '../../components/PageLayout'
 import CompressorFilterPanel from '../../components/CompressorFilterPanel'
+import CompressorCatalogFilter from '../../components/CompressorCatalogFilter'
 import ProductCard from '../../components/ProductCard'
+
+import equipment from '../../components/equipment.json'
 import { getProductsByCategory } from '../../lib/equipmentHelpers'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || ''
 
-
-// ===============================
-// Генерация статических данных
-// ===============================
 export async function getStaticProps() {
   const products = getProductsByCategory('compressors') || []
-  return { props: { products } }
+  return { props: { products, equipment } }
 }
 
+export default function CompressorsPage({ products, equipment }) {
 
-// ===============================
-// Главная страница компрессоров
-// ===============================
-export default function CompressorsPage({ products }) {
+  const [tab, setTab] = useState('psa')
+  const [filteredPSA, setFilteredPSA] = useState(products)
 
-  // JSON-LD SEO
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Винтовые компрессоры — подбор по расходу и давлению",
-    "description": "Подбор промышленных компрессоров по производительности, рабочему давлению и мощности. Серии BGV: характеристики, цены, PDF-даташиты."
-  }
-
-  // состояние фильтра
-  const [filtered, setFiltered] = useState(products)
+  const [filter, setFilter] = useState({
+    flow: null,
+    pressure: null,
+    powerRange: [null, null],
+    inverter: null,
+    oil_free: null,
+    dryer: null,
+    mobile: null,
+    drive: [],
+    brand: [],
+    line: []
+  })
 
   // ===============================
-  //      ЛОГИКА ФИЛЬТРАЦИИ
+  // Каталожная фильтрация
   // ===============================
-  const applyFilter = ({ flow, pressures, powers }) => {
-    let list = products
+  const filteredCatalog = useMemo(() => {
+    return equipment.filter(c => {
 
-    // — Фильтр по расходу —
-if (flow) {
-  list = list.filter((p) =>
-    p.specs.some(
-      s => s.maxFlow >= flow   // Главное условие: модель должна тянуть нужный расход
-    )
-  )
-}
+      if (filter.flow !== null) {
+        if (c.flow_m3_min > filter.flow || c.flow_m3_max < filter.flow) return false
+      }
 
+      if (filter.pressure !== null) {
+        if (c.pressure_atm.min > filter.pressure || c.pressure_atm.max < filter.pressure) return false
+      }
 
-    // --- давление ---
-    if (pressures.length > 0) {
-      list = list.filter((p) =>
-        p.specs?.some((s) => pressures.includes(s.pressure))
-      )
-    }
+      const [pMin, pMax] = filter.powerRange
+      if (pMin !== null && c.power_kw < pMin) return false
+      if (pMax !== null && c.power_kw > pMax) return false
 
-    // --- мощность ---
-    if (powers.length > 0) {
-      list = list.filter((p) =>
-        p.specs?.some((s) => powers.includes(s.power))
-      )
-    }
+      if (filter.inverter !== null && c.inverter !== filter.inverter) return false
+      if (filter.oil_free !== null && c.oil_free !== filter.oil_free) return false
+      if (filter.dryer !== null && c.dryer !== filter.dryer) return false
+      if (filter.mobile !== null && c.mobile !== filter.mobile) return false
 
-    setFiltered(list)
-  }
+      if (filter.drive.length && !filter.drive.includes(c.drive)) return false
+      if (filter.brand.length && !filter.brand.includes(c.brand)) return false
+      if (filter.line.length && !filter.line.includes(c.line)) return false
 
-
+      return true
+    })
+  }, [equipment, filter])
 
   return (
     <PageLayout
-      title="Винтовые компрессоры — подбор по расходу и давлению"
-      description="Подбор винтовых компрессоров по производительности (м³/ч), давлению (бар) и мощности (кВт)"
+      title="Винтовые компрессоры — подбор и каталог"
+      description="Подбор винтовых компрессоров и параметрический каталог оборудования."
       canonical={`${SITE}/compressors`}
       heroImage="/assets/compressors-hero.png"
-      jsonLd={jsonLd}
       breadcrumb={[
         { name: "Главная", href: "/" },
         { name: "Винтовые компрессоры", href: "/compressors" }
       ]}
     >
 
-
-      {/* ======================= */}
-      {/*  Описание страницы       */}
-      {/* ======================= */}
       <section className="container mx-auto px-6 py-12 max-w-6xl">
 
-        <h2 className="text-3xl font-bold mb-6">
-          Компрессоры — подбор по расходу и давлению
-        </h2>
-
-        <div className="prose prose-gray max-w-none mb-10 leading-relaxed">
-          <p>
-            Здесь вы можете подобрать промышленный винтовой компрессор по расходу, рабочему давлению и мощности.
-          </p>
-          <p>
-            Алгоритм учитывает характеристики каждой модели, включая диапазоны производительности
-            в зависимости от давления.
-          </p>
-          <p>
-            Для всех моделей доступны PDF-даташиты, цены и технические характеристики.
-          </p>
-        </div>
-
-
-        {/* ======================= */}
-        {/*   панель фильтрации     */}
-        {/* ======================= */}
-        <CompressorFilterPanel products={products} onFilterChange={applyFilter} />
-
-
-
-        {/* ======================= */}
-        {/*  результаты фильтра     */}
-        {/* ======================= */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 my-12">
-          {filtered.map((p) => (
-            <ProductCard key={p.id} p={p} />
+        {/* Tabs */}
+        <div className="flex gap-6 border-b mb-10">
+          {[
+            ['psa', 'Подбор для ГРУ / PSA'],
+            ['catalog', 'Параметрический каталог']
+          ].map(([key, label]) => (
+            <button
+              key={key}
+              onClick={() => setTab(key)}
+              className={`pb-3 font-medium ${
+                tab === key
+                  ? 'border-b-2 border-blue-600 text-blue-600'
+                  : 'text-gray-500'
+              }`}
+            >
+              {label}
+            </button>
           ))}
         </div>
 
+        {tab === 'psa' && (
+          <>
+            <CompressorFilterPanel
+              products={products}
+              onFilterChange={({ flow, pressures, powers }) => {
+                let list = products
+                if (flow) list = list.filter(p => p.specs?.some(s => s.maxFlow >= flow))
+                if (pressures.length) list = list.filter(p => p.specs?.some(s => pressures.includes(s.pressure)))
+                if (powers.length) list = list.filter(p => p.specs?.some(s => powers.includes(s.power)))
+                setFilteredPSA(list)
+              }}
+            />
 
-        {/* ======================= */}
-        {/* FAQ                     */}
-        {/* ======================= */}
-        <section className="mt-16">
-          <h2 className="text-2xl font-semibold mb-4">FAQ</h2>
-
-          <div className="space-y-4 text-gray-700">
-
-            <div>
-              <strong>Какой запас по расходу брать?</strong>
-              <p className="text-sm">Обычно 10–30% от среднего потребления.</p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPSA.map(p => (
+                <ProductCard key={p.id} p={p} />
+              ))}
             </div>
+          </>
+        )}
 
-            <div>
-              <strong>Подберёте осушитель к компрессору?</strong>
-              <p className="text-sm">Да, под расход, давление и точку росы.</p>
+        {tab === 'catalog' && (
+          <>
+            <CompressorCatalogFilter
+              equipment={equipment}
+              value={filter}
+              onChange={setFilter}
+            />
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCatalog.map(item => (
+                <div key={item.id} className="border rounded-lg p-5 bg-white shadow-sm">
+                  <h3 className="font-semibold mb-2">{item.model}</h3>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    <li><strong>Серия:</strong> {item.line}</li>
+                    <li><strong>Давление:</strong> {item.pressure_atm.min}–{item.pressure_atm.max} бар</li>
+                    <li><strong>Производительность:</strong> {item.flow_m3_min}–{item.flow_m3_max} м³/мин</li>
+                    <li><strong>Мощность:</strong> {item.power_kw} кВт</li>
+                    <li><strong>ЧРП:</strong> {item.inverter ? 'есть' : 'нет'}</li>
+                    <li><strong>Привод:</strong> {item.drive}</li>
+                  </ul>
+                </div>
+              ))}
             </div>
-
-            <div>
-              <strong>Есть сервис и пуск-наладка?</strong>
-              <p className="text-sm">Да, на всей территории РФ.</p>
-            </div>
-
-          </div>
-        </section>
+          </>
+        )}
 
       </section>
     </PageLayout>

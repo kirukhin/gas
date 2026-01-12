@@ -32,40 +32,44 @@ export default function Home({ cats }) {
       style={{ fontFamily: "'Source Sans Pro', sans-serif" }}
     >
       <Head>
-        <title>Блицгаз — генераторы азота и кислорода, компрессоры и осушители</title>
-        <meta name="description" content="Блицгаз — модульные газоразделительные установки, подбор оборудования, компрессоры серии BGV, осушители и фильтры." />
+        <title>Блицгаз — промышленный азот и кислород на месте производства</title>
+        <meta
+          name="description"
+          content="Блицгаз — производство азота и кислорода непосредственно на предприятии. Снижение затрат, независимость от поставщиков, инженерные PSA-решения под задачи бизнеса."
+        />
       </Head>
-
+  
       {/* Hero */}
       <div className="pt-24">
         <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
           {/* Left Col */}
           <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
             <h1 style={{ color: "black" }} className="my-4 text-5xl font-bold leading-tight">
-              Гибкая модульная линейка<br />
-              газоразделительного<br />
-              оборудования
+              Промышленный азот и кислород<br />
+              непосредственно на вашем<br />
+              производстве
             </h1>
-
+  
             <p style={{ color: "black" }} className="leading-normal text-2xl mb-8">
-              Азот и кислород промышленной чистоты — с точными параметрами под любые задачи.
-              Сервисная поддержка от специалистов с 30-летним стажем в газовой генерации.
+              Генерация газа нужной чистоты и давления — без поставщиков, баллонов и логистики.
+              Снижение операционных затрат и полный контроль над газоснабжением предприятия.
             </p>
-
-            <a href="#config"
+  
+            <a
+              href="#config"
               className="cursor-pointer bg-white text-red-600 font-semibold rounded-full py-3 px-8 shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 inline-block relative z-5"
             >
-              Сконфигурировать установку
+              Сконфигурировать газоснабжение
             </a>
           </div>
-
+  
           {/* Right Col */}
           <div className="w-full md:w-3/5 py-6 text-center">
-            <img className="w-full md:w-4/5 ml-auto" src="/assets/hero.png" alt="Hero image" />
+            <img className="w-full md:w-4/5 ml-auto" src="/assets/hero.png" alt="Промышленная генерация газа на предприятии" />
           </div>
         </div>
       </div>
-
+  
       <div className="relative -mt-12 lg:-mt-24">
         <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -80,7 +84,6 @@ export default function Home({ cats }) {
               ></path>
               <path
                 d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
-                id="Path-4"
                 opacity="0.200000003"
               ></path>
             </g>
@@ -90,81 +93,116 @@ export default function Home({ cats }) {
           </g>
         </svg>
       </div>
-
+  
       <section id="about" className="bg-white border-b py-8">
-        <div className="container max-w-5xl mx-auto m-8">
-          <h2 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-            Короткоцикловая безнагревная адсорбция (КЦА - PSA)
-          </h2>
-          <div className="w-full mb-4">
-            <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-          </div>
+  <div className="container max-w-5xl mx-auto m-8">
+    <h2 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+      Производство азота и кислорода на месте потребления
+    </h2>
 
-          <div className="flex flex-wrap">
-            <div className="w-5/6 sm:w-1/2 p-6">
-              <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">Генерация азота (N2) и кислорода (O2)</h3>
-              <p className="text-gray-600 mb-8">
-                Энергоэффективная технология короткоцикловой безнагревной адсорбции (КЦА): воздух подается в адсорберы, где
-                азот или кислород селективно удерживаются сорбентами.
-              </p>
+    <div className="w-full mb-6">
+      <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+    </div>
 
-              <h4 className="text-l text-gray-800 font-bold leading-none mb-3">Подготовка воздуха</h4>
-              <ol className="list-decimal list-inside text-gray-600 mb-8">
-                <li>Сжатие атмосферного воздуха с помощью винтового компрессора</li>
-                <li>Удаление влаги в рефрижераторном или адсорбционном осушителе</li>
-                <li>Фильтрация воздуха от пыли, масла и примесей</li>
-                <li>Накопление воздуха в буферном ресивере и подача в адсорберы</li>
-              </ol>
+    {/* Full-width intro block */}
+    <div className="w-full px-6 mb-12 text-center sm:text-left">
+      <h3 className="text-3xl text-gray-800 font-bold leading-none mb-4">
+        Газоснабжение как управляемый ресурс бизнеса
+      </h3>
 
-              <p className="text-gray-600 mb-8">
-                Чистота получаемого газа: кислород 95%, азота - от 95% до 99.9995%.
-                <br />
-                Стандартное давление от 5 до 13 бар, любое по запросу.
-                <br />
-                Точка росы: от -40 ° до -70 °C.
-                <br />
-                Энергоэффективность — от 0,95 кВт·ч/м³.
-              </p>
-            </div>
+      <p className="text-gray-600 mb-4">
+        Установки Блицгаз обеспечивают получение азота и кислорода промышленной чистоты
+        непосредственно на предприятии — в объёме и с параметрами,
+        необходимыми для конкретного технологического процесса.
+      </p>
 
-            <div className="w-full sm:w-1/2 p-6 flex items-center justify-center">
-              <img
-                src="/assets/gen2.png"
-                alt="Короткоцикловое адсорбционное газоразделение"
-                className="max-w-full h-auto"
-              />
-            </div>
-          </div>
+      <p className="text-gray-600">
+        В основе решений лежит технология короткоцикловой безнагревной адсорбции (PSA),
+        позволяющая стабильно получать газ при минимальных эксплуатационных затратах
+        и без расходных материалов.
+      </p>
+    </div>
 
-          <div className="flex flex-wrap flex-col-reverse sm:flex-row">
-            <div className="w-full sm:w-1/2 p-6 flex items-center justify-center">
-              <img src="/assets/gen1.png" alt="PSA-генератор Блицгаз" className="max-w-full h-auto" />
-            </div>
+    {/* Two-column content */}
+    <div className="flex flex-wrap items-start">
+      {/* Left column */}
+      <div className="w-full sm:w-1/2 p-6">
+        <h4 className="text-l text-gray-800 font-bold leading-none mb-3">
+          Инженерная база стабильного газоснабжения
+        </h4>
 
-            <div className="w-full sm:w-1/2 p-6 mt-6">
-              <div className="align-middle">
-                <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
-                  Модульная конструкция и различные варианты исполнения
-                </h3>
-                <p className="text-gray-600 mb-8">
-                  Установки Блицгаз доступны в трёх вариантах исполнениях с сохранением полной производственной мощности и
-                  компактных габаритов.
-                </p>
+        <p className="text-gray-600 mb-4">
+          Каждая система проектируется как законченный комплекс
+          для непрерывной и прогнозируемой работы 24/7:
+        </p>
 
-                <ul className="list-disc list-inside text-gray-600 mb-8">
-                  <li>Свободное размещение для стационарных объектов</li>
-                  <li>Платформенные комплексы для мобильных решений</li>
-                  <li>Блочно-модульные контейнерные станции для автономной эксплуатации в любых климатических условиях</li>
-                </ul>
+        <ol className="list-decimal list-inside text-gray-600 mb-8">
+          <li>Сжатие атмосферного воздуха винтовым компрессором</li>
+          <li>Удаление влаги в рефрижераторном или адсорбционном осушителе</li>
+          <li>Фильтрация воздуха от пыли, масла и примесей</li>
+          <li>Накопление и подача воздуха в адсорбционные колонны</li>
+        </ol>
 
-                <p className="text-gray-600 mb-8">
-                  Оптимизация для круглосуточной или сменной эксплуатации. Станции заправки баллонов.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <p className="text-gray-600">
+          Параметры газа подбираются под задачи производства:
+          <br />
+          • Чистота: кислород до 95%, азот — от 95% до 99,9995%
+          <br />
+          • Давление: стандартно 5–13 бар, расширение по запросу
+          <br />
+          • Точка росы: от −40 до −70 °C
+          <br />
+          • Энергопотребление — от 0,95 кВт·ч/м³
+        </p>
+      </div>
+
+      {/* Right column */}
+      <div className="w-full sm:w-1/2 p-6 flex items-center justify-center">
+        <img
+          src="/assets/gen2.png"
+          alt="Производство газа по технологии PSA"
+          className="max-w-full h-auto"
+        />
+      </div>
+    </div>
+
+    {/* Second row */}
+    <div className="flex flex-wrap flex-col-reverse sm:flex-row mt-8">
+      <div className="w-full sm:w-1/2 p-6 flex items-center justify-center">
+        <img
+          src="/assets/gen1.png"
+          alt="PSA-генератор Блицгаз"
+          className="max-w-full h-auto"
+        />
+      </div>
+
+      <div className="w-full sm:w-1/2 p-6">
+        <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
+          Масштабируемые решения под рост и изменения производства
+        </h3>
+
+        <p className="text-gray-600 mb-8">
+          Газогенераторные системы проектируются с учётом текущих задач
+          и возможного увеличения потребления газа — без полной замены оборудования
+          и остановки технологических процессов.
+        </p>
+
+        <ul className="list-disc list-inside text-gray-600 mb-8">
+          <li>Свободное размещение для стационарных промышленных объектов</li>
+          <li>Платформенные комплексы для мобильных и временных решений</li>
+          <li>Контейнерные станции для автономной эксплуатации в любых климатических условиях</li>
+        </ul>
+
+        <p className="text-gray-600">
+          Подходит для непрерывной, сменной и сезонной эксплуатации,
+          включая станции заправки баллонов и удалённые производственные площадки.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+ 
 
       <section className="bg-white border-b py-12">
         <div className="container max-w-6xl mx-auto px-6">
