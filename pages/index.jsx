@@ -59,7 +59,7 @@ export default function Home({ cats }) {
               href="#config"
               className="cursor-pointer bg-white text-red-600 font-semibold rounded-full py-3 px-8 shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 inline-block relative z-5"
             >
-              Сконфигурировать газоснабжение
+              Сконфигурировать генератор газа
             </a>
           </div>
   
