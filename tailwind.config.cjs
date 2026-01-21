@@ -4,8 +4,10 @@ const colors = require('tailwindcss/colors');
 module.exports = {
   // Пути к файлам, где Tailwind ищет классы
   content: [
-    "./pages/*.{js,jsx,ts,tsx}",
-    "./components/*.{js,jsx,ts,tsx}"
+    "./pages/**/*.{js,jsx,ts,tsx}",
+  "./components/**/*.{js,jsx,ts,tsx}",
+  "./app/**/*.{js,jsx,ts,tsx}",
+  "./src/**/*.{js,jsx,ts,tsx}"
   ],
 
   // Для явного включения классов, которые могут не встретиться при сканировании
