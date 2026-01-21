@@ -1,20 +1,38 @@
 // components/Footer.jsx
+import { useEffect, useRef } from "react";
+
 export default function Footer() {
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    if (mapRef.current && !mapRef.current.hasChildNodes()) {
+      const script = document.createElement("script");
+      script.src =
+        "https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ae994841c9ffb81b29dc681dc7f9fe0fbfbbedb55669d53a79d7b2ae8a408d962&width=100%25&height=350&lang=ru_RU&scroll=true";
+      script.async = true;
+      script.charset = "utf-8";
+
+      mapRef.current.appendChild(script);
+    }
+  }, []);
+
   return (
     <section id="footer" className="text-white py-12">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 
-          {/* Контактная информация */}
+          {/* Контакты */}
           <div className="text-2xl font-semibold">
             <h2 className="text-3xl font-bold mb-4">Контакты</h2>
             <p className="mb-2 text-black">Блицгаз</p>
-            <p className="mb-2 text-black">г. Подольск, Революционный проспект, 53/44</p>
+            <p className="mb-2 text-black">
+              г. Подольск, Революционный проспект, 53/44
+            </p>
             <p className="mb-2 text-black">Тел: +7 (495) 065-92-76</p>
             <p className="mb-2 text-black">Email: info@blitzgas.ru</p>
           </div>
 
-          {/* Форма обратной связи */}
+          {/* Форма */}
           <div>
             <h2 className="text-3xl font-bold mb-4">Связаться с нами</h2>
             <form
@@ -55,18 +73,16 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Встроенная карта */}
-        <div className="w-full">
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=37.534809%2C55.424926%2C37.554809%2C55.444926&layer=mapnik&marker=55.434926%2C37.544809"
-            style={{ width: '100%', height: '300px', border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            title="Карта — Блицгаз (Подольск)"
-          />
-        </div>
+        {/* Яндекс карта */}
+        <div
+          ref={mapRef}
+          className="w-full rounded overflow-hidden"
+          style={{ minHeight: "350px" }}
+        />
 
-        <p className="text-center text-sm mt-6 opacity-50">&copy; 2025 Блицгаз. Все права защищены.</p>
+        <p className="text-center text-sm mt-6 opacity-50">
+          © 2025 Блицгаз. Все права защищены.
+        </p>
       </div>
     </section>
   );
