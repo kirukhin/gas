@@ -5,17 +5,17 @@ import CompressorFilterPanel from '../../components/CompressorFilterPanel'
 import CompressorCatalogFilter from '../../components/CompressorCatalogFilter'
 import ProductCard from '../../components/ProductCard'
 
-import equipment from '../../components/equipment.json'
+import compressors from '../../components/compressors.json' // заменить источник на compressors.json
 import { getProductsByCategory } from '../../lib/equipmentHelpers'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || ''
 
 export async function getStaticProps() {
   const products = getProductsByCategory('compressors') || []
-  return { props: { products, equipment } }
+  return { props: { products, equipment: compressors } } // передаем данные компрессоров в пропсах оборудования
 }
 
-export default function CompressorsPage({ products, equipment }) {
+export default function CompressorsPage({ products, equipment }) { // equipment теперь содержит данные из compressors.json
 
   const [tab, setTab] = useState('psa')
   const [filteredPSA, setFilteredPSA] = useState(products)
@@ -40,11 +40,19 @@ export default function CompressorsPage({ products, equipment }) {
     return equipment.filter(c => {
 
       if (filter.flow !== null) {
-        if (c.flow_m3_min > filter.flow || c.flow_m3_max < filter.flow) return false
+        const flowMin = c.flow_m3_min ?? c.flow_m3_max // поддержка null/одиночных значений в compressors.json
+        const flowMax = c.flow_m3_max ?? c.flow_m3_min // поддержка null/одиночных значений в compressors.json
+        if (flowMin === null && flowMax === null) return false // если нет данных по производительности, исключаем
+        if (flowMin !== null && filter.flow < flowMin) return false // проверка нижней границы
+        if (flowMax !== null && filter.flow > flowMax) return false // проверка верхней границы
       }
 
       if (filter.pressure !== null) {
-        if (c.pressure_atm.min > filter.pressure || c.pressure_atm.max < filter.pressure) return false
+        const pressureMin = c.pressure_atm?.min ?? c.pressure_bar // поддержка диапазона и одиночного давления
+        const pressureMax = c.pressure_atm?.max ?? c.pressure_bar // поддержка диапазона и одиночного давления
+        if (pressureMin === null && pressureMax === null) return false // если нет данных по давлению, исключаем
+        if (pressureMin !== null && filter.pressure < pressureMin) return false // проверка нижней границы
+        if (pressureMax !== null && filter.pressure > pressureMax) return false // проверка верхней границы
       }
 
       const [pMin, pMax] = filter.powerRange
@@ -56,7 +64,8 @@ export default function CompressorsPage({ products, equipment }) {
       if (filter.dryer !== null && c.dryer !== filter.dryer) return false
       if (filter.mobile !== null && c.mobile !== filter.mobile) return false
 
-      if (filter.drive.length && !filter.drive.includes(c.drive)) return false
+      const driveValue = c.drive ?? c.modification // поддержка поля modification из compressors.json
+      if (filter.drive.length && !filter.drive.includes(driveValue)) return false // фильтр по приводу/модификации
       if (filter.brand.length && !filter.brand.includes(c.brand)) return false
       if (filter.line.length && !filter.line.includes(c.line)) return false
 
@@ -130,14 +139,14 @@ export default function CompressorsPage({ products, equipment }) {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredCatalog.map(item => (
                 <div key={item.id} className="border rounded-lg p-5 bg-white shadow-sm">
-                  <h3 className="font-semibold mb-2">{item.model}</h3>
+                  <h3 className="font-semibold mb-2">{item.name || item.model}</h3> {/* показываем имя из compressors.json */}
                   <ul className="text-sm text-gray-700 space-y-1">
                     <li><strong>Серия:</strong> {item.line}</li>
-                    <li><strong>Давление:</strong> {item.pressure_atm.min}–{item.pressure_atm.max} бар</li>
-                    <li><strong>Производительность:</strong> {item.flow_m3_min}–{item.flow_m3_max} м³/мин</li>
+                    <li><strong>Давление:</strong> {item.pressure_atm?.min ?? item.pressure_bar}–{item.pressure_atm?.max ?? item.pressure_bar} бар</li> {/* поддержка pressure_bar */}
+                    <li><strong>Производительность:</strong> {item.flow_m3_min ?? item.flow_m3_max}–{item.flow_m3_max ?? item.flow_m3_min} м³/мин</li> {/* поддержка null значений */}
                     <li><strong>Мощность:</strong> {item.power_kw} кВт</li>
                     <li><strong>ЧРП:</strong> {item.inverter ? 'есть' : 'нет'}</li>
-                    <li><strong>Привод:</strong> {item.drive}</li>
+                    <li><strong>Привод:</strong> {item.drive ?? item.modification}</li> {/* поддержка modification */}
                   </ul>
                 </div>
               ))}

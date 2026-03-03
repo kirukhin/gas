@@ -7,22 +7,23 @@ export default function CompressorCatalogFilter({ equipment = [], value, onChang
   // Автогенерация значений
   // ===============================
   const brands = useMemo(
-    () => [...new Set(equipment.map(e => e.brand))],
+    () => [...new Set(equipment.map(e => e.brand))].filter(Boolean), // фильтруем пустые значения для брендов
     [equipment]
   )
 
   const lines = useMemo(
-    () => [...new Set(equipment.map(e => e.line))],
+    () => [...new Set(equipment.map(e => e.line))].filter(Boolean), // фильтруем пустые значения для серий
     [equipment]
   )
 
   const drives = useMemo(
-    () => [...new Set(equipment.map(e => e.drive))],
+    () => [...new Set(equipment.map(e => e.drive ?? e.modification))].filter(Boolean), // поддержка поля modification из compressors.json
     [equipment]
   )
 
-  const powerMin = Math.min(...equipment.map(e => e.power_kw))
-  const powerMax = Math.max(...equipment.map(e => e.power_kw))
+  const powerValues = equipment.map(e => e.power_kw).filter(v => v !== null && v !== undefined) // защита от пустых значений
+  const powerMin = powerValues.length ? Math.min(...powerValues) : 0 // безопасный минимум
+  const powerMax = powerValues.length ? Math.max(...powerValues) : 0 // безопасный максимум
 
   // ===============================
   // Helpers
