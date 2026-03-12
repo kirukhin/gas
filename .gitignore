@@ -27,3 +27,8 @@ dist-ssr
 .next/
 out/
 dist/
+
+github-actions
+github-actions.pub
+*.pem
+*.key

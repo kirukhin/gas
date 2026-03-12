@@ -62,6 +62,8 @@ export default function Header() {
 
   // статический список подкатегорий (каталога) — можно менять при необходимости
   const equipmentCategories = [
+    { href: '/nitrogenerators', label: 'Генераторы азота' },
+    { href: '/oxygenerators', label: 'Генераторы кислорода' },
     { href: '/compressors', label: 'Компрессоры' },
     { href: '/dryers', label: 'Осушители' },
     { href: '/filters', label: 'Фильтры' },
@@ -150,15 +152,14 @@ export default function Header() {
             >
               Оборудование
               <svg className="ml-2 w-4 h-4 text-black/70" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
 
             {/* Dropdown panel */}
             <div
-              className={`absolute left-0 mt-2 w-56 rounded-lg shadow-lg ring-1 ring-black/5 bg-white transition transform origin-top ${
-                equipOpen ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 -translate-y-1 pointer-events-none'
-              }`}
+              className={`absolute left-0 mt-2 w-56 rounded-lg shadow-lg ring-1 ring-black/5 bg-white transition transform origin-top ${equipOpen ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 -translate-y-1 pointer-events-none'
+                }`}
               role="menu"
               aria-label="Оборудование"
             >
@@ -200,7 +201,7 @@ export default function Header() {
             >
               Технология
               <svg className="ml-2 w-4 h-4 text-black/70" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
 
@@ -216,31 +217,31 @@ export default function Header() {
             >
               <div className="p-4">
                 <div className="grid grid-cols-2 gap-4">
-                 {/* Азот N2 */}
-<Link
-  href="/nitrogen"
-  onClick={() => onNavigate(true)}
-  className="group block rounded-lg border border-gray-200 hover:shadow-md bg-white hover:bg-gray-50 p-4 flex flex-col items-center justify-center text-center transition"
->
-  <div className="flex items-center justify-center w-20 h-20 rounded-md bg-gray-100 text-gray-900 border border-gray-300 mb-3 text-2xl font-bold">
-    N<sub className="text-sm">2</sub>
-  </div>
-  <div className="text-sm font-semibold text-gray-900">Азот</div>
-  <div className="text-xs text-gray-600">N₂</div>
-</Link>
+                  {/* Азот N2 */}
+                  <Link
+                    href="/nitrogen"
+                    onClick={() => onNavigate(true)}
+                    className="group block rounded-lg border border-gray-200 hover:shadow-md bg-white hover:bg-gray-50 p-4 flex flex-col items-center justify-center text-center transition"
+                  >
+                    <div className="flex items-center justify-center w-20 h-20 rounded-md bg-gray-100 text-gray-900 border border-gray-300 mb-3 text-2xl font-bold">
+                      N<sub className="text-sm">2</sub>
+                    </div>
+                    <div className="text-sm font-semibold text-gray-900">Азот</div>
+                    <div className="text-xs text-gray-600">N₂</div>
+                  </Link>
 
                   {/* Кислород O2 */}
-<Link
-  href="/oxygen"
-  onClick={() => onNavigate(true)}
-  className="group block rounded-lg border border-gray-200 hover:shadow-md bg-white hover:bg-gray-50 p-4 flex flex-col items-center justify-center text-center transition"
->
-  <div className="flex items-center justify-center w-20 h-20 rounded-md bg-gray-100 text-gray-900 border border-gray-300 mb-3 text-2xl font-bold">
-    O<sub className="text-sm">2</sub>
-  </div>
-  <div className="text-sm font-semibold text-gray-900">Кислород</div>
-  <div className="text-xs text-gray-600">O₂</div>
-</Link>
+                  <Link
+                    href="/oxygen"
+                    onClick={() => onNavigate(true)}
+                    className="group block rounded-lg border border-gray-200 hover:shadow-md bg-white hover:bg-gray-50 p-4 flex flex-col items-center justify-center text-center transition"
+                  >
+                    <div className="flex items-center justify-center w-20 h-20 rounded-md bg-gray-100 text-gray-900 border border-gray-300 mb-3 text-2xl font-bold">
+                      O<sub className="text-sm">2</sub>
+                    </div>
+                    <div className="text-sm font-semibold text-gray-900">Кислород</div>
+                    <div className="text-xs text-gray-600">O₂</div>
+                  </Link>
                 </div>
 
                 {/* Конфигуратор — под двумя квадратами, широкая узкая кнопка */}
@@ -311,9 +312,8 @@ export default function Header() {
       {/* Мобильное меню */}
       <div
         id="mobile-menu"
-        className={`lg:hidden transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden bg-white/95 ${
-          open ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
-        }`}
+        className={`lg:hidden transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden bg-white/95 ${open ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
       >
         <div className="px-4 pt-4 pb-6 space-y-2">
           {/* Делаем пункт "Оборудование" раскрывающимся в мобильном меню */}
@@ -321,7 +321,7 @@ export default function Header() {
             <summary className="flex items-center justify-between px-2 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100 cursor-pointer">
               Оборудование
               <svg className="w-4 h-4 text-gray-700" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </summary>
             <div className="mt-1 space-y-1">
@@ -343,7 +343,7 @@ export default function Header() {
             <summary className="flex items-center justify-between px-2 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100 cursor-pointer">
               Технология
               <svg className="w-4 h-4 text-gray-700" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </summary>
 
