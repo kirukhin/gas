@@ -2,11 +2,11 @@
 
 const compressors = [
   {
-    id: 'BGV5',
-    name: 'Масляный винтовой компрессор BGV5',
+    id: 'DBG5',
+    name: 'Масляный винтовой компрессор DBG5',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 340700,
+    price: 151000,
     specs: [
       { pressure: 7, minFlow: 24.6, maxFlow: 55.2, power: 5.5 },
       { pressure: 8, minFlow: 24, maxFlow: 52.2, power: 5.5 },
@@ -14,11 +14,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV7',
-    name: 'Масляный винтовой компрессор BGV7',
+    id: 'DBG7',
+    name: 'Масляный винтовой компрессор DBG7',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 345100,
+    price: 151000,
     specs: [
       { pressure: 7, minFlow: 24.0, maxFlow: 77.4, power: 7.5 },
       { pressure: 8, minFlow: 22.8, maxFlow: 76.8, power: 7.5 },
@@ -26,11 +26,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV11',
-    name: 'Масляный винтовой компрессор BGV11',
+    id: 'DBG11',
+    name: 'Масляный винтовой компрессор DBG11',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 425000,
+    price: 259000,
     specs: [
       { pressure: 7, minFlow: 33.0, maxFlow: 119.4, power: 11 },
       { pressure: 8, minFlow: 49.2, maxFlow: 106.8, power: 11 },
@@ -39,11 +39,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV15',
-    name: 'Масляный винтовой компрессор BGV15',
+    id: 'DBG15',
+    name: 'Масляный винтовой компрессор DBG15',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 532800,
+    price: 259000,
     specs: [
       { pressure: 7, minFlow: 44.4, maxFlow: 150.6, power: 15 },
       { pressure: 8, minFlow: 40.8, maxFlow: 136.8, power: 15 },
@@ -52,11 +52,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV18',
-    name: 'Масляный винтовой компрессор BGV18',
+    id: 'DBG18',
+    name: 'Масляный винтовой компрессор DBG18',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 652700,
+    price: 317000,
     specs: [
       { pressure: 7, minFlow: 55.8, maxFlow: 186.6, power: 18.5 },
       { pressure: 8, minFlow: 54.0, maxFlow: 180.6, power: 18.5 },
@@ -65,11 +65,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV22',
-    name: 'Масляный винтовой компрессор BGV22',
+    id: 'DBG22',
+    name: 'Масляный винтовой компрессор DBG22',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 609000,
+    price: 317000,
     specs: [
       { pressure: 7, minFlow: 100.2, maxFlow: 217.8, power: 22 },
       { pressure: 8, minFlow: 100.2, maxFlow: 211.8, power: 22 },
@@ -78,11 +78,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV30',
-    name: 'Масляный винтовой компрессор BGV30',
+    id: 'DBG30',
+    name: 'Масляный винтовой компрессор DBG30',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 770300,
+    price: 491000,
     specs: [
       { pressure: 7, minFlow: 145.2, maxFlow: 304.2, power: 30 },
       { pressure: 8, minFlow: 86.4, maxFlow: 298.2, power: 30 },
@@ -91,11 +91,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV37',
-    name: 'Масляный винтовой компрессор BGV37',
+    id: 'DBG37',
+    name: 'Масляный винтовой компрессор DBG37',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 883400,
+    price: 491000,
     specs: [
       { pressure: 7, minFlow: 114.0, maxFlow: 372.0, power: 37 },
       { pressure: 8, minFlow: 189.6, maxFlow: 355.8, power: 37 },
@@ -104,11 +104,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV45',
-    name: 'Масляный винтовой компрессор BGV45',
+    id: 'DBG45',
+    name: 'Масляный винтовой компрессор DBG45',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 973800,
+    price: 994000,
     specs: [
       { pressure: 7, minFlow: 138.6, maxFlow: 450.6, power: 45 },
       { pressure: 8, minFlow: 131.4, maxFlow: 441.6, power: 45 },
@@ -117,11 +117,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV55',
-    name: 'Масляный винтовой компрессор BGV55',
+    id: 'DBG55',
+    name: 'Масляный винтовой компрессор DBG55',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 1479100,
+    price: 994000,
     specs: [
       { pressure: 7, minFlow: 244.8, maxFlow: 597.0, power: 55 },
       { pressure: 8, minFlow: 281.4, maxFlow: 568.8, power: 55 },
@@ -130,11 +130,11 @@ const compressors = [
     ]
   },
   {
-    id: 'BGV75',
-    name: 'Масляный винтовой компрессор BGV75',
+    id: 'DBG75',
+    name: 'Масляный винтовой компрессор DBG75',
     type: 'Частотно-регулируемый винтовой компрессор с ПМД',
     url: '/assets/compressor.png',
-    price: 1708000,
+    price: 1145000,
     specs: [
       { pressure: 7, minFlow: 293.4, maxFlow: 731.4, power: 75 },
       { pressure: 8, minFlow: 355.2, maxFlow: 725.4, power: 75 },
