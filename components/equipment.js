@@ -419,256 +419,146 @@ const dryers = [
     power: 10.2
   },
   {
-    id: 'DA 130',
-    name: 'Осушитель DryAir DA 130',
+    id: 'BGC 038',
+    name: 'Осушитель BGC 038',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 130.2,
+    flow: 228,
     specs: [
-      { maxPressure: 10, price: 798600 },
-      { maxPressure: 16, price: 971731 }
+      { maxPressure: 10, price: 289600 },
+      { maxPressure: 16, price: 289600 }
     ]
   },
   {
-    id: 'DA 185',
-    name: 'Осушитель DryAir DA 185',
+    id: 'BGC 065',
+    name: 'Осушитель BGC 065',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 184.8,
+    flow: 390,
     specs: [
-      { maxPressure: 10, price: 871200 },
-      { maxPressure: 16, price: 1098847 }
+      { maxPressure: 10, price: 346800 },
+      { maxPressure: 16, price: 346800 }
     ]
   },
   {
-    id: 'DA 250',
-    name: 'Осушитель DryAir DA 250',
+    id: 'BGC 085',
+    name: 'Осушитель BGC 085',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 250.2,
+    flow: 510,
     specs: [
-      { maxPressure: 10, price: 945120 },
-      { maxPressure: 16, price: 1220314 }
+      { maxPressure: 10, price: 404000 },
+      { maxPressure: 16, price: 404000 }
     ]
   },
   {
-    id: 'DA 300',
-    name: 'Осушитель DryAir DA 300',
+    id: 'BGC 115',
+    name: 'Осушитель BGC 115',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 300.0,
+    flow: 690,
     specs: [
-      { maxPressure: 10, price: 1019040 },
-      { maxPressure: 16, price: 1302233 }
+      { maxPressure: 10, price: 482600 },
+      { maxPressure: 16, price: 482600 }
     ]
   },
   {
-    id: 'DA 360',
-    name: 'Осушитель DryAir DA 360',
+    id: 'BGC 135',
+    name: 'Осушитель BGC 135',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 360.0,
+    flow: 810,
     specs: [
-      { maxPressure: 10, price: 1141800 },
-      { maxPressure: 16, price: 1502794 }
+      { maxPressure: 10, price: 624500 },
+      { maxPressure: 16, price: 624500 }
     ]
   },
   {
-    id: 'DA 440',
-    name: 'Осушитель DryAir DA 440',
+    id: 'BGC 180',
+    name: 'Осушитель BGC 180',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 439.8,
+    flow: 1080,
     specs: [
-      { maxPressure: 10, price: 1475100 },
-      { maxPressure: 16, price: 1954762 }
+      { maxPressure: 10, price: 738000 },
+      { maxPressure: 16, price: 738000 }
     ]
   },
   {
-    id: 'DA 575',
-    name: 'Осушитель DryAir DA 575',
+    id: 'BGC 220',
+    name: 'Осушитель BGC 220',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 574.8,
+    flow: 1320,
     specs: [
-      { maxPressure: 10, price: 1782000 },
-      { maxPressure: 16, price: 2331872 }
+      { maxPressure: 10, price: 794800 },
+      { maxPressure: 16, price: 794800 }
     ]
   },
   {
-    id: 'DA 680',
-    name: 'Осушитель DryAir DA 680',
+    id: 'BGC 250',
+    name: 'Осушитель BGC 250',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 679.8,
+    flow: 1500,
     specs: [
-      { maxPressure: 10, price: 1900800 },
-      { maxPressure: 16, price: 2556444 }
+      { maxPressure: 10, price: 880000 },
+      { maxPressure: 16, price: 880000 }
     ]
   },
   {
-    id: 'DA 850',
-    name: 'Осушитель DryAir DA 850',
+    id: 'BGC 320',
+    name: 'Осушитель BGC 320',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 850.2,
+    flow: 1920,
     specs: [
-      { maxPressure: 10, price: 2081640 },
-      { maxPressure: 16, price: 2781016 }
+      { maxPressure: 10, price: 1078700 },
+      { maxPressure: 16, price: 1078700 }
     ]
   },
   {
-    id: 'DA 1000',
-    name: 'Осушитель DryAir DA 1000',
+    id: 'BGC 450',
+    name: 'Осушитель BGC 450',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 1000.2,
+    flow: 2700,
     specs: [
-      { maxPressure: 10, price: 2415600 },
-      { maxPressure: 16, price: 3084682 }
+      { maxPressure: 10, price: 1192200 },
+      { maxPressure: 16, price: 1192200 }
     ]
   },
   {
-    id: 'DA 1250',
-    name: 'Осушитель DryAir DA 1250',
+    id: 'BGC 650',
+    name: 'Осушитель BGC 650',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 1249.8,
+    flow: 3900,
     specs: [
-      { maxPressure: 10, price: 2653200 },
-      { maxPressure: 16, price: 3268294 }
+      { maxPressure: 10, price: 1703100 },
+      { maxPressure: 16, price: 1703100 }
     ]
   },
   {
-    id: 'DA 1500',
-    name: 'Осушитель DryAir DA 1500',
+    id: 'BGC 850',
+    name: 'Осушитель BGC 850',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 1500.0,
+    flow: 5100,
     specs: [
-      { maxPressure: 10, price: 2805000 },
-      { maxPressure: 16, price: 3560660 }
+      { maxPressure: 10, price: 2157300 },
+      { maxPressure: 16, price: 2157300 }
     ]
   },
   {
-    id: 'DA 1800',
-    name: 'Осушитель DryAir DA 1800',
+    id: 'BGC 1000',
+    name: 'Осушитель BGC 1000',
     type: 'Адсорбционный осушитель',
     url: '/assets/osyshitel.png',
-    flow: 1800.0,
+    flow: 6000,
     specs: [
-      { maxPressure: 10, price: 3465000 },
-      { maxPressure: 16, price: 4396801 }
-    ]
-  },
-  {
-    id: 'DA 2200',
-    name: 'Осушитель DryAir DA 2200',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 2200.2,
-    specs: [
-      { maxPressure: 10, price: 3920400 },
-      { maxPressure: 16, price: 4771087 }
-    ]
-  },
-  {
-    id: 'DA 2700',
-    name: 'Осушитель DryAir DA 2700',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 2700.0,
-    specs: [
-      { maxPressure: 10, price: 4323000 },
-      { maxPressure: 16, price: 5259778 }
-    ]
-  },
-  {
-    id: 'DA 3200',
-    name: 'Осушитель DryAir DA 3200',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 3199.8,
-    specs: [
-      { maxPressure: 10, price: 5306400 },
-      { maxPressure: 16, price: 6576134 }
-    ]
-  },
-  {
-    id: 'DA 3600',
-    name: 'Осушитель DryAir DA 3600',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 3600.0,
-    specs: [
-      { maxPressure: 10, price: 6072000 },
-      { maxPressure: 16, price: 7511143 }
-    ]
-  },
-  {
-    id: 'DA 4400',
-    name: 'Осушитель DryAir DA 4400',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 4399.8,
-    specs: [
-      { maxPressure: 10, price: 6811200 },
-      { maxPressure: 16, price: 8487112 }
-    ]
-  },
-  {
-    id: 'DA 5000',
-    name: 'Осушитель DryAir DA 5000',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 4999.8,
-    specs: [
-      { maxPressure: 10, price: 7220400 },
-      { maxPressure: 16, price: 9088794 }
-    ]
-  },
-  {
-    id: 'DA 6300',
-    name: 'Осушитель DryAir DA 6300',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 6300.0,
-    specs: [
-      { maxPressure: 10, price: 8131200 },
-      { maxPressure: 16, price: 10214477 }
-    ]
-  },
-  {
-    id: 'DA 7200',
-    name: 'Осушитель DryAir DA 7200',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 7200.0,
-    specs: [
-      { maxPressure: 10, price: 8896800 },
-      { maxPressure: 16, price: 11340160 }
-    ]
-  },
-  {
-    id: 'DA 8800',
-    name: 'Осушитель DryAir DA 8800',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 8800.2,
-    specs: [
-      { maxPressure: 10, price: 10408200 },
-      { maxPressure: 16, price: 13217239 }
-    ]
-  },
-  {
-    id: 'DA 10800',
-    name: 'Осушитель DryAir DA 10800',
-    type: 'Адсорбционный осушитель',
-    url: '/assets/osyshitel.png',
-    flow: 10800.0,
-    specs: [
-      { maxPressure: 10, price: 12084600 },
-      { maxPressure: 16, price: 15321715 }
+      { maxPressure: 10, price: 2724900 },
+      { maxPressure: 16, price: 2724900 }
     ]
   }
 ];
