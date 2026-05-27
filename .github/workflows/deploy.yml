@@ -23,9 +23,24 @@ jobs:
       - name: Deploy to server
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            set -e
+
             cd ${{ secrets.SERVER_PATH }}
-            git pull origin deploy
-            npm install
+
+            echo "=== FETCH ==="
+            git fetch origin
+
+            echo "=== RESET ==="
+            git reset --hard origin/deploy
+
+            echo "=== INSTALL ==="
+            npm ci
+
+            echo "=== BUILD ==="
             npm run build
+
+            echo "=== RELOAD NGINX ==="
             systemctl reload nginx
+
+            echo "=== DONE ==="
           EOF
