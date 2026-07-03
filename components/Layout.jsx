@@ -12,12 +12,30 @@ export default function Layout({ children }) {
         <meta name="format-detection" content="telephone=no" />
       </Head>
 
-      {/* ✅ CMP — САМЫЙ ПЕРВЫЙ */}
       <Script
-        id="cookieyes"
-        src="https://cdn-cookieyes.com/client_data/36dc38fde35e0cc789a8a8f7/script.js"
-        strategy="beforeInteractive"
-      />
+  id="consentik-gcm"
+  src="https://cmp.consentik.com/sites/d1d35009-36e3-47ca-8dd1-46a02d684faf/19585841572bc5a891525b33423d9f46/gcm.js"
+  strategy="beforeInteractive"
+/>
+
+<Script
+  id="consentik-loader"
+  strategy="beforeInteractive"
+  dangerouslySetInnerHTML={{
+    __html: `
+!function(e,t,n,s,i,c){
+  const a=t.getElementsByTagName(n)[0];
+  const d=t.createElement(n);
+
+  d.id="cst-package";
+  d.async=true;
+  d.src="https://cmp.consentik.com/sites/d1d35009-36e3-47ca-8dd1-46a02d684faf/19585841572bc5a891525b33423d9f46/index.js?v="+(new Date().getMinutes());
+
+  a.parentNode.insertBefore(d,a);
+}(window,document,"script");
+`
+  }}
+/>
 
       {/* аналитика ПОСЛЕ CMP */}
       <Analytics />

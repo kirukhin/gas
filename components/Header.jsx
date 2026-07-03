@@ -3,78 +3,103 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import MegaMenu from './navigation/MegaMenu'
 
 export default function Header() {
   const [open, setOpen] = useState(false) // мобильное меню
-  const [equipOpen, setEquipOpen] = useState(false) // выпадающее меню "Оборудование" (десктоп)
-  const [techOpen, setTechOpen] = useState(false) // выпадающее меню "Технология"
+
+
+
+
+  const [megaMenuOpen, setMegaMenuOpen] =
+    useState(false)
+
+  const [activeSection, setActiveSection] =
+    useState('equipment')
+
   const router = useRouter()
   const isHome = router.pathname === '/'
 
-  const equipRef = useRef(null)
-  const techRef = useRef(null)
+
+  const megaMenuRef = useRef(null)
+
+  const closeTimer = useRef(null)
+
+  const openMegaMenu = (section) => {
+
+    clearTimeout(closeTimer.current)
+
+    setActiveSection(section)
+
+    setMegaMenuOpen(true)
+
+  }
+
+  const closeMegaMenu = () => {
+
+    closeTimer.current = setTimeout(() => {
+
+      setMegaMenuOpen(false)
+
+    }, 120)
+
+  }
 
   // Закрываем мобильное меню при смене страницы
   useEffect(() => {
     const handleRouteChange = () => {
       setOpen(false)
-      setEquipOpen(false)
-      setTechOpen(false)
+      setMegaMenuOpen(false)
     }
+
     router.events.on('routeChangeStart', handleRouteChange)
-    return () => router.events.off('routeChangeStart', handleRouteChange)
+
+    return () =>
+      router.events.off('routeChangeStart', handleRouteChange)
+
   }, [router.events])
 
   // Закрытие по ESC
   useEffect(() => {
+
     const onKey = (e) => {
+
       if (e.key === 'Escape') {
+
         setOpen(false)
-        setEquipOpen(false)
-        setTechOpen(false)
+        setMegaMenuOpen(false)
+
       }
+
     }
+
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+
+    return () =>
+      window.removeEventListener('keydown', onKey)
+
   }, [])
 
-  // Закрытие выпадашки "Оборудование" при клике вне
+
+
   useEffect(() => {
     const onDocClick = (e) => {
-      if (equipRef.current && !equipRef.current.contains(e.target)) {
-        setEquipOpen(false)
+      if (
+        megaMenuRef.current &&
+        !megaMenuRef.current.contains(e.target)
+      ) {
+        setMegaMenuOpen(false)
       }
     }
-    if (equipOpen) document.addEventListener('click', onDocClick)
-    return () => document.removeEventListener('click', onDocClick)
-  }, [equipOpen])
 
-  // Закрытие выпадашки "Технология" при клике вне
-  useEffect(() => {
-    const onDocClick = (e) => {
-      if (techRef.current && !techRef.current.contains(e.target)) {
-        setTechOpen(false)
-      }
+    if (megaMenuOpen) {
+      document.addEventListener('click', onDocClick)
     }
-    if (techOpen) document.addEventListener('click', onDocClick)
-    return () => document.removeEventListener('click', onDocClick)
-  }, [techOpen])
 
-  // статический список подкатегорий (каталога) — можно менять при необходимости
-  const equipmentCategories = [
-    { href: '/nitrogenerators', label: 'Генераторы азота' },
-    { href: '/oxygenerators', label: 'Генераторы кислорода' },
-    { href: '/compressors', label: 'Компрессоры' },
-    { href: '/dryers', label: 'Осушители' },
-    { href: '/filters', label: 'Фильтры' },
-    { href: '/dcompressors', label: 'Дожимающие компрессоры' }
-  ]
+    return () =>
+      document.removeEventListener('click', onDocClick)
+  }, [megaMenuOpen])
 
-  const navLinks = [
-    // здесь больше нет прямой ссылки на конфигуратор — вместо неё будет dropdown "Технология"
-    { href: '/about', label: 'О компании' },
-    { href: '#footer', label: 'Контакты' }, // теперь ведёт на футер (на всех страницах)
-  ]
 
   // Генерация корректного href для якорей (как у тебя в предыдущем коде)
   const getHref = (href) => {
@@ -86,9 +111,11 @@ export default function Header() {
 
   // helper: клик по ссылке закрывает оба меню
   const onNavigate = (closeMobile = true) => {
-    setEquipOpen(false)
-    setTechOpen(false)
-    if (closeMobile) setOpen(false)
+    setMegaMenuOpen(false)
+
+    if (closeMobile) {
+      setOpen(false)
+    }
   }
 
   return (
@@ -111,165 +138,78 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Контакты — центр */}
-        <div className="hidden xl:flex xl:items-center xl:gap-8 absolute inset-x-0 justify-center pointer-events-none">
-          <a
-            href="mailto:info@blitzgas.ru"
-            className="text-black text-sm font-medium hover:text-gray-800 pointer-events-auto"
+        {/* Десктопное меню */}
+        <nav
+          ref={megaMenuRef}
+          className="hidden lg:flex items-center gap-8"
+
+          onMouseLeave={closeMegaMenu}
+
+          onMouseEnter={() => {
+            clearTimeout(closeTimer.current)
+          }}
+        >
+          <button
+            type="button"
+            onMouseEnter={() => openMegaMenu('equipment')}
+            className="
+      h-16
+      flex
+      items-center
+      text-lg
+      font-medium
+      text-black
+      hover:text-gray-700
+      transition
+    "
           >
-            info@blitzgas.ru
-          </a>
-          <a
-            href="tel:+74950659276"
-            className="text-black text-sm font-medium hover:text-gray-800 pointer-events-auto"
+            Оборудование
+          </button>
+
+          <button
+            type="button"
+            onMouseEnter={() => openMegaMenu('technology')}
+            className="
+      h-16
+      flex
+      items-center
+      text-lg
+      font-medium
+      text-black
+      hover:text-gray-700
+      transition
+    "
           >
-            +7 (495) 065-92-76
-          </a>
-        </div>
+            Технология
+          </button>
 
-        {/* Десктоп-нав */}
-        <nav className="hidden lg:flex items-center space-x-6">
-          {/* Выпадающее меню "Оборудование" (оставляем как у тебя) */}
-          <div
-            ref={equipRef}
-            onMouseEnter={() => {
-              clearTimeout(equipRef.current?.closeTimer)
-              setEquipOpen(true)
-            }}
-            onMouseLeave={() => {
-              equipRef.current.closeTimer = setTimeout(() => {
-                setEquipOpen(false)
-              }, 250)
-            }}
-            className="relative"
+          <button
+            type="button"
+            onMouseEnter={() => openMegaMenu('contacts')}
+            className="
+      h-16
+      flex
+      items-center
+      text-lg
+      font-medium
+      text-black
+      hover:text-gray-700
+      transition
+    "
           >
-            <button
-              type="button"
-              aria-haspopup="menu"
-              aria-expanded={equipOpen}
-              onClick={() => setEquipOpen((v) => !v)}
-              className="text-black text-lg font-medium hover:text-gray-800 transition h-16 flex items-center px-2"
-            >
-              Оборудование
-              <svg className="ml-2 w-4 h-4 text-black/70" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
+            Компания
+          </button>
 
-            {/* Dropdown panel */}
-            <div
-              className={`absolute left-0 mt-2 w-56 rounded-lg shadow-lg ring-1 ring-black/5 bg-white transition transform origin-top ${equipOpen ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 -translate-y-1 pointer-events-none'
-                }`}
-              role="menu"
-              aria-label="Оборудование"
-            >
-              <div className="py-2">
-                {equipmentCategories.map((ec) => (
-                  <Link
-                    key={ec.href}
-                    href={ec.href}
-                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50"
-                    onClick={() => onNavigate(true)}
-                  >
-                    {ec.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Выпадающее мегаменю "Технология" (замена пункта Конфигуратор) */}
-          <div
-            ref={techRef}
-            onMouseEnter={() => {
-              clearTimeout(techRef.current?.closeTimer)
-              setTechOpen(true)
-            }}
-            onMouseLeave={() => {
-              techRef.current.closeTimer = setTimeout(() => {
-                setTechOpen(false)
-              }, 200)
-            }}
-            className="relative"
-          >
-            <button
-              type="button"
-              aria-haspopup="menu"
-              aria-expanded={techOpen}
-              onClick={() => setTechOpen((v) => !v)}
-              className="text-black text-lg font-medium hover:text-gray-800 transition h-16 flex items-center px-2"
-            >
-              Технология
-              <svg className="ml-2 w-4 h-4 text-black/70" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-
-            {/* Тело мегаменю */}
-            <div
-              className={`absolute left-1/2 -translate-x-1/2 top-full mt-2
-                w-[560px] max-w-[95vw] bg-white rounded-xl shadow-xl ring-1 ring-black/5
-                transition-all duration-150 origin-top
-                ${techOpen ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}
-              `}
-              role="menu"
-              aria-label="Технология"
-            >
-              <div className="p-4">
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Азот N2 */}
-                  <Link
-                    href="/nitrogen"
-                    onClick={() => onNavigate(true)}
-                    className="group block rounded-lg border border-gray-200 hover:shadow-md bg-white hover:bg-gray-50 p-4 flex flex-col items-center justify-center text-center transition"
-                  >
-                    <div className="flex items-center justify-center w-20 h-20 rounded-md bg-gray-100 text-gray-900 border border-gray-300 mb-3 text-2xl font-bold">
-                      N<sub className="text-sm">2</sub>
-                    </div>
-                    <div className="text-sm font-semibold text-gray-900">Азот</div>
-                    <div className="text-xs text-gray-600">N₂</div>
-                  </Link>
-
-                  {/* Кислород O2 */}
-                  <Link
-                    href="/oxygen"
-                    onClick={() => onNavigate(true)}
-                    className="group block rounded-lg border border-gray-200 hover:shadow-md bg-white hover:bg-gray-50 p-4 flex flex-col items-center justify-center text-center transition"
-                  >
-                    <div className="flex items-center justify-center w-20 h-20 rounded-md bg-gray-100 text-gray-900 border border-gray-300 mb-3 text-2xl font-bold">
-                      O<sub className="text-sm">2</sub>
-                    </div>
-                    <div className="text-sm font-semibold text-gray-900">Кислород</div>
-                    <div className="text-xs text-gray-600">O₂</div>
-                  </Link>
-                </div>
-
-                {/* Конфигуратор — под двумя квадратами, широкая узкая кнопка */}
-                <div className="mt-4">
-                  <Link
-                    href={getHref('#config')}
-                    onClick={() => onNavigate(true)}
-                    className="block w-full text-center rounded-md px-4 py-2 text-sm font-semibold bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-900"
-                  >
-                    Конфигуратор
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Остальные nav links */}
-          {navLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={getHref(l.href)}
-              scroll={false}
-              className="text-black text-lg font-medium hover:text-gray-800 transition h-16 flex items-center px-2"
-            >
-              {l.label}
-            </Link>
-          ))}
+          {megaMenuOpen && (
+            <MegaMenu
+              activeSection={activeSection}
+              onSectionChange={setActiveSection}
+              onNavigate={onNavigate}
+              getHref={getHref}
+            />
+          )}
         </nav>
+
 
         {/* Мобильная часть: иконки + бургер */}
         <div className="flex items-center gap-3 lg:hidden text-black">
@@ -307,13 +247,14 @@ export default function Header() {
             </svg>
           </button>
         </div>
-      </div>
+      </div >
 
       {/* Мобильное меню */}
-      <div
+      < div
         id="mobile-menu"
         className={`lg:hidden transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden bg-white/95 ${open ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
-          }`}
+          }`
+        }
       >
         <div className="px-4 pt-4 pb-6 space-y-2">
           {/* Делаем пункт "Оборудование" раскрывающимся в мобильном меню */}
@@ -325,16 +266,53 @@ export default function Header() {
               </svg>
             </summary>
             <div className="mt-1 space-y-1">
-              {equipmentCategories.map((ec) => (
-                <Link
-                  key={ec.href}
-                  href={ec.href}
-                  onClick={() => onNavigate(true)}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
-                >
-                  {ec.label}
-                </Link>
-              ))}
+              <Link
+                href="/nitrogenerators"
+                onClick={() => onNavigate(true)}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+              >
+                Генераторы азота
+              </Link>
+
+              <Link
+                href="/oxygenerators"
+                onClick={() => onNavigate(true)}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+              >
+                Генераторы кислорода
+              </Link>
+
+              <Link
+                href="/compressors"
+                onClick={() => onNavigate(true)}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+              >
+                Компрессоры
+              </Link>
+
+              <Link
+                href="/dryers"
+                onClick={() => onNavigate(true)}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+              >
+                Осушители
+              </Link>
+
+              <Link
+                href="/filters"
+                onClick={() => onNavigate(true)}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+              >
+                Фильтры
+              </Link>
+
+              <Link
+                href="/dcompressors"
+                onClick={() => onNavigate(true)}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+              >
+                Дожимающие компрессоры
+              </Link>
             </div>
           </details>
 
@@ -386,18 +364,7 @@ export default function Header() {
             </div>
           </details>
 
-          {/* остальные navLinks */}
-          {navLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={getHref(l.href)}
-              scroll={false}
-              onClick={() => onNavigate(true)}
-              className="block w-full text-left px-2 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100 transition"
-            >
-              {l.label}
-            </Link>
-          ))}
+
 
           <div className="pt-2 border-t border-gray-100 mt-2">
             <a href="mailto:info@blitzgas.ru" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
@@ -408,7 +375,7 @@ export default function Header() {
             </a>
           </div>
         </div>
-      </div>
-    </header>
+      </div >
+    </header >
   )
 }

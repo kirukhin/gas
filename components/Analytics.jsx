@@ -23,16 +23,19 @@ export default function Analytics() {
     }
 
     k=e.createElement(t), a=e.getElementsByTagName(t)[0];
-    k.async=1; k.src=r; 
+    k.async=1; k.src=r;
     k.onload = function() {
       window.dispatchEvent(new Event("ym-loaded"));
     };
     a.parentNode.insertBefore(k,a);
 
-    m[i](103957835, 'init', { 
-      webvisor:true, clickmap:true, 
-      trackLinks:true, accurateTrackBounce:true,
-      defer:true, trackHash:true 
+    m[i](103957835, 'init', {
+      webvisor:true,
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      defer:true,
+      trackHash:true
     });
 
   } catch (err) {
@@ -81,46 +84,6 @@ try {
 } catch (err) {
   console.error('Google Analytics init error:', err);
 }
-          `,
-        }}
-      />
-
-      {/* CookieYes → Google Consent Mode bridge */}
-      <Script
-        id="cookieyes-consent-listener"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-(function() {
-  try {
-    document.addEventListener('cookieyes_consent_update', function(event) {
-      if (!window.gtag) return;
-
-      const consent = event.detail;
-
-      console.log('CookieYes consent update:', consent);
-
-      const isAnalyticsAccepted =
-        consent &&
-        consent.accepted &&
-        consent.accepted.includes('analytics');
-
-      if (isAnalyticsAccepted) {
-        // ✅ пользователь разрешил аналитику
-        window.gtag('consent', 'update', {
-          analytics_storage: 'granted'
-        });
-      } else {
-        // ❌ пользователь запретил аналитику
-        window.gtag('consent', 'update', {
-          analytics_storage: 'denied'
-        });
-      }
-    });
-  } catch (err) {
-    console.error('CookieYes listener error:', err);
-  }
-})();
           `,
         }}
       />

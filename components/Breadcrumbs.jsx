@@ -1,3 +1,5 @@
+//components/Breadcrumbs.jsx
+
 import Link from "next/link"
 
 export default function Breadcrumbs({ items = [], title, className = "" }) {
