@@ -1,6 +1,7 @@
 {
   "type": {
     "category": "dryers",
+    "categoryTitle": "Осушители воздуха",
     "subcategory": "refrigeration",
     "title": "Рефрижераторные осушители",
     "h1": "Рефрижераторные осушители сжатого воздуха"
@@ -124,7 +125,7 @@
         "description": "Рефрижераторные осушители серии BGD производительностью от 1.2 до 55 м³/мин для подготовки сжатого воздуха в промышленных системах."
       },
       "media": {
-        "defaultImage": "/assets/osy1.png"
+        "image": "/assets/osy1.png"
       },
       "commonSpecs": {
         "technology": "рефрижераторный",

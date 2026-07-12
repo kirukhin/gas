@@ -1,5 +1,6 @@
 // components/ProductCard.jsx
 import Link from 'next/link'
+import { buildProductUrl } from '../lib/buildProductUrl'
 import { equipmentInfo } from './equipmentDetails'
 import { fixImagePath } from '../lib/fixImagePath'
 
@@ -63,7 +64,7 @@ export default function ProductCard({ p }) {
       <div className="p-5 flex flex-col flex-1">
 
         <h3 className="text-lg font-semibold text-gray-900 mb-1 leading-tight">
-          <Link href={`/products/${p.slug || p.id}`} className="hover:text-red-600">
+          <Link href={buildProductUrl(p)} className="hover:text-red-600">
             {p.name}
           </Link>
         </h3>
@@ -91,7 +92,7 @@ export default function ProductCard({ p }) {
           </div>
 
           <Link
-            href={`/products/${p.slug || p.id}`}
+            href={buildProductUrl(p)}
             className="w-full block text-center bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 rounded-lg transition"
           >
             Подробнее

@@ -1,6 +1,7 @@
 {
   "type": {
     "category": "dryers",
+    "categoryTitle": "Осушители воздуха",
     "subcategory": "adsorption-cold",
     "title": "Адсорбционные осушители с холодной регенерацией",
     "h1": "Адсорбционные осушители с холодной регенерацией"
@@ -165,7 +166,7 @@
         "description": "Адсорбционные осушители серии BGC с холодной регенерацией. Производительность от 3.8 до 100 м³/мин, точка росы до -40°C."
       },
       "media": {
-        "defaultImage": "/assets/osy1.png"
+        "image": "/assets/osy1.png"
       },
       "commonSpecs": {
         "technology": "адсорбционный",

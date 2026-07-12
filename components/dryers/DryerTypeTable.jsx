@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import { buildProductUrl } from '../../lib/buildProductUrl'
+
 function formatPrice(price) {
 
     return new Intl.NumberFormat(
@@ -79,20 +82,20 @@ function formatPrice(price) {
   
                 <td className="p-4">
   
-                  <a
-                    href={`/products/${model.slug}`}
-                    className="
-                      inline-flex
-                      px-4
-                      py-2
-                      rounded-lg
-                      bg-blue-600
-                      text-white
-                      text-sm
-                    "
-                  >
-                    Подробнее
-                  </a>
+                <Link
+    href={buildProductUrl(model)}
+    className="
+        inline-flex
+        px-4
+        py-2
+        rounded-lg
+        bg-blue-600
+        text-white
+        text-sm
+    "
+>
+    Подробнее
+</Link>
   
                 </td>
   
