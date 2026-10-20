@@ -1,5 +1,5 @@
 
-/* Tailwind imports */
+/* Tailwind */
 @import "tailwindcss";
 
 @tailwind base;
@@ -8,42 +8,170 @@
 
 /* Global typography */
 body {
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    "Helvetica Neue",
-    Arial,
-    "Noto Sans",
-    "Liberation Sans",
-    sans-serif;
-
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Gradient used by the outer wrapper and small decorative bar */
+/* Shared gradient */
 .gradient {
   background: linear-gradient(120deg, rgba(224, 224, 224, 1) 0%, rgba(126, 140, 166, 1) 30%);
 }
 
-
-/* Wave / svg helpers (optional adjustments) */
 .wave-top {
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* Simple responsive helpers if needed */
 @media (max-width: 640px) {
   .text-5xl {
-    font-size: 2rem; /* scale headline on very small screens */
+    font-size: 2rem;
   }
 }
 
-/* NOTE:
-   - Tailwind's utility classes must be available in the build (via your Tailwind pipeline).
-*/
+/* =========================================
+   HERO — industrial gas-flow atmosphere
+   ========================================= */
+
+.hero-gas {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(112deg, #ffffff 0%, #f4f8fd 32%, #e6f0fa 72%, #f8fbff 100%);
+}
+
+.hero-gas__background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 76% 38%, rgba(96, 165, 250, 0.22) 0%, rgba(147, 197, 253, 0.11) 30%, transparent 64%),
+    radial-gradient(ellipse at 28% 82%, rgba(191, 219, 254, 0.22) 0%, transparent 56%),
+    radial-gradient(ellipse at 52% 100%, rgba(125, 211, 252, 0.13) 0%, transparent 48%);
+}
+
+/* Common SVG wave layer */
+.hero-gas__waves {
+  position: absolute;
+  inset: -2% -1%;
+  display: block;
+  width: 102%;
+  height: 104%;
+  overflow: visible;
+  pointer-events: none;
+  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Background waves: soft and broad */
+.hero-gas__waves--back {
+  opacity: 1;
+}
+
+
+
+/* Wave animation — slow, continuous fluid movement */
+.hero-gas__ribbon {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: heroGasDrift 12s ease-in-out infinite alternate;
+}
+
+.hero-gas__ribbon--slow {
+  animation-duration: 16s;
+  animation-delay: -5s;
+}
+
+.hero-gas__ribbon--fast {
+  animation-duration: 9s;
+  animation-delay: -2s;
+}
+
+.hero-gas__flow-line {
+  stroke-dasharray: 120 24 42 24;
+  animation: heroGasDash 15s linear infinite;
+}
+
+.hero-gas__flow-line--slow {
+  animation-duration: 23s;
+  animation-direction: reverse;
+  opacity: 0.65;
+}
+
+.hero-gas__pulse,
+.hero-gas__pulse-halo {
+  pointer-events: none;
+  filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.55));
+}
+
+.hero-gas__pulse-halo {
+  animation: heroGasPulse 2.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Gentle pulse of the light travelling along the flow */
+.hero-gas__pulse-glow {
+  animation: heroGasGlow 3.6s ease-in-out infinite;
+}
+
+/* White section blends into the bottom of the hero */
+.hero-gas__transition {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* Motion */
+@keyframes heroGasDash {
+  to {
+    stroke-dashoffset: -440;
+  }
+}
+
+@keyframes heroGasDrift {
+  0% {
+    translate: -0.45% -3px;
+  }
+  50% {
+    translate: 0.25% 3px;
+  }
+  100% {
+    translate: 0.65% -2px;
+  }
+}
+
+@keyframes heroGasPulse {
+  0%, 100% {
+    opacity: 0.1;
+    scale: 0.9;
+  }
+  50% {
+    opacity: 0.34;
+    scale: 1.18;
+  }
+}
+
+@keyframes heroGasGlow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Accessibility: honour reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .hero-gas__ribbon,
+  .hero-gas__flow-line,
+  .hero-gas__pulse-halo,
+  .hero-gas__pulse-glow {
+    animation: none !important;
+  }
+}
