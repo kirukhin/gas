@@ -1,5 +1,7 @@
 // components/foodPackaging/NitrogenPurity.jsx
 
+import Image from "next/image";
+
 const purityLevels = [
   {
     purity: "95%",
