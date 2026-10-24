@@ -51,127 +51,727 @@ body {
     radial-gradient(ellipse at 52% 100%, rgba(125, 211, 252, 0.13) 0%, transparent 48%);
 }
 
-/* Common SVG wave layer */
-.hero-gas__waves {
-  position: absolute;
-  inset: -2% -1%;
-  display: block;
-  width: 102%;
-  height: 104%;
-  overflow: visible;
+
+/* =========================================
+   HERO — усиленное движение газовых потоков
+   ========================================= */
+
+   .hero-gas {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: linear-gradient(
+      112deg,
+      #ffffff 0%,
+      #f4f8fd 32%,
+      #e6f0fa 72%,
+      #f8fbff 100%
+    );
+  }
+  
+  .hero-gas__background {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse at 76% 38%,
+        rgba(96, 165, 250, 0.22) 0%,
+        rgba(147, 197, 253, 0.11) 30%,
+        transparent 64%
+      ),
+      radial-gradient(
+        ellipse at 28% 82%,
+        rgba(191, 219, 254, 0.22) 0%,
+        transparent 56%
+      ),
+      radial-gradient(
+        ellipse at 52% 100%,
+        rgba(125, 211, 252, 0.13) 0%,
+        transparent 48%
+      );
+  }
+  
+  /* Базовый слой SVG.
+     Переменные --parallax-x/y задаются существующим JS. */
+  .hero-gas__waves {
+    position: absolute;
+    inset: -5% -3%;
+    display: block;
+    width: 106%;
+    height: 110%;
+    overflow: visible;
+    pointer-events: none;
+    transform: translate3d(
+      var(--parallax-x, 0px),
+      var(--parallax-y, 0px),
+      0
+    );
+    transform-origin: center;
+    will-change: transform;
+  }
+  
+  /* Фоновые волны остаются за текстом и оборудованием */
+  .hero-gas__waves--back {
+    z-index: 0;
+    opacity: 1;
+  }
+  
+  /* Непрерывное перетекание широких лент */
+  .hero-gas__ribbon {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: heroGasDrift 8s ease-in-out infinite alternate;
+  }
+  
+  .hero-gas__ribbon--slow {
+    animation-duration: 13s;
+    animation-delay: -4s;
+  }
+  
+  .hero-gas__ribbon--fast {
+    animation-duration: 7s;
+    animation-delay: -2s;
+  }
+  
+  /* Движение световых линий вдоль потока */
+  .hero-gas__flow-line {
+    stroke-dasharray: 100 22 38 22;
+    animation: heroGasDash 10s linear infinite;
+  }
+  
+  .hero-gas__flow-line--slow {
+    animation-duration: 17s;
+    animation-direction: reverse;
+    opacity: 0.72;
+  }
+  
+  /* Световой импульс */
+  .hero-gas__pulse,
+  .hero-gas__pulse-halo {
+    pointer-events: none;
+    filter: drop-shadow(0 0 7px rgba(56, 189, 248, 0.65));
+  }
+  
+  .hero-gas__pulse-halo {
+    animation: heroGasPulse 2.2s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  
+  .hero-gas__pulse-glow {
+    animation: heroGasGlow 2.8s ease-in-out infinite;
+  }
+  
+  /* Волнистый переход в следующую секцию */
+  .hero-gas__transition {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    pointer-events: none;
+  }
+  
+  /* Волны шире и выразительнее покачиваются */
+  @keyframes heroGasDrift {
+    0% {
+      translate: -1.1% -9px;
+      scale: 1 1;
+    }
+  
+    50% {
+      translate: 0.5% 8px;
+      scale: 1.015 1.025;
+    }
+  
+    100% {
+      translate: 1.1% -5px;
+      scale: 1 1.01;
+    }
+  }
+  
+  /* Более заметное движение штрихов */
+  @keyframes heroGasDash {
+    to {
+      stroke-dashoffset: -520;
+    }
+  }
+  
+  /* Импульс плавно меняет размер и яркость */
+  @keyframes heroGasPulse {
+    0%,
+    100% {
+      opacity: 0.12;
+      scale: 0.82;
+    }
+  
+    50% {
+      opacity: 0.42;
+      scale: 1.3;
+    }
+  }
+  
+  @keyframes heroGasGlow {
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+  
+    50% {
+      opacity: 0.85;
+    }
+  }
+  
+  /* Не отключаем анимацию без необходимости */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-gas__ribbon,
+    .hero-gas__flow-line,
+    .hero-gas__pulse-halo,
+    .hero-gas__pulse-glow {
+      animation: none !important;
+    }
+  }
+  
+
+  
+/* =========================================
+   FOOTER — light industrial gas-flow style
+   ========================================= */
+
+.footer-gas {
+  isolation: isolate;
+  background:
+    radial-gradient(
+      ellipse at 78% 18%,
+      rgba(96, 165, 250, 0.17) 0%,
+      rgba(147, 197, 253, 0.07) 32%,
+      transparent 64%
+    ),
+    radial-gradient(
+      ellipse at 18% 70%,
+      rgba(191, 219, 254, 0.3) 0%,
+      transparent 55%
+    ),
+    linear-gradient(
+      112deg,
+      #f8fbff 0%,
+      #eff6ff 42%,
+      #eaf3fd 72%,
+      #f8fbff 100%
+    );
+}
+
+.footer-gas__transition {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-bottom: -1px;
   pointer-events: none;
-  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
-  transform-origin: center;
-  will-change: transform;
 }
 
-/* Background waves: soft and broad */
-.hero-gas__waves--back {
-  opacity: 1;
+.footer-gas__atmosphere {
+  position: absolute;
+  z-index: 0;
+  inset: 65px 0 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
+.footer-gas__glow {
+  position: absolute;
+  width: min(55vw, 680px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(75px);
+  pointer-events: none;
+}
 
+.footer-gas__glow--one {
+  top: 5%;
+  right: -12%;
+  background: rgba(96, 165, 250, 0.12);
+}
 
-/* Wave animation — slow, continuous fluid movement */
-.hero-gas__ribbon {
+.footer-gas__glow--two {
+  top: 42%;
+  left: -20%;
+  background: rgba(125, 211, 252, 0.1);
+}
+
+.footer-gas__waves {
+  position: absolute;
+  inset: 0 -3%;
+  display: block;
+  width: 106%;
+  height: 100%;
+  overflow: visible;
+}
+
+.footer-gas__ribbon {
   transform-box: fill-box;
   transform-origin: center;
-  animation: heroGasDrift 12s ease-in-out infinite alternate;
+  animation: footerGasDrift 10s ease-in-out infinite alternate;
 }
 
-.hero-gas__ribbon--slow {
+.footer-gas__ribbon--slow {
   animation-duration: 16s;
   animation-delay: -5s;
 }
 
-.hero-gas__ribbon--fast {
-  animation-duration: 9s;
-  animation-delay: -2s;
+.footer-gas__flow-line {
+  stroke-dasharray: 100 22 38 22;
+  animation: footerGasDash 13s linear infinite;
 }
 
-.hero-gas__flow-line {
-  stroke-dasharray: 120 24 42 24;
-  animation: heroGasDash 15s linear infinite;
-}
-
-.hero-gas__flow-line--slow {
-  animation-duration: 23s;
+.footer-gas__flow-line--slow {
+  animation-duration: 19s;
   animation-direction: reverse;
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
-.hero-gas__pulse,
-.hero-gas__pulse-halo {
-  pointer-events: none;
-  filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.55));
+/* Акцент, перекликающийся с красной CTA в Hero */
+.footer-gas__accent {
+  display: inline-block;
+  width: 36px;
+  height: 4px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #dc2626;
 }
 
-.hero-gas__pulse-halo {
-  animation: heroGasPulse 2.8s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
+/* Светлые поверхности с тонким инженерным контуром */
+.footer-gas__card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(147, 197, 253, 0.55);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 16px 50px rgba(30, 64, 110, 0.055),
+    0 2px 8px rgba(30, 64, 110, 0.025);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-/* Gentle pulse of the light travelling along the flow */
-.hero-gas__pulse-glow {
-  animation: heroGasGlow 3.6s ease-in-out infinite;
+.footer-gas__icon {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(147, 197, 253, 0.35);
+  border-radius: 13px;
+  background: rgba(219, 234, 254, 0.58);
+  color: #2563eb;
 }
 
-/* White section blends into the bottom of the hero */
-.hero-gas__transition {
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
+.footer-gas__note {
+  border-left: 3px solid #60a5fa;
+  border-radius: 0 10px 10px 0;
+  background: rgba(239, 246, 255, 0.85);
+  padding: 14px 16px;
+}
+
+.footer-gas__input {
   display: block;
   width: 100%;
-  pointer-events: none;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: rgba(248, 250, 252, 0.95);
+  padding: 12px 15px;
+  color: #0f172a;
+  font: inherit;
+  line-height: 1.5;
+  outline: none;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
 }
 
-/* Motion */
-@keyframes heroGasDash {
-  to {
-    stroke-dashoffset: -440;
-  }
+.footer-gas__input::placeholder {
+  color: #94a3b8;
 }
 
-@keyframes heroGasDrift {
+.footer-gas__input:hover {
+  border-color: #93c5fd;
+}
+
+.footer-gas__input:focus {
+  border-color: #60a5fa;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.16);
+}
+
+.footer-gas__map {
+  min-height: 350px;
+  overflow: hidden;
+  border: 1px solid rgba(147, 197, 253, 0.65);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 36px rgba(30, 64, 110, 0.06);
+}
+
+/* Отдельные имена keyframes — не конфликтуют с Hero */
+@keyframes footerGasDrift {
   0% {
-    translate: -0.45% -3px;
+    translate: -0.8% -6px;
+    scale: 1 1;
   }
+
   50% {
-    translate: 0.25% 3px;
+    translate: 0.4% 7px;
+    scale: 1.012 1.02;
   }
+
   100% {
-    translate: 0.65% -2px;
+    translate: 0.9% -4px;
+    scale: 1 1.01;
   }
 }
 
-@keyframes heroGasPulse {
-  0%, 100% {
-    opacity: 0.1;
-    scale: 0.9;
-  }
-  50% {
-    opacity: 0.34;
-    scale: 1.18;
+@keyframes footerGasDash {
+  to {
+    stroke-dashoffset: -520;
   }
 }
 
-@keyframes heroGasGlow {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-/* Accessibility: honour reduced-motion preferences */
+/* Доступность: уважаем системную настройку уменьшения движения */
 @media (prefers-reduced-motion: reduce) {
-  .hero-gas__ribbon,
-  .hero-gas__flow-line,
-  .hero-gas__pulse-halo,
-  .hero-gas__pulse-glow {
+  .footer-gas__ribbon,
+  .footer-gas__flow-line {
     animation: none !important;
   }
 }
+
+/* На телефонах сохраняем лёгкость и не перегружаем фон */
+@media (max-width: 640px) {
+  .footer-gas__atmosphere {
+    top: 40px;
+  }
+
+  .footer-gas__glow {
+    filter: blur(45px);
+  }
+
+  .footer-gas__card {
+    border-radius: 16px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+
+
+/* =========================================
+   PAGE HERO — единый стиль внутренних страниц
+   ========================================= */
+
+   .page-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #0f172a;
+    background: linear-gradient(
+      112deg,
+      #ffffff 0%,
+      #f4f8fd 32%,
+      #e6f0fa 72%,
+      #f8fbff 100%
+    );
+  }
+  
+  /* Атмосфера */
+  .page-hero__background {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse at 76% 38%,
+        rgba(96, 165, 250, 0.22) 0%,
+        rgba(147, 197, 253, 0.11) 30%,
+        transparent 64%
+      ),
+      radial-gradient(
+        ellipse at 28% 82%,
+        rgba(191, 219, 254, 0.22) 0%,
+        transparent 56%
+      ),
+      radial-gradient(
+        ellipse at 52% 100%,
+        rgba(125, 211, 252, 0.13) 0%,
+        transparent 48%
+      );
+  }
+  
+  /* Декоративные потоки */
+  .page-hero__waves {
+    position: absolute;
+    z-index: -1;
+    inset: -5% -3%;
+    display: block;
+    width: 106%;
+    height: 110%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  
+  .page-hero__ribbon {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pageHeroDrift 8s ease-in-out infinite alternate;
+  }
+  
+  .page-hero__ribbon--slow {
+    animation-duration: 13s;
+    animation-delay: -4s;
+  }
+  
+  .page-hero__flow-line {
+    stroke-dasharray: 100 22 38 22;
+    animation: pageHeroDash 17s linear infinite;
+  }
+  
+  /* Контейнер и колонки */
+  .page-hero__container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: center;
+    gap: clamp(24px, 4vw, 64px);
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 144px 24px 132px;
+  }
+  
+  .page-hero__copy {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+  }
+  
+  .page-hero__title {
+    margin: 0;
+    color: #0f172a;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 750;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  
+  .page-hero__breadcrumbs {
+    position: relative;
+    z-index: 3;
+    margin-top: 24px;
+    color: #475569;
+  }
+  
+  /* Описание и действия — необязательные */
+  .page-hero__description {
+    max-width: 650px;
+    margin: 24px 0 0;
+    color: #334155;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    line-height: 1.65;
+  }
+  
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  
+  /* Иллюстрация */
+  .page-hero__visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .page-hero__image {
+    display: block;
+    width: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    object-position: center;
+  }
+  
+  /* Волнистый край */
+  .page-hero__transition {
+    position: absolute;
+    z-index: 4;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 96px;
+    pointer-events: none;
+  }
+  
+  /* Высота для разных типов страниц */
+  .page-hero--catalog .page-hero__container {
+    min-height: 390px;
+  }
+  
+  .page-hero--article .page-hero__container {
+    min-height: 440px;
+    padding-top: 150px;
+    padding-bottom: 145px;
+  }
+  
+  .page-hero--compact .page-hero__container {
+    min-height: 300px;
+    padding-top: 130px;
+    padding-bottom: 112px;
+  }
+  
+  .page-hero--compact .page-hero__image {
+    max-height: 270px;
+  }
+  
+  /* Анимации */
+  @keyframes pageHeroDrift {
+    0% {
+      translate: -1.1% -9px;
+      scale: 1 1;
+    }
+  
+    50% {
+      translate: 0.5% 8px;
+      scale: 1.015 1.025;
+    }
+  
+    100% {
+      translate: 1.1% -5px;
+      scale: 1 1.01;
+    }
+  }
+  
+  @keyframes pageHeroDash {
+    to {
+      stroke-dashoffset: -520;
+    }
+  }
+  
+  /* Планшеты */
+  @media (max-width: 767px) {
+    .page-hero__container {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 20px;
+      padding: 112px 20px 105px;
+    }
+  
+    .page-hero__copy {
+      text-align: center;
+    }
+  
+    .page-hero__title {
+      font-size: clamp(2rem, 7vw, 2.75rem);
+    }
+  
+    .page-hero__breadcrumbs {
+      display: flex;
+      justify-content: center;
+      margin-top: 18px;
+    }
+  
+    .page-hero__description {
+      margin-top: 18px;
+      font-size: 1rem;
+    }
+  
+    .page-hero__actions {
+      justify-content: center;
+    }
+  
+    .page-hero__visual {
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  
+    .page-hero__image {
+      max-height: 250px;
+    }
+  
+    .page-hero__transition {
+      height: 68px;
+    }
+  
+    .page-hero--catalog .page-hero__container,
+    .page-hero--article .page-hero__container,
+    .page-hero--compact .page-hero__container {
+      min-height: 0;
+      padding-top: 112px;
+      padding-bottom: 95px;
+    }
+  
+    .page-hero--compact .page-hero__visual {
+      display: none;
+    }
+  }
+  
+  /* Узкие телефоны */
+  @media (max-width: 420px) {
+    .page-hero__container {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+  
+    .page-hero__image {
+      max-height: 200px;
+    }
+  
+    .page-hero__transition {
+      height: 52px;
+    }
+  }
+  
+  /* Белая область контента */
+  .page-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 24px 64px;
+    color: #1f2937;
+  }
+  
+  .page-content--narrow {
+    max-width: 896px;
+  }
+  
+  .page-content--standard {
+    max-width: 1152px;
+  }
+  
+  .page-content--wide {
+    max-width: 1440px;
+  }
+  
+  /* Уважение к системной настройке уменьшения движения */
+  @media (prefers-reduced-motion: reduce) {
+    .page-hero__ribbon,
+    .page-hero__flow-line {
+      animation: none !important;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .page-content {
+      padding: 20px 16px 48px;
+    }
+  }
+  
