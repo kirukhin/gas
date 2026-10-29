@@ -1,6 +1,7 @@
 //pages/filters.js
 
 
+
 // ===============================
 // ИМПОРТЫ
 // ===============================
@@ -10,7 +11,8 @@ import { filters } from '../components/equipment'
 import { equipmentInfo } from '../components/equipmentDetails'
 import FilterFilterPanel from '../components/FilterFilterPanel'
 import ProductCard from '../components/ProductCard'
-
+import PageHero from '../components/PageHero'
+import Breadcrumbs from '../components/Breadcrumbs'
 
 // ===============================
 // SITE URL
@@ -61,8 +63,24 @@ export default function FiltersPage() {
       jsonLd={jsonLd}
       breadcrumb={[
         { name: "Главная", href: "/" },
-        { name: 'Фильтры', href: '/filters' }
+        { name: "Фильтры", href: "/filters" }
       ]}
+      hero={
+        <PageHero
+          title="Фильтры AAF"
+          breadcrumbs={
+            <Breadcrumbs
+              items={[
+                { name: "Главная", href: "/" },
+                { name: "Фильтры", href: "/filters" }
+              ]}
+            />
+          }
+          image="/assets/filters-hero.png"
+          imageAlt="Фильтры AAF для очистки сжатого воздуха"
+          variant="compact"
+        />
+      }
     >
 
       <section className="container mx-auto px-6 py-12 max-w-6xl text-gray-800">

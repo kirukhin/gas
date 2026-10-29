@@ -29,21 +29,12 @@ export default function Breadcrumbs({
     })),
   };
 
-  const isLight = theme === "light";
-
-  const colors = isLight
-    ? {
-        current: "text-slate-700",
-        link: "text-slate-600 hover:text-blue-700",
-        underline: "decoration-slate-400 hover:decoration-blue-700",
-        separator: "text-slate-400",
-      }
-    : {
-        current: "text-white",
-        link: "text-white/90 hover:text-white",
-        underline: "decoration-white/90",
-        separator: "text-white",
-      };
+  const colors = {
+    current: "text-black",
+    link: "text-black hover:text-gray-700",
+    underline: "decoration-black hover:decoration-gray-700",
+    separator: "text-black",
+  };
 
   return (
     <>

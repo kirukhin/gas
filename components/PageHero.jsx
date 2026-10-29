@@ -1,11 +1,42 @@
-
 import React from "react";
 
 const variants = {
   catalog: "page-hero--catalog",
   article: "page-hero--article",
   compact: "page-hero--compact",
+  extended: "page-hero--extended",
 };
+
+function HeroActions({ actions }) {
+  if (!actions) return null;
+
+  // Совместимость с существующим использованием:
+  // actions={<div>...</div>}
+  if (!Array.isArray(actions)) {
+    return <div className="page-hero__actions">{actions}</div>;
+  }
+
+  // Новый формат:
+  // actions={[{ label, href, variant }]}
+  return (
+    <div className="page-hero__actions">
+      {actions.map((action, index) => {
+        const buttonVariant =
+          action.variant === "secondary" ? "secondary" : "primary";
+
+        return (
+          <a
+            key={`${action.href}-${index}`}
+            href={action.href}
+            className={`page-hero__action page-hero__action--${buttonVariant}`}
+          >
+            {action.label}
+          </a>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function PageHero({
   title,
@@ -13,14 +44,18 @@ export default function PageHero({
   image,
   imageAlt = "",
   description,
+  secondaryDescription,
   actions,
+  eyebrow,
+  stats,
+  imagePriority = false,
   variant = "catalog",
 }) {
   const variantClass = variants[variant] || variants.catalog;
 
   return (
     <header className={`page-hero ${variantClass}`}>
-      {/* Светлая инженерная атмосфера */}
+      {/* Фоновая атмосфера */}
       <div
         className="page-hero__background"
         aria-hidden="true"
@@ -86,10 +121,18 @@ export default function PageHero({
         />
       </svg>
 
-      {/* Контент Hero */}
+      {/* Основное содержимое */}
       <div className="page-hero__container">
         <div className="page-hero__copy">
-          <h1 className="page-hero__title">{title}</h1>
+          {eyebrow && (
+            <div className="page-hero__eyebrow">
+              {eyebrow}
+            </div>
+          )}
+
+          <h1 className="page-hero__title">
+            {title}
+          </h1>
 
           {breadcrumbs && (
             <div className="page-hero__breadcrumbs">
@@ -103,9 +146,30 @@ export default function PageHero({
             </p>
           )}
 
-          {actions && (
-            <div className="page-hero__actions">
-              {actions}
+          {secondaryDescription && (
+            <p className="page-hero__secondary-description">
+              {secondaryDescription}
+            </p>
+          )}
+
+          <HeroActions actions={actions} />
+
+          {stats?.length > 0 && (
+            <div className="page-hero__stats">
+              {stats.map((stat, index) => (
+                <div
+                  className="page-hero__stat"
+                  key={`${stat.value}-${index}`}
+                >
+                  <div className="page-hero__stat-value">
+                    {stat.value}
+                  </div>
+
+                  <div className="page-hero__stat-label">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -116,14 +180,15 @@ export default function PageHero({
               src={image}
               alt={imageAlt}
               className="page-hero__image"
-              loading="eager"
+              loading={imagePriority ? "eager" : "lazy"}
+              fetchPriority={imagePriority ? "high" : "auto"}
               decoding="async"
             />
           </div>
         )}
       </div>
 
-      {/* Единый переход к белому контенту */}
+      {/* Волнообразный переход к контенту */}
       <svg
         aria-hidden="true"
         viewBox="0 0 1440 130"
@@ -134,6 +199,7 @@ export default function PageHero({
           d="M0 54 C180 112 315 100 470 67 S735 30 900 70 S1200 118 1440 38 L1440 130 L0 130 Z"
           fill="#ffffff"
         />
+
         <path
           d="M0 54 C180 112 315 100 470 67 S735 30 900 70 S1200 118 1440 38"
           fill="none"

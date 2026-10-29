@@ -9,6 +9,8 @@ import { useState } from 'react'
 import PageLayout from '../components/PageLayout'
 import DcompressorFilterPanel from '../components/DcompressorFilterPanel'
 import ProductCard from '../components/ProductCard'
+import PageHero from '../components/PageHero'
+import Breadcrumbs from '../components/Breadcrumbs'
 
 import { getProductsByCategory } from '../lib/equipmentHelpers'
 
@@ -74,6 +76,22 @@ export default function DcompressorsPage({ products }) {
         { name: 'Главная', href: '/' },
         { name: 'Дожимающие компрессоры', href: '/dcompressors' }
       ]}
+      hero={
+        <PageHero
+          title="Дожимающие компрессоры"
+          breadcrumbs={
+            <Breadcrumbs
+              items={[
+                { name: 'Главная', href: '/' },
+                { name: 'Дожимающие компрессоры', href: '/dcompressors' }
+              ]}
+            />
+          }
+          image="/assets/dcompressors-hero.png"
+          imageAlt="Дожимающий промышленный компрессор для заправки баллонов"
+          variant="compact"
+        />
+      }
     >
 
       {/* ------------------------------- HEADER TEXT BLOCK ------------------- */}

@@ -2,6 +2,8 @@
 
 import Link from 'next/link'
 import PageLayout from '../../components/PageLayout'
+import PageHero from '../../components/PageHero'
+import Breadcrumbs from '../../components/Breadcrumbs'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || ''
 
@@ -25,7 +27,25 @@ export default function DryersPage() {
         { name: 'Главная', href: '/' },
         { name: 'Осушители воздуха', href: '/dryers' }
       ]}
+      hero={
+        <PageHero
+          title="Осушители сжатого воздуха"
+          breadcrumbs={
+            <Breadcrumbs
+              items={[
+                { name: 'Главная', href: '/' },
+                { name: 'Осушители воздуха', href: '/dryers' }
+              ]}
+            />
+          }
+          image="/assets/dryers-hero.png"
+          imageAlt="Осушители сжатого воздуха"
+          variant="compact"
+        />
+      }
     >
+     
+     
       <section className="container mx-auto max-w-6xl px-6 py-12">
 
         {/* ВСТУПЛЕНИЕ */}

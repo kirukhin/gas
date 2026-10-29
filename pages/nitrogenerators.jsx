@@ -91,7 +91,7 @@ export default function Nitrogenerators() {
       </Head>
 
       <PageHero
-        variant="catalog"
+        variant="compact"
         title="Азотные генераторы PSA"
         breadcrumbs={
           <Breadcrumbs items={breadcrumbs} theme="light" />

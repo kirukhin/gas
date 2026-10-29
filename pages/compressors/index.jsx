@@ -4,6 +4,8 @@ import PageLayout from '../../components/PageLayout'
 import CompressorFilterPanel from '../../components/CompressorFilterPanel'
 import CompressorCatalogFilter from '../../components/CompressorCatalogFilter'
 import ProductCard from '../../components/ProductCard'
+import PageHero from '../../components/PageHero'
+import Breadcrumbs from '../../components/Breadcrumbs'
 
 import compressors from '../../components/compressors.json' // заменить источник на compressors.json
 import { getProductsByCategory } from '../../lib/equipmentHelpers'
@@ -75,15 +77,31 @@ export default function CompressorsPage({ products, equipment }) { // equipment 
 
   return (
     <PageLayout
-      title="Винтовые компрессоры — подбор и каталог"
-      description="Подбор винтовых компрессоров и параметрический каталог оборудования."
-      canonical={`${SITE}/compressors`}
-      heroImage="/assets/compressors-hero.png"
-      breadcrumb={[
-        { name: "Главная", href: "/" },
-        { name: "Винтовые компрессоры", href: "/compressors" }
-      ]}
-    >
+  title="Винтовые компрессоры — подбор и каталог"
+  description="Подбор винтовых компрессоров и параметрический каталог оборудования."
+  canonical={`${SITE}/compressors`}
+  heroImage="/assets/compressors-hero.png"
+  breadcrumb={[
+    { name: "Главная", href: "/" },
+    { name: "Винтовые компрессоры", href: "/compressors" }
+  ]}
+  hero={
+    <PageHero
+      title="Винтовые компрессоры"
+      breadcrumbs={
+        <Breadcrumbs
+          items={[
+            { name: "Главная", href: "/" },
+            { name: "Винтовые компрессоры", href: "/compressors" }
+          ]}
+        />
+      }
+      image="/assets/compressors-hero.png"
+      imageAlt="Винтовой промышленный компрессор"
+      variant="compact"
+    />
+  }
+>
 
       <section className="container mx-auto px-6 py-12 max-w-6xl">
 

@@ -2,13 +2,13 @@
 
 import Head from "next/head";
 
-// Базовые компоненты страницы
-import Layout from "../../components/foodPackaging/Layout";
-import Hero from "../../components/foodPackaging/Hero";
+import PageLayout from "../../components/PageLayout";
+import PageHero from "../../components/PageHero";
+import Breadcrumbs from "../../components/Breadcrumbs";
+
 import QuickNavigation from "../../components/foodPackaging/QuickNavigation";
 import Section from "../../components/foodPackaging/Section";
 
-// Содержательные разделы
 import Intro from "../../components/foodPackaging/Intro";
 import MapTechnology from "../../components/foodPackaging/MapTechnology";
 import WhyNitrogen from "../../components/foodPackaging/WhyNitrogen";
@@ -21,32 +21,66 @@ import GasSupplyComparison from "../../components/foodPackaging/GasSupplyCompari
 import FoodPackagingFAQ from "../../components/foodPackaging/FoodPackagingFAQ";
 import EngineeringMistakes from "../../components/foodPackaging/EngineeringMistakes";
 
-// Конфигуратор оборудования
 import FoodPackagingCalculator from "../../components/foodPackaging/FoodPackagingCalculator";
 
 export default function FoodPackagingPage() {
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://blitzgas.ru";
+
+  const canonical = `${SITE}/nitrogen/food-packaging`;
+
+  const breadcrumbs = [
+    { name: "Главная", href: "/" },
+    { name: "Генерация азота", href: "/nitrogen" },
+    {
+      name: "Азот для пищевой упаковки",
+      href: "/nitrogen/food-packaging",
+    },
+  ];
+
+  const pageTitle =
+    "Азот для пищевой упаковки (MAP) — расчёт расхода и подбор генератора азота | Блицгаз";
+
+  const pageDescription =
+    "Подробное инженерное руководство по применению азота в пищевой упаковке. Технология MAP, расчёт расхода азота, требования к чистоте, проектирование системы газоснабжения упаковочной линии и подбор оборудования.";
+
+  const jsonLdBreadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Главная",
+        item: SITE,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Генерация азота",
+        item: `${SITE}/nitrogen`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Азот для пищевой упаковки",
+        item: canonical,
+      },
+    ],
+  };
+
   return (
     <>
       <Head>
-        <title>
-          Азот для пищевой упаковки (MAP) — расчёт расхода и подбор генератора
-          азота | Блицгаз
-        </title>
+        <title>{pageTitle}</title>
 
-        <meta
-          name="description"
-          content="Подробное инженерное руководство по применению азота в пищевой упаковке. Технология MAP, расчёт расхода азота, требования к чистоте, проектирование системы газоснабжения упаковочной линии и подбор оборудования."
-        />
+        <meta name="description" content={pageDescription} />
 
         <meta
           name="keywords"
           content="азот для пищевой упаковки, азот для упаковки продуктов, MAP упаковка, модифицированная газовая среда, генератор азота для упаковки, азот для упаковочной машины, расчет расхода азота, газ для упаковки продуктов, генератор азота PSA, упаковка в азоте"
         />
 
-        <link
-          rel="canonical"
-          href="https://blitzgas.ru/nitrogen/food-packaging"
-        />
+        <link rel="canonical" href={canonical} />
 
         <meta
           property="og:title"
@@ -60,40 +94,72 @@ export default function FoodPackagingPage() {
 
         <meta
           property="og:image"
-          content="https://blitzgas.ru/assets/og-food-packaging.jpg"
+          content={`${SITE}/assets/og-food-packaging.jpg`}
         />
 
         <meta property="og:type" content="article" />
       </Head>
 
-      <Layout>
-        {/* Вступительная часть */}
-        <Hero />
+      <PageLayout
+        title={pageTitle}
+        description={pageDescription}
+        canonical={canonical}
+        breadcrumb={breadcrumbs}
+        jsonLd={jsonLdBreadcrumbs}
+        heroImage="/assets/nitrogen/fp-hero.png"
+        hero={
+          <PageHero
+            variant="extended"
+            eyebrow="Инженерное руководство BlitzGas"
+            title="Азот для пищевой упаковки"
+            breadcrumbs={<Breadcrumbs items={breadcrumbs} />}
+            description="Практическое руководство по проектированию систем генерации азота для упаковочных линий пищевых производств."
+            secondaryDescription="Разбираем технологию MAP, требования к чистоте азота, расчёт расхода газа, подбор оборудования и типовые ошибки, которые необходимо учитывать при проектировании упаковочной линии."
+            image="/assets/nitrogen/fp-hero.png"
+            imageAlt="Схема современной упаковочной линии с подачей азота"
+            imagePriority
+            actions={[
+              {
+                label: "Рассчитать оборудование",
+                href: "#configurator",
+                variant: "primary",
+              },
+              {
+                label: "Как работает MAP",
+                href: "#map",
+                variant: "secondary",
+              },
+            ]}
+            stats={[
+              { value: "MAP", label: "технология упаковки" },
+              { value: "PSA", label: "генерация азота" },
+              { value: "24/7", label: "непрерывная работа" },
+              { value: "B2B", label: "инженерные решения" },
+            ]}
+          />
+        }
+      >
         <QuickNavigation />
 
-        {/* Sprint 2 — основы MAP и роль азота */}
+        {/* Основы MAP и роль азота */}
         <Intro />
         <MapTechnology />
         <WhyNitrogen />
 
-        {/* Sprint 3 — применение по категориям продуктов */}
+        {/* Применение по категориям продуктов */}
         <ProductApplications />
 
-        {/* Sprint 4 — требования к чистоте азота */}
+        {/* Требования к чистоте азота */}
         <NitrogenPurity />
 
-        {/* Sprint 5 — проектирование системы */}
+        {/* Проектирование системы */}
         <EngineeringWorkflow />
 
-        {/* Sprint 6 — расчёт расхода азота */}
+        {/* Расчёт расхода азота */}
         <NitrogenConsumption />
 
-        {/* Sprint 7 — состав азотной станции */}
+        {/* Состав азотной станции */}
         <EquipmentSystem />
-
-        {/* =========================================================
-    SPRINT 8 — СРАВНЕНИЕ СПОСОБОВ ГАЗОСНАБЖЕНИЯ
-========================================================= */}
 
         <Section
           id="comparison"
@@ -103,7 +169,6 @@ export default function FoodPackagingPage() {
           <GasSupplyComparison />
         </Section>
 
-        {/* Sprint 9 — типовые ошибки проектирования */}
         <Section
           id="mistakes"
           title="Типовые ошибки при проектировании"
@@ -112,8 +177,6 @@ export default function FoodPackagingPage() {
           <EngineeringMistakes />
         </Section>
 
-
-        {/* Sprint 10 — FAQ */}
         <Section
           id="faq"
           title="Часто задаваемые вопросы"
@@ -121,9 +184,6 @@ export default function FoodPackagingPage() {
         >
           <FoodPackagingFAQ />
         </Section>
-
-
-        {/* Калькулятор и подбор оборудования */}
 
         <Section
           id="configurator"
@@ -137,10 +197,8 @@ export default function FoodPackagingPage() {
           </p>
 
           <FoodPackagingCalculator />
-
         </Section>
-
-      </Layout>
+      </PageLayout>
     </>
   );
 }
