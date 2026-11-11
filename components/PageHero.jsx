@@ -7,59 +7,54 @@ const variants = {
   extended: "page-hero--extended",
 };
 
-function HeroActions({ actions }) {
-  if (!actions) return null;
-
-  // Совместимость с существующим использованием:
-  // actions={<div>...</div>}
-  if (!Array.isArray(actions)) {
-    return <div className="page-hero__actions">{actions}</div>;
-  }
-
-  // Новый формат:
-  // actions={[{ label, href, variant }]}
-  return (
-    <div className="page-hero__actions">
-      {actions.map((action, index) => {
-        const buttonVariant =
-          action.variant === "secondary" ? "secondary" : "primary";
-
-        return (
-          <a
-            key={`${action.href}-${index}`}
-            href={action.href}
-            className={`page-hero__action page-hero__action--${buttonVariant}`}
-          >
-            {action.label}
-          </a>
-        );
-      })}
-    </div>
-  );
-}
-
 export default function PageHero({
   title,
   breadcrumbs,
+  eyebrow,
   image,
   imageAlt = "",
+  imagePriority = false,
   description,
   secondaryDescription,
   actions,
-  eyebrow,
   stats,
-  imagePriority = false,
   variant = "catalog",
 }) {
   const variantClass = variants[variant] || variants.catalog;
+  const isExtended = variant === "extended";
+
+  const renderActions = () => {
+    if (!actions) return null;
+
+    // Поддерживаем как массив объектов, так и обычный JSX.
+    if (!Array.isArray(actions)) {
+      return actions;
+    }
+
+    return actions.map((action, index) => {
+      const isPrimary = action.variant === "primary";
+
+      return (
+        <a
+          key={`${action.href}-${index}`}
+          href={action.href}
+          className={[
+            "page-hero__button",
+            isPrimary
+              ? "page-hero__button--primary"
+              : "page-hero__button--secondary",
+          ].join(" ")}
+        >
+          {action.label}
+        </a>
+      );
+    });
+  };
 
   return (
     <header className={`page-hero ${variantClass}`}>
       {/* Фоновая атмосфера */}
-      <div
-        className="page-hero__background"
-        aria-hidden="true"
-      />
+      <div className="page-hero__background" aria-hidden="true" />
 
       {/* Декоративные потоки */}
       <svg
@@ -121,7 +116,7 @@ export default function PageHero({
         />
       </svg>
 
-      {/* Основное содержимое */}
+      {/* Основная композиция */}
       <div className="page-hero__container">
         <div className="page-hero__copy">
           {eyebrow && (
@@ -130,11 +125,9 @@ export default function PageHero({
             </div>
           )}
 
-          <h1 className="page-hero__title">
-            {title}
-          </h1>
+          <h1 className="page-hero__title">{title}</h1>
 
-          {breadcrumbs && (
+          {!isExtended && breadcrumbs && (
             <div className="page-hero__breadcrumbs">
               {breadcrumbs}
             </div>
@@ -152,24 +145,9 @@ export default function PageHero({
             </p>
           )}
 
-          <HeroActions actions={actions} />
-
-          {stats?.length > 0 && (
-            <div className="page-hero__stats">
-              {stats.map((stat, index) => (
-                <div
-                  className="page-hero__stat"
-                  key={`${stat.value}-${index}`}
-                >
-                  <div className="page-hero__stat-value">
-                    {stat.value}
-                  </div>
-
-                  <div className="page-hero__stat-label">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
+          {actions && (
+            <div className="page-hero__actions">
+              {renderActions()}
             </div>
           )}
         </div>
@@ -186,9 +164,34 @@ export default function PageHero({
             />
           </div>
         )}
+
+        {stats?.length > 0 && (
+          <div className="page-hero__stats">
+            {stats.map((stat, index) => (
+              <div
+                className="page-hero__stat"
+                key={`${stat.value}-${index}`}
+              >
+                <div className="page-hero__stat-value">
+                  {stat.value}
+                </div>
+
+                <div className="page-hero__stat-label">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {isExtended && breadcrumbs && (
+          <div className="page-hero__breadcrumbs page-hero__breadcrumbs--bottom">
+            {breadcrumbs}
+          </div>
+        )}
       </div>
 
-      {/* Волнообразный переход к контенту */}
+      {/* Волнистый переход к белому контенту */}
       <svg
         aria-hidden="true"
         viewBox="0 0 1440 130"

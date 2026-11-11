@@ -650,81 +650,102 @@
      object-fit: contain;
      object-position: center;
    }
-
-/* ---------------------------------------------------------
-   Вариант extended — расширенный Hero инженерных руководств
-   Плашка, два описания, CTA, изображение и ряд характеристик.
-   --------------------------------------------------------- */
+/* =========================================================
+   EXTENDED — Hero для страниц применения
+   Приоритет: крупная фотография, текст слева,
+   характеристики под текстом, крошки внизу.
+   ========================================================= */
 
    .page-hero--extended .page-hero__container {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-    gap: clamp(24px, 4vw, 56px);
-    min-height: 650px;
-    padding-top: 88px;
-    padding-bottom: 112px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    grid-template-rows: auto auto auto;
+    column-gap: clamp(24px, 3vw, 48px);
+    row-gap: 0;
+  
+    width: 100%;
+    max-width: 1480px;
+    min-height: 0;
+    padding: 100px 32px 112px;
   }
   
+  /* Текстовая колонка слева. */
   .page-hero--extended .page-hero__copy {
-    max-width: 760px;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    max-width: 560px;
+    min-width: 0;
   }
   
+  /* Верхняя метка. */
   .page-hero--extended .page-hero__eyebrow {
     display: inline-flex;
     align-items: center;
-    margin-bottom: 26px;
-    padding: 8px 15px;
+    margin-bottom: 22px;
+    padding: 9px 16px;
     border-radius: 999px;
     background: #fff1f2;
     color: #b91c1c;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.3;
   }
   
+  /* Заголовок. */
   .page-hero--extended .page-hero__title {
-    max-width: 700px;
-    font-size: clamp(2.5rem, 4vw, 3.5rem);
-    line-height: 1.12;
+    max-width: 560px;
+    font-size: clamp(2.35rem, 3.5vw, 3.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
   }
   
+  /* Основное описание. */
   .page-hero--extended .page-hero__description {
-    max-width: 700px;
-    margin-top: 34px;
-    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    max-width: 560px;
+    margin-top: 22px;
+    font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+    line-height: 1.6;
+  }
+  
+  /* Вторичный текст. */
+  .page-hero--extended .page-hero__secondary-description {
+    max-width: 560px;
+    margin: 18px 0 0;
+    color: #475569;
+    font-size: 0.96rem;
     line-height: 1.65;
   }
   
-  .page-hero--extended .page-hero__secondary-description {
-    max-width: 700px;
-    margin: 30px 0 0;
-    color: #475569;
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-  
+  /* Кнопки. */
   .page-hero--extended .page-hero__actions {
-    gap: 14px;
-    margin-top: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 26px;
   }
   
   .page-hero--extended .page-hero__button {
     display: inline-flex;
-    min-height: 54px;
+    min-height: 50px;
     align-items: center;
     justify-content: center;
-    padding: 15px 28px;
+    padding: 13px 23px;
     border: 1px solid transparent;
     border-radius: 999px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1.3;
     text-align: center;
     text-decoration: none;
     transition:
       background-color 180ms ease,
-      color 180ms ease,
       border-color 180ms ease,
-      transform 180ms ease;
+      color 180ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
   }
   
   .page-hero--extended .page-hero__button:hover {
@@ -732,19 +753,20 @@
   }
   
   .page-hero--extended .page-hero__button--primary {
-    background: #e60012;
-    color: #ffffff;
-    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.15);
+    background: #ed000b;
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(220, 38, 38, 0.14);
   }
   
   .page-hero--extended .page-hero__button--primary:hover {
-    background: #c90010;
+    background: #c90009;
+    color: #fff;
   }
   
   .page-hero--extended .page-hero__button--secondary {
     border-color: #e2e8f0;
-    background: #ffffff;
-    color: #1e293b;
+    background: #fff;
+    color: #0f172a;
   }
   
   .page-hero--extended .page-hero__button--secondary:hover {
@@ -752,11 +774,54 @@
     color: #b91c1c;
   }
   
+  /* ---------------------------------------------------------
+     КРУПНАЯ ФОТОГРАФИЯ
+     Правая колонка шире текстовой; картинка не зажата
+     ограничением max-height базового Hero.
+     --------------------------------------------------------- */
+  
+  .page-hero--extended .page-hero__visual {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    justify-self: stretch;
+  
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    align-items: center;
+    justify-content: center;
+  
+    margin: 0;
+    padding: 0;
+  }
+  
+  .page-hero--extended .page-hero__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    max-height: 600px;
+    object-fit: contain;
+    object-position: center;
+  }
+  
+  /* ---------------------------------------------------------
+     Характеристики — под текстом слева.
+     Не занимают дополнительную строку под фото.
+     --------------------------------------------------------- */
+  
   .page-hero--extended .page-hero__stats {
+    grid-column: 1;
+    grid-row: 2;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
-    margin-top: 52px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 20px;
+  
+    width: 100%;
+    max-width: 540px;
+    margin-top: 34px;
   }
   
   .page-hero--extended .page-hero__stat {
@@ -764,89 +829,142 @@
   }
   
   .page-hero--extended .page-hero__stat-value {
-    color: #e60012;
-    font-size: clamp(1.5rem, 2vw, 1.8rem);
+    color: #ed000b;
+    font-size: clamp(1.55rem, 2vw, 2rem);
     font-weight: 750;
-    line-height: 1.2;
+    line-height: 1.15;
   }
   
   .page-hero--extended .page-hero__stat-label {
     margin-top: 6px;
     color: #475569;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.5;
   }
   
-  .page-hero--extended .page-hero__visual {
-    align-self: center;
+  /* Крошки — в нижней части Hero на всю ширину. */
+  .page-hero--extended .page-hero__breadcrumbs--bottom {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    align-self: end;
+    min-width: 0;
+    margin-top: 36px;
+    color: #475569;
   }
   
-  .page-hero--extended .page-hero__image {
-    width: 100%;
-    max-height: 440px;
-    object-fit: contain;
-    object-position: center;
+  /* =========================================================
+     ПЛАНШЕТЫ
+     ========================================================= */
+  
+  @media (max-width: 1000px) {
+    .page-hero--extended .page-hero__container {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      column-gap: 24px;
+      padding: 96px 24px 100px;
+    }
+  
+    .page-hero--extended .page-hero__image {
+      max-height: 460px;
+    }
+  
+    .page-hero--extended .page-hero__title {
+      font-size: clamp(2.1rem, 4vw, 3rem);
+    }
+  
+    .page-hero--extended .page-hero__stats {
+      gap: 18px 14px;
+      margin-top: 28px;
+    }
   }
   
-  /* Адаптивность расширенного Hero */
+  /* =========================================================
+     МОБИЛЬНЫЕ УСТРОЙСТВА
+     Порядок: текст → фото → характеристики → крошки.
+     ========================================================= */
   
   @media (max-width: 767px) {
     .page-hero--extended .page-hero__container {
       grid-template-columns: minmax(0, 1fr);
-      gap: 18px;
-      min-height: 0;
-      padding: 100px 20px 100px;
+      grid-template-rows: auto auto auto auto;
+      gap: 0;
+  
+      padding: 88px 20px 82px;
     }
   
     .page-hero--extended .page-hero__copy {
+      grid-column: 1;
+      grid-row: 1;
       max-width: none;
       text-align: left;
     }
   
     .page-hero--extended .page-hero__eyebrow {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
   
     .page-hero--extended .page-hero__title {
-      font-size: clamp(2.1rem, 8vw, 3rem);
+      max-width: none;
+      font-size: clamp(2.1rem, 8vw, 2.8rem);
     }
   
     .page-hero--extended .page-hero__description {
-      margin-top: 22px;
-      font-size: 1.1rem;
+      margin-top: 18px;
+      font-size: 1.05rem;
     }
   
     .page-hero--extended .page-hero__secondary-description {
-      margin-top: 20px;
+      margin-top: 15px;
       font-size: 0.95rem;
     }
   
     .page-hero--extended .page-hero__actions {
       justify-content: flex-start;
-      margin-top: 26px;
+      margin-top: 22px;
     }
   
     .page-hero--extended .page-hero__button {
-      padding: 14px 20px;
-    }
-  
-    .page-hero--extended .page-hero__stats {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px 18px;
-      margin-top: 34px;
+      min-height: 48px;
+      padding: 12px 18px;
     }
   
     .page-hero--extended .page-hero__visual {
+      grid-column: 1;
+      grid-row: 2;
       width: 100%;
-      max-width: 520px;
-      margin: 0 auto;
+      max-width: none;
+      margin: 18px auto 0;
     }
   
     .page-hero--extended .page-hero__image {
-      max-height: 280px;
+      width: 100%;
+      max-height: 380px;
+    }
+  
+    .page-hero--extended .page-hero__stats {
+      grid-column: 1;
+      grid-row: 3;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px 16px;
+      max-width: none;
+      margin-top: 24px;
+    }
+  
+    .page-hero--extended .page-hero__stat-value {
+      font-size: 1.65rem;
+    }
+  
+    .page-hero--extended .page-hero__breadcrumbs--bottom {
+      grid-column: 1;
+      grid-row: 4;
+      margin-top: 28px;
+    }
+  
+    .page-hero--extended .page-hero__breadcrumbs--bottom ol {
+      gap: 6px;
     }
   }
   
+  /* Узкие телефоны. */
   @media (max-width: 420px) {
     .page-hero--extended .page-hero__container {
       padding-right: 16px;
@@ -854,16 +972,17 @@
     }
   
     .page-hero--extended .page-hero__actions {
-      flex-direction: column;
-      align-items: stretch;
+      gap: 9px;
     }
   
     .page-hero--extended .page-hero__button {
-      width: 100%;
+      padding-right: 15px;
+      padding-left: 15px;
+      font-size: 13px;
     }
   
     .page-hero--extended .page-hero__image {
-      max-height: 230px;
+      max-height: 300px;
     }
   }
 

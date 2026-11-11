@@ -415,44 +415,179 @@ export default function Home({ cats }) {
         </div>
       </section>
 
+{/* --- Bento: категории оборудования --- */}
+<section className="bg-white border-b py-16">
+  <div className="container max-w-6xl mx-auto px-6">
 
-      {/* --- UPDATED: Компактные карточки категорий, градиент по умолчанию, только h3 и p --- */}
-      <section className="bg-white border-b py-12">
-        <div className="container max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Категории оборудования</h2>
-          <p className="text-center text-gray-600 mb-8">
-            Выберите интересующее вас оборудование из категории или сконфигурируйте свою газоразделительную установку
-          </p>
+    <div className="mb-9">
+      <h2 className="text-3xl font-bold text-gray-900 mb-3">
+        Категории оборудования
+      </h2>
+      <p className="text-gray-600 max-w-2xl">
+        Комплектующие и оборудование для комплексного оснащения
+        вашей газоразделительной станции
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {cats.map((c) => (
-              <Link
-                key={c.id}
-                href={`/${c.slug}`}
-                aria-label={`Перейти в категорию ${c.title}`}
-                className="block relative overflow-hidden rounded-lg p-6 shadow-lg transform transition hover:-translate-y-1 gradient"
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 lg:grid-rows-[210px_210px_180px] gap-4">
+
+      {cats.map((c) => {
+        const config = {
+          compressors: {
+            image: "/assets/compressors-hero.png",
+            description:
+              "Винтовые компрессоры для промышленных и сервисных задач.",
+            layout:
+              "lg:col-span-7 lg:row-span-2",
+            size: "large",
+          },
+          dryers: {
+            image: "/assets/dryers-hero.png",
+            description:
+              "Рефрижераторные и адсорбционные осушители для защиты пневматической системы от влаги.",
+            layout: "lg:col-span-5",
+            size: "medium",
+          },
+          filters: {
+            image: "/assets/filters-hero.png",
+            description:
+              "Трёхступенчатые блоки фильтров для удаления масла, воды и частиц.",
+            layout: "lg:col-span-5",
+            size: "medium",
+          },
+          dcompressors: {
+            image: "/assets/dcompressors-hero.png",
+            description:
+              "Дожимные установки для заправки баллонов и работы с газом под высоким давлением.",
+            layout: "lg:col-span-12",
+            size: "wide",
+          },
+        }[c.id] || {
+          image: "/assets/compressors-hero.png",
+          description:
+            "Оборудование и комплектующие для подготовки сжатого воздуха.",
+          layout: "lg:col-span-5",
+          size: "medium",
+        };
+
+        const isLarge = config.size === "large";
+        const isWide = config.size === "wide";
+
+        return (
+          <Link
+            key={c.id}
+            href={`/${c.slug}`}
+            aria-label={`Перейти в категорию ${c.title}`}
+            className={`
+              group relative isolate overflow-hidden rounded-xl
+              min-h-[220px] md:min-h-[240px] lg:min-h-0
+              shadow-sm hover:shadow-xl
+              transition-all duration-500
+              ${config.layout}
+              ${isWide ? "lg:min-h-0" : ""}
+            `}
+          >
+
+            {/* Фотография */}
+            <div
+              className="absolute inset-0 -z-20 bg-cover bg-center
+                         transition-transform duration-700
+                         group-hover:scale-105"
+              style={{
+                backgroundImage: `url('${config.image}')`,
+              }}
+            />
+
+            {/* Затемнение */}
+            <div
+              className={`
+                absolute inset-0 -z-10
+                ${isWide
+                  ? "bg-gradient-to-r from-[#18283b]/95 via-[#18283b]/65 to-[#18283b]/10"
+                  : "bg-gradient-to-t from-[#172538]/95 via-[#172538]/25 to-transparent"
+                }
+                transition-opacity duration-300
+                group-hover:opacity-90
+              `}
+            />
+
+            {/* Контент */}
+            <div
+              className={`
+                relative h-full flex
+                ${isWide
+                  ? "flex-row items-center justify-between px-8 lg:px-12 py-7"
+                  : "flex-col justify-end p-6 lg:p-7"
+                }
+              `}
+            >
+
+              <div className={isWide ? "max-w-xl" : "max-w-md"}>
+                <h3
+                  className={`
+                    font-semibold text-white leading-tight
+                    ${isLarge
+                      ? "text-3xl lg:text-4xl"
+                      : isWide
+                        ? "text-2xl lg:text-3xl"
+                        : "text-xl lg:text-2xl"
+                    }
+                  `}
+                >
+                  {c.title}
+                </h3>
+
+                <p
+                  className={`
+                    text-white/85 mt-3 leading-relaxed
+                    ${isLarge
+                      ? "text-base max-w-sm"
+                      : "text-sm max-w-sm"
+                    }
+                  `}
+                >
+                  {config.description}
+                </p>
+              </div>
+
+              {/* Индикатор перехода */}
+              <div
+                className={`
+                  flex items-center justify-center shrink-0
+                  w-11 h-11 rounded-full
+                  border border-white/40
+                  text-white
+                  transition-all duration-300
+                  group-hover:bg-[#ef3340]
+                  group-hover:border-[#ef3340]
+                  group-hover:translate-x-1
+                  ${isWide ? "ml-8" : "mt-5"}
+                `}
               >
-                {/* Контент карточки: только заголовок и описание */}
-                <div className="relative z-10">
-                  <h3 className="text-xl font-semibold text-white">{c.title}</h3>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </div>
 
-                  <p className="text-sm text-white/90 mt-2 max-w-full">
-                    {c.id === 'compressors' && 'Винтовые и частотно-регулируемые компрессоры для промышленных и сервисных задач.'}
-                    {c.id === 'dryers' && 'Рефрижераторные и адсорбционные осушители для защиты линии от влаги.'}
-                    {c.id === 'filters' && 'Трёхступенчатые блоки фильтров для удаления масла, воды и частиц.'}
-                    {c.id === 'dcompressors' && 'Дожимные установки для заправки баллонов и работы под высоким давлением.'}
-                    {!['compressors', 'dryers', 'filters', 'dcompressors'].includes(c.id) && 'Оборудование и комплектующие для подготовки сжатого воздуха.'}
-                  </p>
-                </div>
+            </div>
+          </Link>
+        );
+      })}
 
-                {/* лёгкий overlay для контраста (не перекрывает градиент) */}
-                <div className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-t from-black/6 to-transparent"></div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* --- END Категории --- */}
+    </div>
+  </div>
+</section>
+{/* --- END Bento --- */}
 
 
 
