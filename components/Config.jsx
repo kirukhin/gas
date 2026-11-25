@@ -55,11 +55,12 @@ const Config = () => {
   const [hasDkompressor, setHasDkompressor] = useState(false);   // Есть ли доп. компрессор
   const [showClarifyButton, setShowClarifyButton] = useState(false); // Показывать ли "Уточнить характеристики"
 
+
   // === 4. АЗОТ: ПАРАМЕТРЫ СЛАЙДЕРОВ ===
   const nitrogenPurityOptions = [
-    "95%", "97%", "98%", "99%", "99.5%", "99.9%", "99.95%", "99.99%",
-    "99.995%", "99.999%", "99.9995%"
+    "99%", "99.5%", "99.9%", "99.99%", "99.999%"
   ];
+
   const nitrogenPressureOptions = [6, 7, 8, 9, 10, 11, 12, 13];
   const nitrogenDewPointOptions = [-20, -30, -40, -50, -60, -70];
 
@@ -206,6 +207,82 @@ const Config = () => {
       }
     };
 
+
+    // === 2. Универсальный адаптер характеристик генератора ===
+    // Приводит старую и новую структуру data.js к единому формату.
+    //
+    // Старый формат:
+    // model.airNeed
+    // model.equipment.productivity[{ purity, value }]
+    //
+    // Новый формат:
+    // model.performance[{ purity, productFlowNm3h, airConsumptionNm3min }]
+
+    const getGeneratorPerformance = (model, targetPurity) => {
+      if (!model || !targetPurity) return null;
+
+      // Новый формат
+      if (Array.isArray(model.performance)) {
+        const performance = model.performance.find(
+          item => String(item.purity).trim() === String(targetPurity).trim()
+        );
+
+        if (!performance) return null;
+
+        const productFlowNm3h = Number(performance.productFlowNm3h);
+        const airConsumptionNm3min = Number(
+          performance.airConsumptionNm3min
+        );
+
+        if (
+          !Number.isFinite(productFlowNm3h) ||
+          productFlowNm3h <= 0 ||
+          !Number.isFinite(airConsumptionNm3min) ||
+          airConsumptionNm3min <= 0
+        ) {
+          return null;
+        }
+
+        return {
+          purity: performance.purity,
+          productFlowNm3h,
+          airConsumptionNm3min
+        };
+      }
+
+      // Старый формат
+      const productivity = model.equipment?.productivity;
+
+      if (!Array.isArray(productivity)) return null;
+
+      const performance = productivity.find(
+        item => String(item.purity).trim() === String(targetPurity).trim()
+      );
+
+      if (!performance) return null;
+
+      const productFlowNm3h = Number(performance.value);
+      const airConsumptionNm3min = Number(model.airNeed);
+
+      if (
+        !Number.isFinite(productFlowNm3h) ||
+        productFlowNm3h <= 0 ||
+        !Number.isFinite(airConsumptionNm3min) ||
+        airConsumptionNm3min <= 0
+      ) {
+        return null;
+      }
+
+      return {
+        purity: performance.purity,
+        productFlowNm3h,
+        airConsumptionNm3min
+      };
+    };
+
+
+
+
     // === 2. Функция поиска ближайшего значения в категории ===
     const closest = (cat, key, target) =>
       data[cat]
@@ -248,38 +325,43 @@ const Config = () => {
       return;
     }
 
+
     // === 6. Подбор генератора ===
+
     const generatorData = data[generator];
+
     const targetPurity = generator === "oxygen"
       ? `${purity}%`
       : nitrogenPurityOptions[nitrogenPurityIndex];
-    const purityIndexReverse = generator === "nitrogen"
-      ? nitrogenPurityOptions.length - 1 - nitrogenPurityIndex
-      : null;
 
-    let selectedModelData = null;
+    // Получаем характеристики всех моделей при заданной чистоте
+    const matchingGenerators = Object.values(generatorData || {})
+      .map(model => ({
+        model,
+        performance: getGeneratorPerformance(model, targetPurity)
+      }))
+      .filter(item =>
+        item.performance &&
+        item.performance.productFlowNm3h >= convertedUserM3h
+      )
+      // Выбираем минимальную модель, способную обеспечить
+      // требуемую производительность
+      .sort((a, b) =>
+        a.performance.productFlowNm3h -
+        b.performance.productFlowNm3h
+      );
 
-    Object.values(generatorData)
-      .sort((a, b) => {
-        const getVal = m => generator === "oxygen"
-          ? m.equipment?.productivity.find(p => p.purity === targetPurity)?.value ?? Infinity
-          : m.equipment?.productivity[purityIndexReverse]?.value ?? Infinity;
-        return getVal(a) - getVal(b);
-      })
-      .some(m => {
-        const prodLine = generator === "oxygen"
-          ? m.equipment?.productivity.find(p => p.purity === targetPurity)
-          : m.equipment?.productivity[purityIndexReverse];
-        if (prodLine && prodLine.value >= convertedUserM3h) {
-          selectedModelData = m;
-          return true;
-        }
-        return false;
-      });
+    // Выбранная модель и её рабочие характеристики
+    const selectedGenerator = matchingGenerators[0] ?? null;
 
-    if (!selectedModelData) {
+    const selectedModelData = selectedGenerator?.model ?? null;
+    const selectedPerformance = selectedGenerator?.performance ?? null;
+
+    // Если подходящий генератор не найден — останавливаем подбор
+    if (!selectedModelData || !selectedPerformance) {
       setSelectedModel(null);
       setSelectedModelData(null);
+
       setSelectedEquipment(
         equipmentScheme.map(() => ({
           model: "Генератор не подобран — подбор остановлен",
@@ -287,11 +369,20 @@ const Config = () => {
           price: 0
         }))
       );
+
       return;
     }
 
+
+
     // === 7. Подбор компрессора ===
-    const requiredAirM3h = selectedModelData.airNeed * 60;
+
+    // Расход воздуха для выбранного режима генератора.
+    // Исходная единица: Nm³/min.
+    // Рабочая единица подбора компрессора: Nm³/h.
+
+    const requiredAirM3h = selectedPerformance.airConsumptionNm3min * 60;
+
 
     const currentPressure = generator === "oxygen"
       ? 7
@@ -382,26 +473,32 @@ const Config = () => {
 
 
 
-    // === 9. Подбор дожимающего компрессора ===
-    const selectedDKompressor = (() => {
-      // Используем напрямую импортированный массив dCompressors
-      const list = dCompressors;
 
+    // === 9. Подбор дожимающего компрессора ===
+
+    const selectedDKompressor = (() => {
       // Подбираем только если выбрана система заправки баллонов
       if (system !== "refill") return {};
 
-      // Берём производительность из генератора (в м³/ч)
-      const flow = selectedModelData?.equipment?.productivity?.[0]?.value;
+      // Производительность выбранного генератора
+      // при конкретной чистоте, в Nm³/h
+      const flow = selectedPerformance?.productFlowNm3h;
+
       if (!flow) return {};
 
-      // Фильтруем компрессоры с подходящей производительностью
-      const suitable = list
+      // Подбираем минимальный дожимающий компрессор,
+      // способный обеспечить необходимую производительность
+      const suitable = dCompressors
         .filter(c => c.flow >= flow)
-        .sort((a, b) => a.flow - b.flow); // от меньшего к большему
+        .sort((a, b) => a.flow - b.flow);
 
       const selected = suitable[0];
-      return selected ? { ...selected, model: selected.id } : {};
+
+      return selected
+        ? { ...selected, model: selected.id }
+        : {};
     })();
+
 
 
 
@@ -539,7 +636,7 @@ const Config = () => {
 
 
 
- 
+
   return (
     <>
       {/* CONFIGURATOR */}
@@ -557,7 +654,7 @@ const Config = () => {
             className="absolute -right-40 top-80 h-96 w-96 rounded-full blur-3xl"
             style={{ background: "rgba(96,165,250,0.13)" }}
           />
-  
+
           <svg
             viewBox="0 0 1440 500"
             preserveAspectRatio="none"
@@ -590,35 +687,35 @@ const Config = () => {
             />
           </svg>
         </div>
-  
+
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-  
+
           {/* Заголовок */}
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-200/70 bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-red-700 shadow-sm backdrop-blur-md">
               <span className="h-2 w-2 rounded-full bg-red-500" />
               Блицгаз · Инженерный подбор
             </div>
-  
+
             <h2 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
               Конфигуратор оборудования
             </h2>
-  
+
             <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
               Укажите параметры газоснабжения — подберём генератор
               и необходимое вспомогательное оборудование.
             </p>
           </div>
-  
+
           {/* ОСНОВНАЯ ПАНЕЛЬ */}
           <div className="relative overflow-hidden rounded-3xl border border-white/90 bg-white/65 p-5 shadow-[0_20px_70px_rgba(37,99,235,0.09)] backdrop-blur-2xl sm:p-8 md:p-10">
-  
+
             {/* Верхний декоративный блик */}
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-400/70 to-transparent" />
-  
+
             {/* ГРУППА 1. Газ и система */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-  
+
               {/* Газ */}
               <div>
                 <div className="mb-3 flex items-center gap-2">
@@ -633,7 +730,7 @@ const Config = () => {
                     <p className="text-xs text-slate-500">Выберите тип генератора</p>
                   </div>
                 </div>
-  
+
                 <div className="grid grid-cols-2 gap-2 rounded-2xl border border-red-100 bg-red-50/60 p-1.5">
                   {[
                     { id: "oxygen", label: "Кислород" },
@@ -644,18 +741,17 @@ const Config = () => {
                       type="button"
                       aria-pressed={generator === item.id}
                       onClick={() => setGenerator(item.id)}
-                      className={`rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200 ${
-                        generator === item.id
+                      className={`rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200 ${generator === item.id
                           ? "bg-[var(--color-red-600)] text-white shadow-lg shadow-red-600/20"
                           : "text-slate-600 hover:bg-white hover:text-red-700"
-                      }`}
+                        }`}
                     >
                       {item.label}
                     </button>
                   ))}
                 </div>
               </div>
-  
+
               {/* Система */}
               <div>
                 <div className="mb-3 flex items-center gap-2">
@@ -672,7 +768,7 @@ const Config = () => {
                     <p className="text-xs text-slate-500">Способ получения газа</p>
                   </div>
                 </div>
-  
+
                 <div className="grid grid-cols-2 gap-2 rounded-2xl border border-red-100 bg-red-50/60 p-1.5">
                   {[
                     { id: "generation", label: "Генерация" },
@@ -683,11 +779,10 @@ const Config = () => {
                       type="button"
                       aria-pressed={system === item.id}
                       onClick={() => setSystem(item.id)}
-                      className={`rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200 ${
-                        system === item.id
+                      className={`rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200 ${system === item.id
                           ? "bg-[var(--color-red-600)] text-white shadow-lg shadow-red-600/20"
                           : "text-slate-600 hover:bg-white hover:text-red-700"
-                      }`}
+                        }`}
                     >
                       {item.label}
                     </button>
@@ -695,10 +790,10 @@ const Config = () => {
                 </div>
               </div>
             </div>
-  
+
             {/* Разделитель */}
             <div className="my-8 h-px bg-gradient-to-r from-transparent via-red-200 to-transparent" />
-  
+
             {/* ГРУППА 2. Технические параметры */}
             <div className="mb-6">
               <h3 className="text-lg font-bold text-slate-900">
@@ -708,9 +803,9 @@ const Config = () => {
                 Задайте требуемые характеристики газоснабжения
               </p>
             </div>
-  
+
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-  
+
               {/* КИСЛОРОД */}
               {generator === "oxygen" && (
                 <>
@@ -728,18 +823,17 @@ const Config = () => {
                           key={item.id}
                           type="button"
                           onClick={() => setPurity(item.id)}
-                          className={`rounded-xl border px-4 py-3 text-sm font-semibold transition-all ${
-                            purity === item.id
+                          className={`rounded-xl border px-4 py-3 text-sm font-semibold transition-all ${purity === item.id
                               ? "border-[var(--color-red-600)] bg-[var(--color-red-600)] text-white shadow-md shadow-red-600/20"
                               : "border-slate-200 bg-white text-slate-600 hover:border-red-300 hover:bg-red-50"
-                          }`}
+                            }`}
                         >
                           {item.label}
                         </button>
                       ))}
                     </div>
                   </div>
-  
+
                   {/* Давление */}
                   <div className="rounded-2xl border border-white bg-white/75 p-5 shadow-sm">
                     <p className="mb-4 text-sm font-semibold text-slate-700">
@@ -754,11 +848,10 @@ const Config = () => {
                           key={item.id}
                           type="button"
                           onClick={() => setPressure(item.id)}
-                          className={`rounded-xl border px-4 py-3 text-sm font-semibold transition-all ${
-                            pressure === item.id
+                          className={`rounded-xl border px-4 py-3 text-sm font-semibold transition-all ${pressure === item.id
                               ? "border-[var(--color-red-600)] bg-[var(--color-red-600)] text-white shadow-md shadow-red-600/20"
                               : "border-slate-200 bg-white text-slate-600 hover:border-red-300 hover:bg-red-50"
-                          }`}
+                            }`}
                         >
                           {item.label}
                         </button>
@@ -767,7 +860,7 @@ const Config = () => {
                   </div>
                 </>
               )}
-  
+
               {/* АЗОТ */}
               {generator === "nitrogen" && (
                 <>
@@ -786,7 +879,7 @@ const Config = () => {
                         {nitrogenPurityOptions[nitrogenPurityIndex]}
                       </span>
                     </div>
-  
+
                     <input
                       type="range"
                       min="0"
@@ -803,32 +896,29 @@ const Config = () => {
                       [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4
                       [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:bg-[var(--color-red-600)]"
                       style={{
-                        background: `linear-gradient(to right, var(--color-red-600) ${
-                          (nitrogenPurityIndex / (nitrogenPurityOptions.length - 1)) * 100
-                        }%, #FEE2E2 ${
-                          (nitrogenPurityIndex / (nitrogenPurityOptions.length - 1)) * 100
-                        }%)`,
+                        background: `linear-gradient(to right, var(--color-red-600) ${(nitrogenPurityIndex / (nitrogenPurityOptions.length - 1)) * 100
+                          }%, #FEE2E2 ${(nitrogenPurityIndex / (nitrogenPurityOptions.length - 1)) * 100
+                          }%)`,
                       }}
                     />
-  
+
                     <div className="mt-3 flex justify-between gap-1">
                       {nitrogenPurityOptions.map((val, index) => (
                         <button
                           key={val}
                           type="button"
                           onClick={() => setNitrogenPurityIndex(index)}
-                          className={`text-[10px] transition-colors sm:text-xs ${
-                            index === nitrogenPurityIndex
+                          className={`text-[10px] transition-colors sm:text-xs ${index === nitrogenPurityIndex
                               ? "font-bold text-red-700"
                               : "text-slate-400 hover:text-red-600"
-                          }`}
+                            }`}
                         >
                           {val}
                         </button>
                       ))}
                     </div>
                   </div>
-  
+
                   {/* Давление */}
                   <div className="rounded-2xl border border-white bg-white/75 p-5 shadow-sm">
                     <div className="mb-5 flex items-center justify-between gap-2">
@@ -844,7 +934,7 @@ const Config = () => {
                         {nitrogenPressureOptions[nitrogenPressureIndex]} бар
                       </span>
                     </div>
-  
+
                     <input
                       type="range"
                       min="0"
@@ -861,14 +951,12 @@ const Config = () => {
                       [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4
                       [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:bg-[var(--color-red-600)]"
                       style={{
-                        background: `linear-gradient(to right, var(--color-red-600) ${
-                          (nitrogenPressureIndex / (nitrogenPressureOptions.length - 1)) * 100
-                        }%, #FEE2E2 ${
-                          (nitrogenPressureIndex / (nitrogenPressureOptions.length - 1)) * 100
-                        }%)`,
+                        background: `linear-gradient(to right, var(--color-red-600) ${(nitrogenPressureIndex / (nitrogenPressureOptions.length - 1)) * 100
+                          }%, #FEE2E2 ${(nitrogenPressureIndex / (nitrogenPressureOptions.length - 1)) * 100
+                          }%)`,
                       }}
                     />
-  
+
                     <div className="mt-3 flex justify-between text-xs text-slate-400">
                       {nitrogenPressureOptions.map((val, index) => (
                         <button
@@ -882,7 +970,7 @@ const Config = () => {
                       ))}
                     </div>
                   </div>
-  
+
                   {/* Точка росы */}
                   <div className="rounded-2xl border border-white bg-white/75 p-5 shadow-sm">
                     <div className="mb-5 flex items-center justify-between gap-2">
@@ -898,7 +986,7 @@ const Config = () => {
                         {selectedDewPoint} °C
                       </span>
                     </div>
-  
+
                     <input
                       type="range"
                       min="-70"
@@ -915,14 +1003,12 @@ const Config = () => {
                       [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4
                       [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:bg-[var(--color-red-600)]"
                       style={{
-                        background: `linear-gradient(to right, var(--color-red-600) ${
-                          ((selectedDewPoint + 70) / 50) * 100
-                        }%, #FEE2E2 ${
-                          ((selectedDewPoint + 70) / 50) * 100
-                        }%)`,
+                        background: `linear-gradient(to right, var(--color-red-600) ${((selectedDewPoint + 70) / 50) * 100
+                          }%, #FEE2E2 ${((selectedDewPoint + 70) / 50) * 100
+                          }%)`,
                       }}
                     />
-  
+
                     <div className="mt-3 flex justify-between text-xs text-slate-400">
                       {[...nitrogenDewPointOptions].sort((a, b) => a - b).map((val) => (
                         <button
@@ -939,7 +1025,7 @@ const Config = () => {
                 </>
               )}
             </div>
-  
+
             {/* Заправка баллонов */}
             {system === "refill" && (
               <div className="mt-5 rounded-2xl border border-red-100 bg-red-50/50 p-5">
@@ -957,13 +1043,13 @@ const Config = () => {
                 </select>
               </div>
             )}
-  
+
             {/* Разделитель */}
             <div className="my-8 h-px bg-gradient-to-r from-transparent via-red-200 to-transparent" />
-  
+
             {/* ГРУППА 3. Производительность */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-  
+
               {/* Ввод производительности */}
               <div className="rounded-2xl border border-white bg-white/75 p-5 shadow-sm sm:p-6">
                 <div className="mb-4 flex items-center gap-2">
@@ -977,7 +1063,7 @@ const Config = () => {
                     <p className="text-xs text-slate-500">Требуемый объём газа</p>
                   </div>
                 </div>
-  
+
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <input
                     type="number"
@@ -988,7 +1074,7 @@ const Config = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     className="min-w-0 flex-1 rounded-xl border border-red-100 bg-white px-4 py-3 text-base font-semibold text-slate-900 outline-none transition placeholder:font-normal placeholder:text-slate-400 focus:border-red-400 focus:ring-4 focus:ring-red-100"
                   />
-  
+
                   <select
                     value={unit}
                     onChange={(e) => setUnit(e.target.value)}
@@ -1000,12 +1086,12 @@ const Config = () => {
                   </select>
                 </div>
               </div>
-  
+
               {/* Результат подбора */}
               <div className="relative isolate overflow-hidden rounded-2xl border border-red-200 bg-white p-6 shadow-[0_12px_35px_rgba(15,23,42,0.07)]">
                 <div className="pointer-events-none absolute -right-12 -top-16 h-44 w-44 rounded-full bg-red-50 blur-2xl" />
                 <div className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-[var(--color-red-600)]" />
-  
+
                 <div className="relative">
                   <div className="mb-5 flex items-center justify-between gap-3">
                     <span className="text-xs font-bold uppercase tracking-[0.16em] text-red-700">
@@ -1016,14 +1102,14 @@ const Config = () => {
                       Автоматически
                     </span>
                   </div>
-  
+
                   <p className="mb-1 text-xs font-medium text-slate-500">
                     Подобранный генератор
                   </p>
                   <p className="mb-6 min-h-12 text-xl font-bold leading-snug text-slate-900">
                     {selectedModel || "Ожидает параметров"}
                   </p>
-  
+
                   <div className="rounded-xl bg-slate-50 px-4 py-3">
                     <p className="mb-1 text-xs font-medium text-slate-500">
                       Расчётная стоимость оборудования
@@ -1035,7 +1121,7 @@ const Config = () => {
                 </div>
               </div>
             </div>
-  
+
             <div className="mt-5 flex items-start gap-2 rounded-xl bg-red-50/60 px-4 py-3 text-xs leading-relaxed text-slate-500">
               <svg viewBox="0 0 24 24" className="mt-0.5 h-4 w-4 shrink-0 text-red-600" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <circle cx="12" cy="12" r="9" />
@@ -1046,11 +1132,11 @@ const Config = () => {
           </div>
         </div>
       </section>
-  
+
       {/* ПОДОБРАННОЕ ОБОРУДОВАНИЕ */}
       <section className="relative bg-gradient-to-b from-slate-50 to-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-  
+
           <div className="mb-10 text-center">
             <span className="mb-3 inline-block text-xs font-bold uppercase tracking-[0.18em] text-red-600">
               Комплектация установки
@@ -1063,28 +1149,27 @@ const Config = () => {
               рассчитанные под ваши технические требования.
             </p>
           </div>
-  
+
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {selectedEquipment.map((item, index) => {
               const hasValidModel =
                 item?.model &&
                 !item.model.includes("не подобран") &&
                 item.model !== "Укажите корректную производительность";
-  
+
               const isDisabled =
                 !hasValidModel ||
                 purity === "custom" ||
                 pressure === "custom" ||
                 item.id === "blank_dKompressor";
-  
+
               return (
                 <article
                   key={index}
-                  className={`group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white transition-all duration-300 ${
-                    item.includedInQuote
+                  className={`group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white transition-all duration-300 ${item.includedInQuote
                       ? "border-red-300 shadow-[0_12px_32px_rgba(220,38,38,0.09)]"
                       : "border-slate-200 shadow-[0_5px_20px_rgba(15,23,42,0.035)]"
-                  } hover:-translate-y-1 hover:border-red-200 hover:shadow-[0_16px_36px_rgba(15,23,42,0.09)]`}
+                    } hover:-translate-y-1 hover:border-red-200 hover:shadow-[0_16px_36px_rgba(15,23,42,0.09)]`}
                 >
                   {/* Изображение оборудования */}
                   <div className="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100/80 px-5 py-4">
@@ -1101,18 +1186,18 @@ const Config = () => {
                       className="relative z-10 h-full w-full object-contain drop-shadow-[0_10px_10px_rgba(15,23,42,0.10)] transition-transform duration-500 group-hover:scale-[1.06]"
                     />
                   </div>
-  
+
                   {/* Информация */}
                   <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
                     <div className="mb-5 flex-1">
                       <p className="mb-2 min-h-8 text-[10px] font-bold uppercase leading-relaxed tracking-[0.12em] text-red-700">
                         {item.type || "Оборудование"}
                       </p>
-  
+
                       <h3 className="min-h-11 text-[15px] font-bold leading-snug text-slate-900">
                         {item.model}
                       </h3>
-  
+
                       {hasValidModel ? (
                         <div className="mt-4 flex items-baseline gap-1.5">
                           <p className="text-xl font-extrabold tracking-tight tabular-nums text-slate-900">
@@ -1126,16 +1211,15 @@ const Config = () => {
                         </p>
                       )}
                     </div>
-  
+
                     {/* Включение в КП */}
                     <label
-                      className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-xl border px-3 py-2.5 text-sm transition-all ${
-                        isDisabled
+                      className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-xl border px-3 py-2.5 text-sm transition-all ${isDisabled
                           ? "cursor-not-allowed border-slate-100 bg-slate-50 text-slate-400"
                           : item.includedInQuote
                             ? "border-red-200 bg-red-50 text-red-800"
                             : "border-slate-200 bg-white text-slate-600 hover:border-red-200 hover:bg-red-50/50"
-                      }`}
+                        }`}
                     >
                       <input
                         type="checkbox"
@@ -1153,12 +1237,12 @@ const Config = () => {
               );
             })}
           </div>
-  
+
           {/* ИТОГ И PDF */}
           <div className="relative mt-10 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
             <div className="absolute inset-y-0 left-0 w-1.5 bg-[var(--color-red-600)]" />
             <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-red-50 blur-3xl" />
-  
+
             <div className="relative flex flex-col gap-7 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between lg:px-10">
               <div className="min-w-0 text-center lg:text-left">
                 <div className="mb-3 flex items-center justify-center gap-2 lg:justify-start">
@@ -1172,7 +1256,7 @@ const Config = () => {
                     Сводка комплектации
                   </p>
                 </div>
-  
+
                 <p className="mb-1 text-sm font-medium text-slate-500">
                   Ориентировочная стоимость выбранного оборудования
                 </p>
@@ -1183,7 +1267,7 @@ const Config = () => {
                   Состав коммерческого предложения зависит от выбранных компонентов.
                 </p>
               </div>
-  
+
               <div className="w-full shrink-0 lg:w-auto">
                 <PdfButton
                   showClarifyButton={showClarifyButton}
@@ -1210,14 +1294,14 @@ const Config = () => {
           </div>
         </div>
       </section>
-  
+
       {/* МОДАЛЬНОЕ ОКНО */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/50 p-4 backdrop-blur-md">
           <div className="relative my-auto w-full max-w-lg overflow-hidden rounded-3xl border border-white/80 bg-white/95 p-6 shadow-2xl shadow-slate-900/20 backdrop-blur-2xl sm:p-8">
-  
+
             <div className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-red-100/70 blur-3xl" />
-  
+
             <button
               type="button"
               onClick={() => setShowModal(false)}
@@ -1226,7 +1310,7 @@ const Config = () => {
             >
               ×
             </button>
-  
+
             <div className="relative">
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-red-100 text-red-700">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7">
@@ -1234,16 +1318,16 @@ const Config = () => {
                   <path d="M12 9v5M12 17h.01" />
                 </svg>
               </div>
-  
+
               <h2 className="mb-3 text-2xl font-bold text-slate-900">
                 Уточнение характеристик
               </h2>
-  
+
               <p className="mb-6 text-sm leading-relaxed text-slate-600">
                 Для нестандартной конфигурации потребуется дополнительное согласование.
                 Оставьте контакты — наш инженер свяжется с вами и поможет подобрать решение.
               </p>
-  
+
               <form
                 method="POST"
                 action="https://script.google.com/macros/s/AKfycbz3bh5QgSzyn9mfbc7bQhkN1A6sV7yWM6Kj6IKkZicKiiXeyFmo9h1jBA5E2xV15E-R8w/exec"
@@ -1256,7 +1340,7 @@ const Config = () => {
                   placeholder="Имя / Компания"
                   className="w-full rounded-xl border border-red-100 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-red-400 focus:ring-4 focus:ring-red-100"
                 />
-  
+
                 <input
                   type="email"
                   name="email"
@@ -1264,7 +1348,7 @@ const Config = () => {
                   placeholder="E-mail для обратной связи"
                   className="w-full rounded-xl border border-red-100 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-red-400 focus:ring-4 focus:ring-red-100"
                 />
-  
+
                 <textarea
                   name="message"
                   required
@@ -1272,7 +1356,7 @@ const Config = () => {
                   defaultValue={`Газ: ${generator === "oxygen" ? "Кислород" : "Азот"}; система: ${system === "refill" ? "Заправка баллонов" : "Генерация"}; производительность: ${inputValue} ${unit}; генератор: ${selectedModel || "Не подобран"}. Прошу уточнить конфигурацию.`}
                   className="min-h-32 w-full resize-y rounded-xl border border-red-100 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-red-400 focus:ring-4 focus:ring-red-100"
                 />
-  
+
                 <div className="flex flex-col gap-3 pt-2 sm:flex-row">
                   <button
                     type="submit"
@@ -1283,7 +1367,7 @@ const Config = () => {
                       <path d="M5 12h14M13 5l7 7-7 7" />
                     </svg>
                   </button>
-  
+
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
@@ -1297,8 +1381,8 @@ const Config = () => {
           </div>
         </div>
       )}
-      </>
-      );
-    };
-    
-    export default Config;
+    </>
+  );
+};
+
+export default Config;
