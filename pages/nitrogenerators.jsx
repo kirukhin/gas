@@ -18,7 +18,7 @@ export default function Nitrogenerators() {
   ];
 
   const models = Object.values(generators);
-  const purities = ["95%", "99%", "99.9%", "99.99%"];
+  const purities = ["99%", "99.5%", "99.9%", "99.99%", "99.999%"];
 
   const [activePurity, setActivePurity] = useState("99.9%");
 
@@ -134,11 +134,10 @@ export default function Nitrogenerators() {
                 type="button"
                 onClick={() => setActivePurity(p)}
                 aria-pressed={activePurity === p}
-                className={`rounded-md px-4 py-2 text-sm font-medium transition ${
-                  activePurity === p
+                className={`rounded-md px-4 py-2 text-sm font-medium transition ${activePurity === p
                     ? "bg-blue-600 text-white"
                     : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                }`}
+                  }`}
               >
                 {p}
               </button>
@@ -160,7 +159,7 @@ export default function Nitrogenerators() {
 
               <tbody className="!text-slate-700">
                 {models.map((m) => {
-                  const point = m.equipment.productivity.find(
+                  const point = m.performance?.find(
                     (p) => p.purity === activePurity
                   );
 
@@ -175,10 +174,10 @@ export default function Nitrogenerators() {
                         {m.model}
                       </td>
                       <td className="px-4 py-3">
-                        {point.value} Nm³/ч
+                      {point.productFlowNm3h} Nm³/ч
                       </td>
                       <td className="px-4 py-3">{point.purity}</td>
-                      <td className="px-4 py-3">{m.airNeed} м³/мин</td>
+                      <td className="px-4 py-3">{point.airConsumptionNm3min} м³/мин</td>
                       <td className="px-4 py-3 font-semibold text-slate-900">
                         {formatPrice(m.price)}
                       </td>
